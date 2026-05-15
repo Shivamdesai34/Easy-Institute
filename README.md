@@ -18,6 +18,16 @@
 [npm-coreui-badge]: https://img.shields.io/npm/v/@coreui/coreui-pro.png?style=flat-square
 [npm-coreui-download]: https://img.shields.io/npm/dm/@coreui/coreui.svg?style=flat-square
 
+
+Easy-Institute
+
+This repository is a demo/test version created for learning and interview evaluation purposes.
+
+Sensitive credentials, production configurations, and confidential business data have been removed or modified.
+
+The project showcases my development skills in Angular, API integration, form handling, and application architecture.
+
+
 # CoreUI Pro Angular 18 Admin Template _Starter_
 
 > Empty _starter_ template to bootstrap your next project.
