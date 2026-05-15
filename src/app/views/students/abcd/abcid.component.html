@@ -1,0 +1,208 @@
+<div class="app-body">
+    <main class="main d-flex align-items-center mb-5">
+        <div class="container">
+            <c-row>
+                <c-col [md]="9" class="mx-auto">
+                    <c-card class="mx-4">
+                        <c-card class="p-4">
+                            <form cForm [formGroup]="ABCDForm" autocomplete="off" novalidate>
+                                
+                                <c-col [sm]="12">
+                                    <label cLabel size="sm" class="required"
+                                    >ABC ID / APAAR no.</label
+                                    >
+                                    <input cFormControl
+                                           
+                                           id="abc_account_id"
+                                           type="text"
+                                           maxlength="12"
+                                           formControlName="abc_account_id"
+                                           autocomplete="off"
+                                           class="form-control"
+                                           placeholder="Enter your ABC ID / APAAR Number"
+                                           (input)="check_abcdetails()"
+                                    />
+                                    @if (ABCDForm.get('abc_account_id')?.hasError('invalidAadhaar')) {
+                                        <div>
+                                            <h6 style="color: red">Invalid APAAR number.</h6>
+                                        </div>
+                                    }
+                                </c-col>
+                                
+                                <br>
+                                <h5 style="color: red;" class="abcid-notes" size="sm">Note: Data has been generated from
+                                    ABC portal/Digilocker
+                                    Please verify its you and enter the details as per the below form and then
+                                    submit.</h5>
+                                    
+                                <table cTable class="academic-table">
+                                    <thead>
+                                    <tr>
+                                        <th class="academic-table-th text-center">Name</th>
+                                        <th class="academic-table-th text-center">Dob</th>
+                                        <th class="academic-table-th text-center">Gender</th>
+                                    </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                    <tr>
+                                        <td>{{ this.basicdetails_account.cname }}</td>
+                                        <td>{{ this.basicdetails_account.dob }}</td>
+                                        <td>{{ this.basicdetails_account.gender }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                
+                                <c-col [sm]="12">
+                                    <label cLabel size="sm" class="required">Name (As per Aadhaar)</label>
+                                    <input cFormControl
+                                           type="text"
+                                           class="form-control"
+                                           formControlName="nameabcd"
+                                    />
+                                    
+                                    @if (ABCDForm.controls['nameabcd'].hasError('nameMismatch')) {
+                                        <div
+                                                style="color: red; font-size: 13px;" size="sm"
+                                        >
+                                            Name does not match the one from ABC Portal
+                                            ({{ basicdetails_account?.cname }})
+                                        </div>
+                                    }
+                                </c-col>
+                                
+                                <div class="my-2"></div>
+                                
+                                <c-row>
+                                    <c-col [sm]="6">
+                                        <label cLabel for="dob">Date of Birth</label>
+                                        <input cFormControl
+                                               id="dob"
+                                               style="margin-top: 10px"
+                                               type="date"
+                                               class="form-control"
+                                               formControlName="dob"
+                                               (blur)="ABCDForm.controls['dob'].markAsTouched()"
+                                        />
+                                        
+                                        @if (ABCDForm.controls['dob'].hasError('dobMismatch') && ABCDForm.controls['dob'].touched) {
+                                            <div
+                                                    style="color: red; font-size: 13px;"
+                                            >
+                                                DOB does not match from ABC Portal ({{ basicdetails_account?.dob }})
+                                            </div>
+                                        }
+                                    </c-col>
+                                    
+                                    
+                                    <c-col [sm]="6">
+                                        <div class="my-2"></div>
+                                        <label cLabel size="sm" class="required">Gender</label>
+                                        <select
+                                                cSelect
+                                                
+                                                class="form-control"
+                                                formControlName="gender"
+                                                (blur)="ABCDForm.controls['gender'].markAsTouched()"
+                                        >
+                                            <option disabled selected value="">Select Type</option>
+                                            @for (gender of genderOptions; track gender) {
+                                                <option [value]="gender.value">
+                                                    {{ gender.label }}
+                                                </option>
+                                            }
+                                        </select>
+                                        
+                                        @if (ABCDForm.controls['gender'].hasError('genderMismatch')) {
+                                            <div
+                                                    style="color: red; font-size: 13px;"
+                                            >
+                                                Selected gender does not match the ABC Portal data
+                                                ({{ basicdetails_account?.gender }}).
+                                            </div>
+                                        }
+                                    </c-col>
+                                </c-row>
+                                
+                                <div class="my-2"></div>
+                                
+                                <c-row>
+                                    <c-col [sm]="6">
+                                        <label cLabel size="sm" class="required"
+                                        >Aadhaar no.</label
+                                        >
+                                        <input cFormControl
+                                               id="aadhaar"
+                                               type="text"
+                                               maxlength="12"
+                                               formControlName="aadhaar"
+                                               autocomplete="off"
+                                               class="form-control"
+                                               placeholder="Enter your Aadhar Number"
+                                        />
+                                        @if (ABCDForm.get('aadhaar')?.hasError('invalidAadhaar')) {
+                                            <div>
+                                                <h6 style="color: red">Invalid Aadhaar number.</h6>
+                                            </div>
+                                        }
+                                    </c-col>
+                                    
+                                    
+                                    <c-col [sm]="6">
+                                        <label cLabel size="sm" for="mobile" class="required">Mobile Number</label>
+                                        <input cFormControl
+                                               type="text"
+                                               formControlName="mobile"
+                                               maxlength="10"
+                                               class="form-control"
+                                               id="mobile"
+                                               placeholder="Enter your Mobile Number"
+                                               autocomplete="off"
+                                        />
+                                        @if (ABCDForm.get('mobile')?.hasError('invalidMobile')) {
+                                            <div>
+                                                <h6 style="color: red">Invalid Mobile number.</h6>
+                                            </div>
+                                        }
+                                    </c-col>
+                                
+                                </c-row>
+                                
+                                
+                                @if (ABCDForm.get('abc_account_id')?.hasError('invalidAadhaar')) {
+                                    <div>
+                                        <h6 style="color: red">Invalid Aadhaar number.</h6>
+                                    </div>
+                                }
+                                
+                                <div class="my-4"></div>
+                                
+                                <c-row class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                    <c-col [sm]="2">
+                                        <!--                                        <button cButton-->
+                                        <!--                                                (click)="create_abc()"-->
+                                        <!--                                                [disabled]="ABCDForm.invalid"-->
+                                        
+                                        <!--                                                type="submit" class="btn btn-block btn-sm  btn-success">-->
+                                        <!--                                            Submit-->
+                                        <!--                                        </button>-->
+                                        
+                                        
+                                        <button type="submit" (click)="create_abc()" [disabled]="ABCDForm.invalid"
+                                                class="btn btn-block btn-success btn-add text-white">Submit
+                                        </button>
+                                    
+                                    </c-col>
+                                
+                                </c-row>
+                            </form>
+                        
+                        </c-card>
+                    </c-card>
+                </c-col>
+            
+            </c-row>
+        </div>
+    </main>
+
+</div>

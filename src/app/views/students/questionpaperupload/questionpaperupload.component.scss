@@ -1,0 +1,28 @@
+.form-control.ng-touched.ng-invalid{
+  border:1px solid red;
+}
+.form-control.ng-touched.ng-valid{
+  border:1px solid green;
+}
+.ng-autocomplete {
+  width: 100%;
+}
+
+.ng-autocomplete ::ng-deep .autocomplete-container {
+  box-shadow: none;
+}
+
+.ng-autocomplete ::ng-deep .autocomplete-container ::ng-deep .input-container ::ng-deep input {
+  font-size: 0.875rem;
+  display: block;
+  height: 2.3rem;
+  padding: 0.375rem 1rem;
+  font-weight: 400;
+  line-height: 1.52857143;
+  color: #495057;
+  border: 1px solid #b1b7c1;
+  border-radius: 0.25rem;
+}
+button{
+  width: 70%;
+}

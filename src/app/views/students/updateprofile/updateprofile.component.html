@@ -1,0 +1,2238 @@
+    <c-col [md]="12" style="background-color: #ffffff" class="main-container">
+    <!--            <c-nav variant="tabs">-->
+    <!--                <a [active]="true" [disabled]="emaildisable" [cTabContent]="tabContent" [tabPaneIdx]="0" cNavLink-->
+    <!--                >Email Change</a-->
+    <!--                >-->
+    <!--                <a [disabled]="mobiledisable" [cTabContent]="tabContent" [tabPaneIdx]="1" cNavLink-->
+    <!--                >Mobile Change</a-->
+    <!--                >-->
+    <!--                <a [disabled]="picturedisable" [cTabContent]="tabContent" [tabPaneIdx]="2" cNavLink-->
+    <!--                >Update profile image set</a-->
+    <!--                >-->
+    <!--                <a [disabled]="addressdisable" [cTabContent]="tabContent" [tabPaneIdx]="3" cNavLink-->
+    <!--                >Update Address</a-->
+    <!--                >-->
+    <!--            </c-nav>-->
+    <!--            -->
+    
+    <c-tabs [activeItemKey]="'>EmailChange'">
+        <c-tabs-list layout="justified" variant="tabs">
+<!--            <button cTab itemKey="EmailChange" class="tab-button">Email Change</button>-->
+<!--            <button cTab itemKey="MobileChange" class="tab-button">Mobile Change</button>-->
+            <button cTab itemKey="Updateprofileimageset" class="tab-button">Update profile image set</button>
+            <button cTab itemKey="UpdateAddress" class="tab-button">Update Address</button>
+        </c-tabs-list>
+        <c-tabs-content>
+<!--            <c-tab-panel itemKey="EmailChange" class="p-3">-->
+<!--                <c-row>-->
+<!--                    <c-col [md]="6" class="mx-auto">-->
+<!--                        <c-card class="card mx-4">-->
+<!--                            <c-card-body class="p-4">-->
+<!--                                <form-->
+<!--                                        [formGroup]="Emailform"-->
+<!--                                        (keydown.enter)="$event.preventDefault()"-->
+<!--                                >-->
+<!--                                    <h3 style="padding-left: 18px">Update Email ID</h3>-->
+<!--                                    <c-row>-->
+<!--                                        <c-col [sm]="8">-->
+<!--                                            <label size="sm" cLabel class="required">Email</label>-->
+<!--                                            <input cFormControl-->
+<!--                                                   autofocus-->
+<!--                                                   type="email"-->
+<!--                                                   class="form-control modal-validation"-->
+<!--                                                   formControlName="emailid"-->
+<!--                                            />-->
+<!--                                            @if (email_fld?.invalid && email_fld?.touched) {-->
+<!--                                                <span-->
+<!--                                                        class="text-danger"-->
+<!--                                                >Email is required</span-->
+<!--                                                >-->
+<!--                                            }-->
+<!--                                        </c-col>-->
+<!--                                        -->
+<!--                                        <c-col>-->
+<!--                                            <c-container>-->
+<!--                                            </c-container>-->
+<!--                                            <button cButton-->
+<!--                                                    (click)="emailtoggleCollapse()"-->
+<!--                                                    class="btn btn-add buttons"-->
+<!--                                            >-->
+<!--                                                Submit-->
+<!--                                            </button>-->
+<!--                                        </c-col>-->
+<!--                                    </c-row>-->
+<!--                                    <c-modal-->
+<!--                                            #ngx_email_otp-->
+<!--                                            [visible]="visibleEmail"-->
+<!--                                            cCollapse-->
+<!--                                            alignment="center"-->
+<!--                                    >-->
+<!--                                        <c-modal-header></c-modal-header>-->
+<!--                                        <c-modal-body>-->
+<!--                                            <label size="sm" cLabel for="emailotp" class="required"-->
+<!--                                            >OTP will received on above email id , if check your-->
+<!--                                                email.-->
+<!--                                            </label>-->
+<!--                                            <input cFormControl-->
+<!--                                                   id="emailotp"-->
+<!--                                                   #ngx_email_otp-->
+<!--                                                   formControlName="emailotp"-->
+<!--                                                   (change)="emailOtpChange($event)"-->
+<!--                                            />-->
+<!--                                            -->
+<!--                                            &lt;!&ndash;                                                        [config]="{length:6}"&ndash;&gt;-->
+<!--                                        </c-modal-body>-->
+<!--                                        <c-modal-footer>-->
+<!--                                            <button cButton-->
+<!--                                                    (click)="Verifyemailotp()"-->
+<!--                                                    class="btn btn-add"-->
+<!--                                            >-->
+<!--                                                Verify OTP-->
+<!--                                            </button>-->
+<!--                                            <button cButton-->
+<!--                                                    (click)="resetemailform()"-->
+<!--                                                    class="btn btn-add"-->
+<!--                                            >-->
+<!--                                                Reset-->
+<!--                                            </button>-->
+<!--                                        </c-modal-footer>-->
+<!--                                    </c-modal>-->
+<!--                                </form>-->
+<!--                            </c-card-body>-->
+<!--                        </c-card>-->
+<!--                    </c-col>-->
+<!--                </c-row>-->
+<!--            </c-tab-panel>-->
+<!--            <c-tab-panel itemKey="MobileChange" class="p-3">-->
+<!--                <c-row>-->
+<!--                    <c-col [md]="6" class="mx-auto">-->
+<!--                        <c-card>-->
+<!--                            <c-card-body class="p-4">-->
+<!--                                <form-->
+<!--                                        [formGroup]="Mobileform"-->
+<!--                                        (keydown.enter)="$event.preventDefault()"-->
+<!--                                >-->
+<!--                                    <h3 style="padding-left: 18px">Update Mobile no</h3>-->
+<!--                                    <hr/>-->
+<!--                                    <c-row>-->
+<!--                                        <div id="mobileno" class="form-group col-sm-12">-->
+<!--                                            <label size="sm" cLabel for="mobileno" class="required">Mobile</label>-->
+<!--                                            <input #ngx_mobile-->
+<!--                                                   cFormControl-->
+<!--                                                   type="text"-->
+<!--                                                   class="form-control"-->
+<!--                                                   id="mobileno"-->
+<!--                                                   formControlName="mobile"-->
+<!--                                                   minlength="10"-->
+<!--                                                   maxlength="10"-->
+<!--                                                   placeholder="Enter Mobile Number"-->
+<!--                                                   (input)="mobilenochange()"-->
+<!--                                            />-->
+<!--                                            -->
+<!--                                            @if (mobile_fld?.invalid && mobile_fld?.touched) {-->
+<!--                                                <span class="text-danger">Mobile no is required</span>-->
+<!--                                            }-->
+<!--                                        </div>-->
+<!--                                        -->
+<!--                                    </c-row>-->
+<!--                                    -->
+<!--&lt;!&ndash;                                    <c-row>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <ng-otp-input&ndash;&gt;-->
+<!--&lt;!&ndash;                                                #ngx_mobile&ndash;&gt;-->
+<!--&lt;!&ndash;                                                id="mobileno"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                formControlName="mobile"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                style="justify-content: left"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                (onInputChange)="mobilenochange($event)"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                [config]="config"&ndash;&gt;-->
+<!--&lt;!&ndash;                                        >&ndash;&gt;-->
+<!--&lt;!&ndash;                                        </ng-otp-input>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        &ndash;&gt;-->
+<!--&lt;!&ndash;                                        @if (mobile_fld?.invalid && mobile_fld?.touched) {&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <span&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    class="text-danger"&ndash;&gt;-->
+<!--&lt;!&ndash;                                            >Mobile no is required</span&ndash;&gt;-->
+<!--&lt;!&ndash;                                            >&ndash;&gt;-->
+<!--&lt;!&ndash;                                        }&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </c-row>&ndash;&gt;-->
+<!--                                    -->
+<!--                                    <div class="my-2"></div>-->
+<!--                                    -->
+<!--                                    <c-row>-->
+<!--                                        <c-col [sm]="12" id="whatsapp" class="form-group">-->
+<!--                                            <label size="sm" cLabel for="whatsapp" class="required">Whats app no</label>-->
+<!--                                            -->
+<!--                                            <input #ngx_whatsapp-->
+<!--                                                   cFormControl-->
+<!--                                                    type="text"-->
+<!--                                                    id="whatsapp"-->
+<!--                                                    formControlName="whatsapp"-->
+<!--                                                    minlength="10"-->
+<!--                                                    maxlength="10"-->
+<!--                                                    placeholder="Enter WhatsApp number"-->
+<!--                                                    (input)="whatsappChange()"-->
+<!--                                            />-->
+<!--                                            -->
+<!--                                            @if (whatsapp_fld?.invalid && whatsapp_fld?.touched) {-->
+<!--                                                <span class="text-danger">Whatsapp no is required</span>-->
+<!--                                            }-->
+<!--&lt;!&ndash;                                            <ng-otp-input&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    style="padding: 0px 0px 0px 0px"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    id="whatsapp"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    #ngx_whatsapp&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    formControlName="whatsapp"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    (onInputChange)="whatsappChange($event)"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    [config]="config"&ndash;&gt;-->
+<!--&lt;!&ndash;                                            >&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </ng-otp-input>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            &ndash;&gt;-->
+<!--&lt;!&ndash;                                            @if (whatsapp_fld?.invalid && whatsapp_fld?.touched) {&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <span&ndash;&gt;-->
+<!--&lt;!&ndash;                                                        class="text-danger"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                >Whatsapp no is required</span&ndash;&gt;-->
+<!--&lt;!&ndash;                                                >&ndash;&gt;-->
+<!--&lt;!&ndash;                                            }&ndash;&gt;-->
+<!--                                        </c-col>-->
+<!--                                        -->
+<!--                                        <c-col [sm]="2">-->
+<!--                                            <c-container>-->
+<!--                                            </c-container>-->
+<!--                                            <button cButton-->
+<!--                                                    [disabled]="Mobileform.invalid"-->
+<!--                                                    (click)="mobiletoggleCollapse()"-->
+<!--                                                    class="btn btn-add buttons"-->
+<!--                                            >-->
+<!--                                                Submit-->
+<!--                                            </button>-->
+<!--                                        </c-col>-->
+<!--                                    </c-row>-->
+<!--                                    -->
+<!--                                    <div [visible]="visibleMobile" cCollapse>-->
+<!--                                        <c-card class="mt-3 shadow">-->
+<!--                                            <c-card-body>-->
+<!--                                                <c-col [sm]="12" id="mobileotp" class="form-group">-->
+<!--                                                    <label size="sm" cLabel for="mobileotp" class="required"-->
+<!--                                                    >OTP will received on above mobile number.-->
+<!--                                                    </label>-->
+<!--                                                    -->
+<!--                                                    <ng-otp-input-->
+<!--                                                            id="mobileotp"-->
+<!--                                                            #ngx_mobile_otp-->
+<!--                                                            (onInputChange)="mobileOtpChange($event)"-->
+<!--                                                            [config]="{ length: 6 }"-->
+<!--                                                    >-->
+<!--                                                    </ng-otp-input>-->
+<!--                                                    -->
+<!--                                                    @if (mobile_fld?.invalid && mobile_fld?.touched) {-->
+<!--                                                        <span-->
+<!--                                                                class="text-danger"-->
+<!--                                                        >OTP is required</span-->
+<!--                                                        >-->
+<!--                                                    }-->
+<!--                                                </c-col>-->
+<!--                                                -->
+<!--                                                <c-row>-->
+<!--                                                    <c-col [sm]="2">-->
+<!--                                                        <button cButton-->
+<!--                                                                (click)="verifymobileotp()"-->
+<!--                                                                type="submit"-->
+<!--                                                                class="btn btn-add"-->
+<!--                                                        >-->
+<!--                                                            Verify OTP-->
+<!--                                                        </button>-->
+<!--                                                    </c-col>-->
+<!--                                                    -->
+<!--                                                    <c-col [sm]="2">-->
+<!--                                                        <button cButton-->
+<!--                                                                (click)="resetmobilescreen()"-->
+<!--                                                                class="btn btn-add"-->
+<!--                                                        >-->
+<!--                                                            Reset-->
+<!--                                                        </button>-->
+<!--                                                    </c-col>-->
+<!--                                                </c-row>-->
+<!--                                            </c-card-body>-->
+<!--                                        </c-card>-->
+<!--                                    </div>-->
+<!--                                </form>-->
+<!--                            </c-card-body>-->
+<!--                        </c-card>-->
+<!--                    </c-col>-->
+<!--                </c-row>-->
+<!--            </c-tab-panel>-->
+            <c-tab-panel itemKey="Updateprofileimageset" class="p-3">
+                <h4>Image file size should be less than 5mb</h4>
+                <form
+                        [formGroup]="Profilepictform"
+                        (keydown.enter)="$event.preventDefault()"
+                >
+                    <c-row>
+                        <c-col [md]="3">
+                            <label size="sm" cLabel>Step 1 Upload Image:</label>
+                            <input cFormControl
+                                   type="file"
+                                   (change)="showPreview($event)"
+                                   formControlName="upload"
+                                   class="fileInputProfile"
+                            />
+                            @if (picture_fld?.invalid && picture_fld?.touched) {
+                                <span
+                                        class="text-danger"
+                                >image is required</span
+                                >
+                            }
+                        </c-col>
+                    </c-row>
+                    
+                    <br/>
+                    
+                    <c-row class="img-main-container">
+                        <c-col [sm]="6">
+                            <c-card class="mb-6 w-75 h-100 update-crop-image-profile">
+                                <c-card-body>
+                                    <h5 cCardTitle>Crop image for perfect face.</h5>
+                                    <p cCardText>
+                                        <image-cropper
+                                                [imageChangedEvent]="imageChangedEvent"
+                                                [maintainAspectRatio]="false"
+                                                [containWithinAspectRatio]="containWithinAspectRatio"
+                                                [aspectRatio]="4 / 3"
+                                                [resizeToWidth]="256"
+                                                [cropperMinHeight]="150"
+                                                [cropperMinWidth]="130"
+                                                [onlyScaleDown]="true"
+                                                [roundCropper]="false"
+                                                [canvasRotation]="canvasRotation"
+                                                [transform]="transform"
+                                                [alignImage]="'left'"
+                                                format="png"
+                                                (imageCropped)="imageCropped($event)"
+                                                (imageLoaded)="imageLoaded($event)"
+                                                (cropperReady)="cropperReady()"
+                                                (loadImageFailed)="loadImageFailed()"
+                                        ></image-cropper>
+                                    </p>
+                                </c-card-body>
+                            </c-card>
+                        </c-col>
+                        <c-col [sm]="6">
+                            <c-card class="mb-6 w-75 h-100 update-preview-image-profile">
+                                <c-card-body>
+                                    <h5 cCardTitle>Preview Image</h5>
+                                    
+                                    <p cCardText>
+                                        <img
+                                                [src]="croppedImage"
+                                                [style.border]="croppedImage ? '1px solid black' : 'none'"
+                                                width="300"
+                                                height="300"
+                                                class="center"
+                                        />
+                                    </p>
+                                </c-card-body>
+                            </c-card>
+                        </c-col>
+                    </c-row>
+                    
+                    <c-row class="mb-4">
+                        <c-col [md]="2" [sm]="2">
+                            <button cButton
+                                    type="button"
+                                    class="btn btn-add buttons"
+                                    (click)="OnSubmit_uploadpicture()"
+                            >
+                                @if (pictureloader) {
+                                    <i
+                                            style="border-color: white"
+                                            class="spinner-border text-primary"
+                                            role="status"
+                                    ></i
+                                    >
+                                }Upload
+                            </button>
+                        </c-col>
+                    </c-row>
+                </form>
+            </c-tab-panel>
+            <c-tab-panel itemKey="UpdateAddress" class="p-3">
+                <form cForm [formGroup]="addressDetailsForm">
+                    <div class="accordion-body">
+                        <c-row>
+                            <c-col [md]="6">
+                                <label size="sm" cLabel for="correpondence_flatno" class="required"
+                                >Flat No / Building Name / House No / Block No</label
+                                >
+                                <input cFormControl
+                                       id="correpondence_flatno"
+                                       type="text"
+                                       [ngClass]="{
+                                              'is-invalid':
+                                                (submitted || adf['correpondence_flatno'].touched) &&
+                                                adf['correpondence_flatno'].errors,
+                                              'is-valid':
+                                                adf['correpondence_flatno'].touched &&
+                                                !adf['correpondence_flatno'].errors
+                                            }"
+                                       formControlName="correpondence_flatno"
+                                       class="form-control capitalize"
+                                       placeholder="Flat No / Building Name / House No / Block No"
+                                />
+                                @if (submitted && adf['correpondence_flatno'].errors) {
+                                    <div
+                                            class="invalid-feedback"
+                                    >
+                                        @if (adf['correpondence_flatno'].errors?.['required']) {
+                                            <div>
+                                                Flat Number is required
+                                            </div>
+                                        }
+                                        <!-- <div *ngIf="f4.corFlatNo.errors.pattern">Only Alphabets, Numbers and Spaces allowed</div>
+                                        <div *ngIf="f4.corFlatNo.errors.maxlength">Maximum Length 60 in allowed</div> -->
+                                    </div>
+                                }
+                            </c-col>
+                            <c-col [md]="6">
+                                <label size="sm" cLabel for="correpondence_colonyname" class="required"
+                                >Street Name / Area Name / Colony Name / Ward Name</label
+                                >
+                                <input cFormControl
+                                       id="correpondence_colonyname"
+                                       type="text"
+                                       [ngClass]="{
+                                              'is-invalid':
+                                                (submitted ||
+                                                  adf['correpondence_colonyname'].touched) &&
+                                                adf['correpondence_colonyname'].errors,
+                                              'is-valid':
+                                                adf['correpondence_colonyname'].touched &&
+                                                !adf['correpondence_colonyname'].errors
+                                            }"
+                                       formControlName="correpondence_colonyname"
+                                       class="form-control capitalize"
+                                       placeholder="Street Name / Area Name / Colony Name / Ward Name"
+                                />
+                                @if (submitted && adf['correpondence_colonyname'].errors) {
+                                    <div
+                                            class="invalid-feedback"
+                                    >
+                                        @if (adf['correpondence_colonyname'].errors?.['required']) {
+                                            <div>
+                                                Area Name is required
+                                            </div>
+                                        }
+                                        <!-- <div *ngIf="f4.corArea.errors.pattern">Only Alphabets, Numbers and Spaces
+                                      allowed</div> -->
+                                        @if (adf['correpondence_colonyname'].errors?.['maxlength']) {
+                                            <div>
+                                                Maximum Length 60 in allowed
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </c-col>
+                        </c-row>
+                        
+                        <div class="my-2"></div>
+                        
+                        <c-row>
+                            <c-col [md]="4">
+                                <label size="sm" cLabel for="correpondence_villagename"
+                                >Additional Address</label
+                                >
+                                <input cFormControl
+                                       id="correpondence_villagename"
+                                       type="text"
+                                       [ngClass]="{
+                                              'is-invalid':
+                                                (submitted ||
+                                                  adf['correpondence_villagename'].touched) &&
+                                                adf['correpondence_villagename'].errors,
+                                              'is-valid':
+                                                adf['correpondence_villagename'].touched &&
+                                                !adf['correpondence_villagename'].errors
+                                            }"
+                                       formControlName="correpondence_villagename"
+                                       class="form-control capitalize"
+                                       placeholder="Additional Address"
+                                />
+                                @if (submitted && adf['correpondence_villagename'].errors) {
+                                    <div
+                                            class="invalid-feedback"
+                                    >
+                                        <!-- <div *ngIf="f4.corVillageName.errors.pattern">Only Alphabets, Numbers and
+                                      Spaces allowed</div> -->
+                                        @if (adf['correpondence_villagename'].errors?.['maxlength']) {
+                                            <div>
+                                                Maximum Length 60 in allowed
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </c-col>
+                            <c-col [md]="4">
+                                <label size="sm" cLabel for="correpondence_landmark">LandMark</label>
+                                <input cFormControl
+                                       id="correpondence_landmark"
+                                       type="text"
+                                       [ngClass]="{
+                                              'is-invalid':
+                                                (submitted || adf['correpondence_landmark'].touched) &&
+                                                adf['correpondence_landmark'].errors,
+                                              'is-valid':
+                                                adf['correpondence_landmark'].touched &&
+                                                !adf['correpondence_landmark'].errors
+                                            }"
+                                       formControlName="correpondence_landmark"
+                                       class="form-control capitalize"
+                                       placeholder="LandMark"
+                                />
+                                @if (submitted && adf['correpondence_landmark'].errors) {
+                                    <div
+                                            class="invalid-feedback"
+                                    >
+                                        <!-- <div *ngIf="f4.corLandmark.errors.pattern">Only Alphabets, Numbers and
+                                      Spaces</div> -->
+                                        @if (adf['correpondence_landmark'].errors?.['maxlength']) {
+                                            <div>
+                                                Maximum Length 60 in allowed
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </c-col>
+                            <c-col [md]="4">
+                                <label size="sm" cLabel for="correpondence_location_area" class="required"
+                                >Location Area</label
+                                >
+                                <select cSelect
+                                        id="correpondence_location_area"
+                                        [ngClass]="{
+                                              'is-invalid':
+                                                (submitted ||
+                                                  adf['correpondence_location_area'].touched) &&
+                                                adf['correpondence_location_area'].errors,
+                                              'is-valid':
+                                                adf['correpondence_location_area'].touched &&
+                                                !adf['correpondence_location_area'].errors
+                                            }"
+                                        formControlName="correpondence_location_area"
+                                        class="form-control"
+                                >
+                                    <option value="" disabled selected>
+                                        --- Please Select ---
+                                    </option>
+                                    @for (location_area of location_area; track location_area) {
+                                        <option
+                                                [value]="location_area"
+                                        >
+                                            {{ location_area }}
+                                        </option>
+                                    }
+                                </select>
+                                @if (submitted && adf['correpondence_location_area'].errors) {
+                                    <div
+                                            class="invalid-feedback"
+                                    >
+                                        @if (adf['correpondence_location_area'].errors?.['required']) {
+                                            <div
+                                            >
+                                                Location Area is required
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </c-col>
+                        </c-row>
+                        
+                        <div class="my-2"></div>
+                        
+                        <c-row>
+                            <c-col [md]="4" class="form-group col-md-4">
+                                <label size="sm" cLabel for="correpondence_country" class="required"
+                                >Country</label
+                                >
+                                <select cSelect
+                                        id="correpondence_country"
+                                        [ngClass]="{
+                                              'is-invalid':
+                                                (submitted || adf['correpondence_country'].touched) &&
+                                                adf['correpondence_country'].errors,
+                                              'is-valid':
+                                                adf['correpondence_country'].touched &&
+                                                !adf['correpondence_country'].errors
+                                            }"
+                                        formControlName="correpondence_country"
+                                        class="form-control"
+                                >
+                                    <option value="" disabled selected>
+                                        --- Please Select ---
+                                    </option>
+                                    @for (country of country; track country) {
+                                        <option [value]="country">
+                                            {{ country }}
+                                        </option>
+                                    }
+                                </select>
+                                @if (submitted && adf['correpondence_country'].errors) {
+                                    <div
+                                            class="invalid-feedback"
+                                    >
+                                        @if (adf['correpondence_country'].errors?.['required']) {
+                                            <div>
+                                                Country is required
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </c-col>
+                            <c-col [md]="4">
+                                <label size="sm" cLabel for="correpondence_state" class="required"
+                                >State</label
+                                >
+                                <select cSelect
+                                        id="correpondence_state"
+                                        formControlName="correpondence_state"
+                                        [ngClass]="{
+                                              'is-invalid':
+                                                (submitted || adf['correpondence_state'].touched) &&
+                                                adf['correpondence_state'].errors,
+                                              'is-valid':
+                                                adf['correpondence_state'].touched &&
+                                                !adf['correpondence_state'].errors
+                                            }"
+                                        class="form-control"
+                                >
+                                    <option value="" disabled selected>
+                                        --- Please Select ---
+                                    </option>
+                                    @for (state of state; track state) {
+                                        <option [value]="state">
+                                            {{ state }}
+                                        </option>
+                                    }
+                                </select>
+                                @if (submitted && adf['correpondence_state'].errors) {
+                                    <div
+                                            class="invalid-feedback"
+                                    >
+                                        @if (adf['correpondence_state'].errors?.['required']) {
+                                            <div>
+                                                State is required
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </c-col>
+                            <c-col [md]="4">
+                                <label size="sm" cLabel class="required" for="correpondence_district"
+                                >District</label
+                                >
+                                <input cFormControl
+                                       id="correpondence_district"
+                                       type="text"
+                                       [ngClass]="{
+                                              'is-invalid':
+                                                (submitted || adf['correpondence_district'].touched) &&
+                                                adf['correpondence_district'].errors,
+                                              'is-valid':
+                                                adf['correpondence_district'].touched &&
+                                                !adf['correpondence_district'].errors
+                                            }"
+                                       formControlName="correpondence_district"
+                                       class="form-control capitalize"
+                                       placeholder="District"
+                                />
+                                @if (submitted && adf['correpondence_district'].errors) {
+                                    <div
+                                            class="invalid-feedback"
+                                    >
+                                        @if (adf['correpondence_district'].errors?.['required']) {
+                                            <div>
+                                                District is required
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </c-col>
+                        </c-row>
+                        
+                        <div class="my-2"></div>
+                        
+                        <c-row>
+                            <c-col [md]="4">
+                                <label size="sm" cLabel for="correpondence_city" class="required">City</label>
+                                <input cFormControl
+                                       id="correpondence_city"
+                                       type="text"
+                                       [ngClass]="{
+                                              'is-invalid':
+                                                (submitted || adf['correpondence_city'].touched) &&
+                                                adf['correpondence_city'].errors,
+                                              'is-valid':
+                                                adf['correpondence_city'].touched &&
+                                                !adf['correpondence_city'].errors
+                                            }"
+                                       formControlName="correpondence_city"
+                                       class="form-control capitalize"
+                                       placeholder="City"
+                                />
+                                @if (submitted && adf['correpondence_city'].errors) {
+                                    <div
+                                            class="invalid-feedback"
+                                    >
+                                        @if (adf['correpondence_city'].errors?.['required']) {
+                                            <div>
+                                                City is required
+                                            </div>
+                                        }
+                                        <!-- <div *ngIf="f4.corCity.errors.pattern">Only Alphabets, Numbers and Spaces
+                                      allowed</div> -->
+                                        @if (adf['correpondence_city'].errors?.['maxlength']) {
+                                            <div>
+                                                Maximum Length 60 in allowed
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </c-col>
+                            <c-col [md]="4">
+                                <label size="sm" cLabel for="correpondence_pincode" class="required"
+                                >Pincode</label
+                                >
+                                <input cFormControl
+                                       id="correpondence_pincode"
+                                       type="number"
+                                       [ngClass]="{
+                                              'is-invalid':
+                                                (submitted || adf['correpondence_pincode'].touched) &&
+                                                adf['correpondence_pincode'].errors,
+                                              'is-valid':
+                                                adf['correpondence_pincode'].touched &&
+                                                !adf['correpondence_pincode'].errors
+                                            }"
+                                       formControlName="correpondence_pincode"
+                                       class="form-control capitalize"
+                                       placeholder="Pincode"
+                                />
+                                @if (submitted && adf['correpondence_pincode'].errors) {
+                                    <div
+                                            class="invalid-feedback"
+                                    >
+                                        @if (adf['correpondence_pincode'].errors?.['required']) {
+                                            <div>
+                                                Pincode is required
+                                            </div>
+                                        }
+                                        @if (adf['correpondence_pincode'].errors?.['minlength']) {
+                                            <div>
+                                                Pincode can contain only 6 characters
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </c-col>
+                        </c-row>
+                        
+                        <div class="my-2"></div>
+                        
+                        <c-row>
+                            <c-col [md]="3">
+                                <label size="sm" cLabel for="same_as_permenant"
+                                >Same as Permanent Address?</label
+                                >
+                                <select cSelect
+                                        id="same_as_permenant"
+                                        formControlName="same_as_permenant"
+                                        class="form-control"
+                                        (change)="updateAddress($event.target.value)"
+                                >
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </c-col>
+                        </c-row>
+                        
+                        <div class="my-2"></div>
+                        
+                        <h4>Permanent Address</h4>
+                        <c-row>
+                            <c-col [md]="6">
+                                <label size="sm" cLabel for="permanent_flatno" class="required"
+                                >Flat No / Building Name / House No / Block No</label
+                                >
+                                <input cFormControl
+                                       id="permanent_flatno"
+                                       type="text"
+                                       [ngClass]="{
+                                              'is-invalid':
+                                                (submitted || adf['permanent_flatno'].touched) &&
+                                                adf['permanent_flatno'].errors,
+                                              'is-valid':
+                                              adf['permanent_flatno'].touched &&
+                                                !adf['permanent_flatno'].errors
+                                            }"
+                                       formControlName="permanent_flatno"
+                                       class="form-control capitalize"
+                                       placeholder="Flat No / Building Name / House No / Block No"
+                                />
+                                @if (submitted && adf['permanent_flatno'].errors) {
+                                    <div
+                                            class="invalid-feedback"
+                                    >
+                                        @if (adf['permanent_flatno'].errors?.['required']) {
+                                            <div>
+                                                Flat Number is required
+                                            </div>
+                                        }
+                                        <!-- <div *ngIf="f4.perFlatNo.errors.pattern">Only Alphabets, Numbers and Spaces allowed</div> -->
+                                        @if (adf['permanent_flatno'].errors?.['maxlength']) {
+                                            <div>
+                                                Maximum Length 60 in allowed
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </c-col>
+                            <c-col [md]="6">
+                                <label size="sm" cLabel for="permanent_colonyname" class="required"
+                                >Street Name / Area Name / Colony Name / Ward Name</label
+                                >
+                                <input cFormControl
+                                       id="permanent_colonyname"
+                                       type="text"
+                                       [ngClass]="{
+                                              'is-invalid':
+                                                (submitted || adf['permanent_colonyname'].touched) &&
+                                                adf['permanent_colonyname'].errors,
+                                              'is-valid':
+                                              adf['permanent_colonyname'].touched &&
+                                                !adf['permanent_colonyname'].errors
+                                            }"
+                                       formControlName="permanent_colonyname"
+                                       class="form-control capitalize"
+                                       placeholder="Street Name / Area Name / Colony Name / Ward Name"
+                                />
+                                @if (submitted && adf['permanent_colonyname'].errors) {
+                                    <div
+                                            class="invalid-feedback"
+                                    >
+                                        @if (adf['permanent_colonyname'].errors?.['required']) {
+                                            <div>
+                                                Area Name is required
+                                            </div>
+                                        }
+                                        <!-- <div *ngIf="f4.perArea.errors.pattern">Only Alphabets, Numbers and
+                                      Spaces allowed</div> -->
+                                        @if (adf['permanent_colonyname'].errors?.['maxlength']) {
+                                            <div>
+                                                Maximum Length 60 in allowed
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </c-col>
+                        </c-row>
+                        
+                        <div class="my-2"></div>
+                        
+                        <c-row>
+                            <c-col [md]="4">
+                                <label size="sm" cLabel for="permanent_villagename">Additional Address</label>
+                                <input cFormControl
+                                       id="permanent_villagename"
+                                       type="text"
+                                       [ngClass]="{
+                                              'is-invalid':
+                                                (submitted || adf['permanent_villagename'].touched) &&
+                                                adf['permanent_villagename'].errors,
+                                              'is-valid':
+                                              adf['permanent_villagename'].touched &&
+                                                !adf['permanent_villagename'].errors
+                                            }"
+                                       formControlName="permanent_villagename"
+                                       class="form-control capitalize"
+                                       placeholder="Additional Address"
+                                />
+                                @if (submitted && adf['permanent_villagename'].errors) {
+                                    <div
+                                            class="invalid-feedback"
+                                    >
+                                        <!-- <div *ngIf="f4.perVillageName.errors.pattern">Only Alphabets, Numbers
+                                      and Spaces</div> -->
+                                        @if (adf['permanent_villagename'].errors?.['maxlength']) {
+                                            <div>
+                                                Maximum Length 60 in allowed
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </c-col>
+                            <c-col [md]="4">
+                                <label size="sm" cLabel for="permanent_landmark">LandMark</label>
+                                <input cFormControl
+                                       id="permanent_landmark"
+                                       type="text"
+                                       [ngClass]="{
+                                      'is-invalid':
+                                        (submitted || adf['permanent_landmark'].touched) &&
+                                        adf['permanent_landmark'].errors,
+                                      'is-valid':
+                                      adf['permanent_landmark'].touched &&
+                                        !adf['permanent_landmark'].errors
+                                    }"
+                                       formControlName="permanent_landmark"
+                                       class="form-control capitalize"
+                                       placeholder="LandMark"
+                                />
+                                @if (submitted && adf['permanent_landmark'].errors) {
+                                    <div
+                                            class="invalid-feedback"
+                                    >
+                                        <!-- <div *ngIf="f4.perLandmark.errors.pattern">Only Alphabets, Numbers and
+                                      Spaces</div> -->
+                                        @if (adf['permanent_landmark'].errors?.['maxlength']) {
+                                            <div>
+                                                Maximum Length 60 in allowed
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </c-col>
+                            <c-col [md]="4">
+                                <label size="sm" cLabel for="permanent_location_area" class="required"
+                                >Location Area</label
+                                >
+                                <select cSelect
+                                        id="permanent_location_area"
+                                        [ngClass]="{
+                                              'is-invalid':
+                                                (submitted || adf['permanent_location_area'].touched) &&
+                                                adf['permanent_location_area'].errors,
+                                              'is-valid':
+                                              adf['permanent_location_area'].touched &&
+                                                !adf['permanent_location_area'].errors
+                                            }"
+                                        formControlName="permanent_location_area"
+                                        class="form-control"
+                                >
+                                    <option value="" disabled selected>
+                                        --- Please Select ---
+                                    </option>
+                                    @for (location_area of location_area; track location_area) {
+                                        <option
+                                                [value]="location_area"
+                                        >
+                                            {{ location_area }}
+                                        </option>
+                                    }
+                                </select>
+                                @if (submitted && adf['permanent_location_area'].errors) {
+                                    <div
+                                            class="invalid-feedback"
+                                    >
+                                        @if (adf['permanent_location_area'].errors?.['required']) {
+                                            <div>
+                                                Location Area is required
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </c-col>
+                        </c-row>
+                        <c-row>
+                            <c-col [md]="4">
+                                <label size="sm" cLabel for="permanent_country" class="required"
+                                >Country</label
+                                >
+                                <select cSelect
+                                        id="permanent_country"
+                                        [ngClass]="{
+                                      'is-invalid':
+                                        (submitted || adf['permanent_country'].touched) &&
+                                        adf['permanent_country'].errors,
+                                      'is-valid':
+                                      adf['permanent_country'].touched &&
+                                        !adf['permanent_country'].errors
+                                    }"
+                                        formControlName="permanent_country"
+                                        class="form-control"
+                                >
+                                    <option value="" disabled selected>
+                                        --- Please Select ---
+                                    </option>
+                                    @for (country of country; track country) {
+                                        <option [value]="country">
+                                            {{ country }}
+                                        </option>
+                                    }
+                                </select>
+                                @if (submitted && adf['permanent_country'].errors) {
+                                    <div
+                                            class="invalid-feedback"
+                                    >
+                                        @if (adf['permanent_country'].errors?.['required']) {
+                                            <div>
+                                                Country is required
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </c-col>
+                            <c-col [md]="4">
+                                <label size="sm" cLabel for="permanent_state" class="required">State</label>
+                                <select cSelect
+                                        id="permanent_state"
+                                        formControlName="permanent_state"
+                                        [ngClass]="{
+                                              'is-invalid':
+                                                (submitted || adf['permanent_state'].touched) &&
+                                                adf['permanent_state'].errors,
+                                              'is-valid':
+                                              adf['permanent_state'].touched &&
+                                                !adf['permanent_state'].errors
+                                            }"
+                                        class="form-control"
+                                >
+                                    <option value="" disabled selected>
+                                        --- Please Select ---
+                                    </option>
+                                    @for (state of state; track state) {
+                                        <option [value]="state">
+                                            {{ state }}
+                                        </option>
+                                    }
+                                </select>
+                                @if (submitted && adf['permanent_state'].errors) {
+                                    <div
+                                            class="invalid-feedback"
+                                    >
+                                        @if (adf['permanent_state'].errors?.['required']) {
+                                            <div>
+                                                State is required
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </c-col>
+                            <c-col [md]="4">
+                                <label size="sm" cLabel for="permanent_district" class="required"
+                                >District</label
+                                >
+                                <input cFormControl
+                                       id="permanent_district"
+                                       type="text"
+                                       [ngClass]="{
+                                              'is-invalid':
+                                                (submitted || adf['permanent_district'].touched) &&
+                                                adf['permanent_district'].errors,
+                                              'is-valid':
+                                                adf['permanent_district'].touched &&
+                                                !adf['permanent_district'].errors
+                                            }"
+                                       formControlName="permanent_district"
+                                       class="form-control capitalize"
+                                       placeholder="District"
+                                />
+                                @if (submitted && adf['permanent_district'].errors) {
+                                    <div
+                                            class="invalid-feedback"
+                                    >
+                                        @if (adf['permanent_district'].errors?.['required']) {
+                                            <div>
+                                                District is required
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </c-col>
+                        </c-row>
+                        <c-row>
+                            
+                            <c-col [md]="4">
+                                <label size="sm" cLabel for="permanent_city" class="required">City</label>
+                                <input cFormControl
+                                       id="permanent_city"
+                                       type="text"
+                                       [ngClass]="{
+                                          'is-invalid':
+                                            (submitted || adf['permanent_city'].touched) &&
+                                            adf['permanent_city'].errors,
+                                          'is-valid':
+                                          adf['permanent_city'].touched && !adf['permanent_city'].errors
+                                        }"
+                                       formControlName="permanent_city"
+                                       class="form-control capitalize"
+                                       placeholder="City"
+                                />
+                                @if (submitted && adf['permanent_city'].errors) {
+                                    <div
+                                            class="invalid-feedback"
+                                    >
+                                        @if (adf['permanent_city'].errors?.['required']) {
+                                            <div>
+                                                City is required
+                                            </div>
+                                        }
+                                        <!-- <div *ngIf="f4.perCity.errors.pattern">Only Alphabets, Numbers and
+                                      Spaces</div> -->
+                                        @if (adf['permanent_city'].errors?.['maxlength']) {
+                                            <div>
+                                                Maximum Length 60 in allowed
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </c-col>
+                            <c-col [md]="4">
+                                <label size="sm" cLabel for="permanent_pincode" class="required"
+                                >Pincode</label
+                                >
+                                <input cFormControl
+                                       id="permanent_pincode"
+                                       type="number"
+                                       [ngClass]="{
+                                              'is-invalid':
+                                                (submitted ||adf['permanent_pincode'].touched) &&
+                                                adf['permanent_pincode'].errors,
+                                              'is-valid':
+                                              adf['permanent_pincode'].touched &&
+                                                !adf['permanent_pincode'].errors
+                                            }"
+                                       formControlName="permanent_pincode"
+                                       class="form-control capitalize"
+                                       placeholder="Pincode"
+                                />
+                                @if (submitted && adf['permanent_pincode'].errors) {
+                                    <div
+                                            class="invalid-feedback"
+                                    >
+                                        @if (adf['permanent_pincode'].errors?.['required']) {
+                                            <div>
+                                                Pincode is required
+                                            </div>
+                                        }
+                                        @if (adf['permanent_pincode'].errors?.['minlength']) {
+                                            <div>
+                                                Pincode can contain only 6 characters
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </c-col>
+                            
+                            <c-row class="mb-4 updateimagebtn d-grid gap-2 d-md-flex justify-content-md-center">
+                                <c-col [md]="2">
+                                    <button cButton
+                                            type="submit"
+                                            class="btn btn-add"
+                                            (click)="IU_Address()"
+                                    >
+                                        Save
+                                        @if (addressloader) {
+                                            <c-spinner aria-hidden="false" size="sm"></c-spinner>
+                                        }
+                                    
+                                    </button>
+                                </c-col>
+                            </c-row>
+                        </c-row>
+                    </div>
+                </form>
+            </c-tab-panel>
+        
+        </c-tabs-content>
+    </c-tabs>
+    
+    
+    <!--            <c-tab-content #tabContent="cTabContent" [activeTabPaneIdx]="activePane"-->
+    <!--                           (activeTabPaneIdxChange)="outsidechange($event)">-->
+    <!--                <c-tab-pane class="p-3">-->
+    <!--                    <c-row>-->
+    <!--                        <c-col [md]="6" class="mx-auto">-->
+    <!--                            <c-card class="card mx-4">-->
+    <!--                                <c-card-body class="p-4">-->
+    <!--                                    <form-->
+    <!--                                            [formGroup]="Emailform"-->
+    <!--                                            (keydown.enter)="$event.preventDefault()"-->
+    <!--                                    >-->
+    <!--                                        <h3 style="padding-left: 18px">Update Email ID</h3>-->
+    <!--                                        <c-row>-->
+    <!--                                            <c-col [sm]="8">-->
+    <!--                                                <label size="sm" cLabel class="required">Email</label>-->
+    <!--                                                <input cFormControl-->
+    <!--                                                        autofocus-->
+    <!--                                                        type="email"-->
+    <!--                                                        class="form-control modal-validation"-->
+    <!--                                                        formControlName="emailid"-->
+    <!--                                                />-->
+    <!--                                                @if (email_fld?.invalid && email_fld?.touched) {-->
+    <!--                                                    <span-->
+    <!--                                                            class="text-danger"-->
+    <!--                                                    >Email is required</span-->
+    <!--                                                    >-->
+    <!--                                                }-->
+    <!--                                            </c-col>-->
+    
+    <!--                                            <c-col>-->
+    <!--                                                <c-container>-->
+    <!--                                                    <br/>-->
+    <!--                                                </c-container>-->
+    <!--                                                <button size="sm" cButton-->
+    <!--                                                        (click)="emailtoggleCollapse()"-->
+    <!--                                                        class="btn btn-success btn-sm"-->
+    <!--                                                >-->
+    <!--                                                    Submit-->
+    <!--                                                </button>-->
+    <!--                                            </c-col>-->
+    <!--                                        </c-row>-->
+    <!--                                        <c-modal-->
+    <!--                                            #ngx_email_otp-->
+    <!--                                            [visible]="visibleEmail"-->
+    <!--                                            cCollapse-->
+    <!--                                            alignment="center"-->
+    <!--                                        >-->
+    <!--                                            <c-modal-header></c-modal-header>-->
+    <!--                                            <c-modal-body>-->
+    <!--                                                <label size="sm" cLabel for="emailotp" class="required"-->
+    <!--                                                >OTP will received on above email id , if check your-->
+    <!--                                                    email.-->
+    <!--                                                </label>-->
+    <!--                                                <input cFormControl-->
+    <!--                                                        id="emailotp"-->
+    <!--                                                        #ngx_email_otp-->
+    <!--                                                        formControlName="emailotp"-->
+    <!--                                                        (change)="emailOtpChange($event)"-->
+    <!--                                                />-->
+    
+    <!--                                                &lt;!&ndash;                                                        [config]="{length:6}"&ndash;&gt;-->
+    <!--                                            </c-modal-body>-->
+    <!--                                            <c-modal-footer>-->
+    <!--                                                <button size="sm" cButton-->
+    <!--                                                        (click)="Verifyemailotp()"-->
+    <!--                                                        class="btn btn-success"-->
+    <!--                                                >-->
+    <!--                                                    Verify OTP-->
+    <!--                                                </button>-->
+    <!--                                                <button size="sm" cButton-->
+    <!--                                                        (click)="resetemailform()"-->
+    <!--                                                        class="btn btn-success"-->
+    <!--                                                >-->
+    <!--                                                    Reset-->
+    <!--                                                </button>-->
+    <!--                                            </c-modal-footer>-->
+    <!--                                        </c-modal>-->
+    <!--                                    </form>-->
+    <!--                                </c-card-body>-->
+    <!--                            </c-card>-->
+    <!--                        </c-col>-->
+    <!--                    </c-row>-->
+    
+    <!--                </c-tab-pane>-->
+    <!--                <c-tab-pane class="p-3">-->
+    <!--                    <c-row>-->
+    <!--                        <c-col [md]="6" class="mx-auto">-->
+    <!--                            <c-card class="card mx-4">-->
+    <!--                                <c-card-body class="p-4">-->
+    <!--                                    <form-->
+    <!--                                            [formGroup]="Mobileform"-->
+    <!--                                            (keydown.enter)="$event.preventDefault()"-->
+    <!--                                    >-->
+    <!--                                        <h3 style="padding-left: 18px">Update Mobile no</h3>-->
+    <!--                                        <hr/>-->
+    <!--                                        <c-row>-->
+    <!--                                            <div id="mobileno" class="form-group col-sm-12">-->
+    <!--                                                <label size="sm" cLabel for="mobileno" class="required">Mobile</label>-->
+    <!--                                            </div>-->
+    <!--                                        </c-row>-->
+    
+    <!--                                        <c-row>-->
+    <!--                                            <ng-otp-input-->
+    <!--                                                #ngx_mobile-->
+    <!--                                                id="mobileno"-->
+    <!--                                                formControlName="mobile"-->
+    <!--                                                style="justify-content: left"-->
+    <!--                                                (onInputChange)="mobilenochange($event)"-->
+    <!--                                                [config]="config"-->
+    <!--                                            >-->
+    <!--                                            </ng-otp-input>-->
+    
+    <!--                                            @if (mobile_fld?.invalid && mobile_fld?.touched) {-->
+    <!--                                                <span-->
+    <!--                                                        class="text-danger"-->
+    <!--                                                >Mobile no is required</span-->
+    <!--                                                >-->
+    <!--                                            }-->
+    <!--                                        </c-row>-->
+    
+    <!--                                        <c-row>-->
+    <!--                                            <c-col [sm]="12" id="whatsapp" class="form-group">-->
+    <!--                                                <label size="sm" cLabel for="whatsapp" class="required"-->
+    <!--                                                >Whats app no</label-->
+    <!--                                                >-->
+    <!--                                                <ng-otp-input-->
+    <!--                                                        style="padding: 0px 0px 0px 0px"-->
+    <!--                                                        id="whatsapp"-->
+    <!--                                                        #ngx_whatsapp-->
+    <!--                                                        formControlName="whatsapp"-->
+    <!--                                                        (onInputChange)="whatsappChange($event)"-->
+    <!--                                                        [config]="config"-->
+    <!--                                                >-->
+    <!--                                                </ng-otp-input>-->
+    
+    <!--                                                @if (whatsapp_fld?.invalid && whatsapp_fld?.touched) {-->
+    <!--                                                    <span-->
+    <!--                                                            class="text-danger"-->
+    <!--                                                    >Whatsapp no is required</span-->
+    <!--                                                    >-->
+    <!--                                                }-->
+    <!--                                            </c-col>-->
+    
+    <!--                                            <c-col [sm]="2">-->
+    <!--                                                <c-container>-->
+    <!--                                                    <br/>-->
+    <!--                                                </c-container>-->
+    <!--                                                <button size="sm" cButton-->
+    <!--                                                        (click)="mobiletoggleCollapse()"-->
+    <!--                                                        class="btn btn-success btn-sm"-->
+    <!--                                                >-->
+    <!--                                                    Submit-->
+    <!--                                                </button>-->
+    <!--                                            </c-col>-->
+    <!--                                        </c-row>-->
+    
+    <!--                                        <div [visible]="visibleMobile" cCollapse>-->
+    <!--                                            <c-card class="mt-3 shadow">-->
+    <!--                                                <c-card-body>-->
+    <!--                                                    <c-col [sm]="12" id="mobileotp" class="form-group">-->
+    <!--                                                        <label size="sm" cLabel for="mobileotp" class="required"-->
+    <!--                                                        >OTP will received on above mobile number.-->
+    <!--                                                        </label>-->
+    
+    <!--                                                        <ng-otp-input-->
+    <!--                                                                id="mobileotp"-->
+    <!--                                                                #ngx_mobile_otp-->
+    <!--                                                                (onInputChange)="mobileOtpChange($event)"-->
+    <!--                                                                [config]="{ length: 6 }"-->
+    <!--                                                        >-->
+    <!--                                                        </ng-otp-input>-->
+    
+    <!--                                                        @if (mobile_fld?.invalid && mobile_fld?.touched) {-->
+    <!--                                                            <span-->
+    <!--                                                                    class="text-danger"-->
+    <!--                                                            >OTP is required</span-->
+    <!--                                                            >-->
+    <!--                                                        }-->
+    <!--                                                    </c-col>-->
+    
+    <!--                                                    <c-row>-->
+    <!--                                                        <c-col [sm]="2">-->
+    <!--                                                            <button size="sm" cButton-->
+    <!--                                                                    (click)="verifymobileotp()"-->
+    <!--                                                                    type="submit"-->
+    <!--                                                                    class="btn btn-success"-->
+    <!--                                                            >-->
+    <!--                                                                Verify OTP-->
+    <!--                                                            </button>-->
+    <!--                                                        </c-col>-->
+    
+    <!--                                                        <c-col [sm]="2">-->
+    <!--                                                            <button size="sm" cButton-->
+    <!--                                                                    (click)="resetmobilescreen()"-->
+    <!--                                                                    class="btn btn-success"-->
+    <!--                                                            >-->
+    <!--                                                                Reset-->
+    <!--                                                            </button>-->
+    <!--                                                        </c-col>-->
+    <!--                                                    </c-row>-->
+    <!--                                                </c-card-body>-->
+    <!--                                            </c-card>-->
+    <!--                                        </div>-->
+    <!--                                    </form>-->
+    <!--                                </c-card-body>-->
+    <!--                            </c-card>-->
+    <!--                        </c-col>-->
+    <!--                    </c-row>-->
+    <!--                </c-tab-pane>-->
+    <!--                <c-tab-pane class="p-3">-->
+    <!--                    <h4>Image file size should be less than 5mb</h4>-->
+    <!--                    <form-->
+    <!--                            [formGroup]="Profilepictform"-->
+    <!--                            (keydown.enter)="$event.preventDefault()"-->
+    <!--                    >-->
+    <!--                        <c-row>-->
+    <!--                            <c-col [md]="3">-->
+    <!--                                <label size="sm" cLabel>Step 1 Upload Image:</label>-->
+    <!--                                <input cFormControl-->
+    <!--                                        type="file"-->
+    <!--                                        (change)="showPreview($event)"-->
+    <!--                                        formControlName="upload"-->
+    <!--                                        class="fileInputProfile"-->
+    <!--                                />-->
+    <!--                                @if (picture_fld?.invalid && picture_fld?.touched) {-->
+    <!--                                    <span-->
+    <!--                                            class="text-danger"-->
+    <!--                                    >image is required</span-->
+    <!--                                    >-->
+    <!--                                }-->
+    <!--                            </c-col>-->
+    <!--                        </c-row>-->
+    
+    <!--                        <br/>-->
+    
+    <!--                        <c-row>-->
+    <!--                            <c-col [sm]="6">-->
+    <!--                                <c-card class="mb-6 w-75 h-100">-->
+    <!--                                    <c-card-body>-->
+    <!--                                        <h5 cCardTitle>Crop image for perfect face.</h5>-->
+    <!--                                        <p cCardText>-->
+    <!--                                            <image-cropper-->
+    <!--                                                    [imageChangedEvent]="imageChangedEvent"-->
+    <!--                                                    [maintainAspectRatio]="false"-->
+    <!--                                                    [containWithinAspectRatio]="containWithinAspectRatio"-->
+    <!--                                                    [aspectRatio]="4 / 3"-->
+    <!--                                                    [resizeToWidth]="256"-->
+    <!--                                                    [cropperMinHeight]="150"-->
+    <!--                                                    [cropperMinWidth]="130"-->
+    <!--                                                    [onlyScaleDown]="true"-->
+    <!--                                                    [roundCropper]="false"-->
+    <!--                                                    [canvasRotation]="canvasRotation"-->
+    <!--                                                    [transform]="transform"-->
+    <!--                                                    [alignImage]="'left'"-->
+    <!--                                                    format="png"-->
+    <!--                                                    (imageCropped)="imageCropped($event)"-->
+    <!--                                                    (imageLoaded)="imageLoaded($event)"-->
+    <!--                                                    (cropperReady)="cropperReady()"-->
+    <!--                                                    (loadImageFailed)="loadImageFailed()"-->
+    <!--                                            ></image-cropper>-->
+    <!--                                        </p>-->
+    <!--                                    </c-card-body>-->
+    <!--                                </c-card>-->
+    <!--                            </c-col>-->
+    <!--                            <c-col [sm]="6">-->
+    <!--                                <c-card class="mb-6 w-75 h-100">-->
+    <!--                                    <c-card-body>-->
+    <!--                                        <h5 cCardTitle>Preview Image</h5>-->
+    
+    <!--                                        <p cCardText>-->
+    <!--                                            <img-->
+    <!--                                                    [src]="croppedImage"-->
+    <!--                                                    [style.border]="croppedImage ? '1px solid black' : 'none'"-->
+    <!--                                                    width="300"-->
+    <!--                                                    height="300"-->
+    <!--                                                    class="center"-->
+    <!--                                            />-->
+    <!--                                        </p>-->
+    <!--                                    </c-card-body>-->
+    <!--                                </c-card>-->
+    <!--                            </c-col>-->
+    <!--                        </c-row>-->
+    
+    <!--                        <c-row>-->
+    <!--                            <c-col [md]="2" [sm]="2" style="padding-top: 30px">-->
+    <!--                                <button size="sm" cButton-->
+    <!--                                        type="button"-->
+    <!--                                        class="btn btn-success btn-sm"-->
+    <!--                                        (click)="OnSubmit_uploadpicture()"-->
+    <!--                                >-->
+    <!--                                    @if (pictureloader) {-->
+    <!--                                        <i-->
+    <!--                                                style="border-color: white"-->
+    <!--                                                class="spinner-border text-primary"-->
+    <!--                                                role="status"-->
+    <!--                                        ></i-->
+    <!--                                        >-->
+    <!--                                    }Upload-->
+    <!--                                </button>-->
+    <!--                            </c-col>-->
+    <!--                        </c-row>-->
+    <!--                    </form>-->
+    <!--                </c-tab-pane>-->
+    
+    <!--                <c-tab-pane class="p-3">-->
+    <!--                    <form cForm [formGroup]="addressDetailsForm">-->
+    <!--                        <div class="accordion-body">-->
+    <!--                            <c-row>-->
+    <!--                                <c-col [md]="6">-->
+    <!--                                    <label size="sm" cLabel for="correpondence_flatno" class="required"-->
+    <!--                                    >Flat No / Building Name / House No / Block No</label-->
+    <!--                                    >-->
+    <!--                                    <input cFormControl-->
+    <!--                                            id="correpondence_flatno"-->
+    <!--                                            type="text"-->
+    <!--                                            [ngClass]="{-->
+    <!--                                              'is-invalid':-->
+    <!--                                                (submitted || adf['correpondence_flatno'].touched) &&-->
+    <!--                                                adf['correpondence_flatno'].errors,-->
+    <!--                                              'is-valid':-->
+    <!--                                                adf['correpondence_flatno'].touched &&-->
+    <!--                                                !adf['correpondence_flatno'].errors-->
+    <!--                                            }"-->
+    <!--                                            formControlName="correpondence_flatno"-->
+    <!--                                            class="form-control capitalize"-->
+    <!--                                            placeholder="Flat No / Building Name / House No / Block No"-->
+    <!--                                    />-->
+    <!--                                    @if (submitted && adf['correpondence_flatno'].errors) {-->
+    <!--                                        <div-->
+    <!--                                                class="invalid-feedback"-->
+    <!--                                        >-->
+    <!--                                            @if (adf['correpondence_flatno'].errors?.['required']) {-->
+    <!--                                                <div>-->
+    <!--                                                    Flat Number is required-->
+    <!--                                                </div>-->
+    <!--                                            }-->
+    <!--                                            &lt;!&ndash; <div *ngIf="f4.corFlatNo.errors.pattern">Only Alphabets, Numbers and Spaces allowed</div>-->
+    <!--                                            <div *ngIf="f4.corFlatNo.errors.maxlength">Maximum Length 60 in allowed</div> &ndash;&gt;-->
+    <!--                                        </div>-->
+    <!--                                    }-->
+    <!--                                </c-col>-->
+    <!--                                <c-col [md]="6">-->
+    <!--                                    <label size="sm" cLabel for="correpondence_colonyname" class="required"-->
+    <!--                                    >Street Name / Area Name / Colony Name / Ward Name</label-->
+    <!--                                    >-->
+    <!--                                    <input cFormControl-->
+    <!--                                            id="correpondence_colonyname"-->
+    <!--                                            type="text"-->
+    <!--                                            [ngClass]="{-->
+    <!--                                              'is-invalid':-->
+    <!--                                                (submitted ||-->
+    <!--                                                  adf['correpondence_colonyname'].touched) &&-->
+    <!--                                                adf['correpondence_colonyname'].errors,-->
+    <!--                                              'is-valid':-->
+    <!--                                                adf['correpondence_colonyname'].touched &&-->
+    <!--                                                !adf['correpondence_colonyname'].errors-->
+    <!--                                            }"-->
+    <!--                                            formControlName="correpondence_colonyname"-->
+    <!--                                            class="form-control capitalize"-->
+    <!--                                            placeholder="Street Name / Area Name / Colony Name / Ward Name"-->
+    <!--                                    />-->
+    <!--                                    @if (submitted && adf['correpondence_colonyname'].errors) {-->
+    <!--                                        <div-->
+    <!--                                                class="invalid-feedback"-->
+    <!--                                        >-->
+    <!--                                            @if (adf['correpondence_colonyname'].errors?.['required']) {-->
+    <!--                                                <div>-->
+    <!--                                                    Area Name is required-->
+    <!--                                                </div>-->
+    <!--                                            }-->
+    <!--                                            &lt;!&ndash; <div *ngIf="f4.corArea.errors.pattern">Only Alphabets, Numbers and Spaces-->
+    <!--                                          allowed</div> &ndash;&gt;-->
+    <!--                                            @if (adf['correpondence_colonyname'].errors?.['maxlength']) {-->
+    <!--                                                <div>-->
+    <!--                                                    Maximum Length 60 in allowed-->
+    <!--                                                </div>-->
+    <!--                                            }-->
+    <!--                                        </div>-->
+    <!--                                    }-->
+    <!--                                </c-col>-->
+    <!--                            </c-row>-->
+    
+    <!--                            <div class="my-2"></div>-->
+    
+    <!--                            <c-row>-->
+    <!--                                <c-col [md]="4">-->
+    <!--                                    <label size="sm" cLabel for="correpondence_villagename"-->
+    <!--                                    >Additional Address</label-->
+    <!--                                    >-->
+    <!--                                    <input cFormControl-->
+    <!--                                            id="correpondence_villagename"-->
+    <!--                                            type="text"-->
+    <!--                                            [ngClass]="{-->
+    <!--                                              'is-invalid':-->
+    <!--                                                (submitted ||-->
+    <!--                                                  adf['correpondence_villagename'].touched) &&-->
+    <!--                                                adf['correpondence_villagename'].errors,-->
+    <!--                                              'is-valid':-->
+    <!--                                                adf['correpondence_villagename'].touched &&-->
+    <!--                                                !adf['correpondence_villagename'].errors-->
+    <!--                                            }"-->
+    <!--                                            formControlName="correpondence_villagename"-->
+    <!--                                            class="form-control capitalize"-->
+    <!--                                            placeholder="Additional Address"-->
+    <!--                                    />-->
+    <!--                                    @if (submitted && adf['correpondence_villagename'].errors) {-->
+    <!--                                        <div-->
+    <!--                                                class="invalid-feedback"-->
+    <!--                                        >-->
+    <!--                                            &lt;!&ndash; <div *ngIf="f4.corVillageName.errors.pattern">Only Alphabets, Numbers and-->
+    <!--                                          Spaces allowed</div> &ndash;&gt;-->
+    <!--                                            @if (adf['correpondence_villagename'].errors?.['maxlength']) {-->
+    <!--                                                <div>-->
+    <!--                                                    Maximum Length 60 in allowed-->
+    <!--                                                </div>-->
+    <!--                                            }-->
+    <!--                                        </div>-->
+    <!--                                    }-->
+    <!--                                </c-col>-->
+    <!--                                <c-col [md]="4">-->
+    <!--                                    <label size="sm" cLabel for="correpondence_landmark">LandMark</label>-->
+    <!--                                    <input cFormControl-->
+    <!--                                            id="correpondence_landmark"-->
+    <!--                                            type="text"-->
+    <!--                                            [ngClass]="{-->
+    <!--                                              'is-invalid':-->
+    <!--                                                (submitted || adf['correpondence_landmark'].touched) &&-->
+    <!--                                                adf['correpondence_landmark'].errors,-->
+    <!--                                              'is-valid':-->
+    <!--                                                adf['correpondence_landmark'].touched &&-->
+    <!--                                                !adf['correpondence_landmark'].errors-->
+    <!--                                            }"-->
+    <!--                                            formControlName="correpondence_landmark"-->
+    <!--                                            class="form-control capitalize"-->
+    <!--                                            placeholder="LandMark"-->
+    <!--                                    />-->
+    <!--                                    @if (submitted && adf['correpondence_landmark'].errors) {-->
+    <!--                                        <div-->
+    <!--                                                class="invalid-feedback"-->
+    <!--                                        >-->
+    <!--                                            &lt;!&ndash; <div *ngIf="f4.corLandmark.errors.pattern">Only Alphabets, Numbers and-->
+    <!--                                          Spaces</div> &ndash;&gt;-->
+    <!--                                            @if (adf['correpondence_landmark'].errors?.['maxlength']) {-->
+    <!--                                                <div>-->
+    <!--                                                    Maximum Length 60 in allowed-->
+    <!--                                                </div>-->
+    <!--                                            }-->
+    <!--                                        </div>-->
+    <!--                                    }-->
+    <!--                                </c-col>-->
+    <!--                                <c-col [md]="4">-->
+    <!--                                    <label size="sm" cLabel for="correpondence_location_area" class="required"-->
+    <!--                                    >Location Area</label-->
+    <!--                                    >-->
+    <!--                                    <select cSelect-->
+    <!--                                            id="correpondence_location_area"-->
+    <!--                                            [ngClass]="{-->
+    <!--                                              'is-invalid':-->
+    <!--                                                (submitted ||-->
+    <!--                                                  adf['correpondence_location_area'].touched) &&-->
+    <!--                                                adf['correpondence_location_area'].errors,-->
+    <!--                                              'is-valid':-->
+    <!--                                                adf['correpondence_location_area'].touched &&-->
+    <!--                                                !adf['correpondence_location_area'].errors-->
+    <!--                                            }"-->
+    <!--                                            formControlName="correpondence_location_area"-->
+    <!--                                            class="form-control"-->
+    <!--                                    >-->
+    <!--                                        <option value="" disabled selected>-->
+    <!--                                            -&#45;&#45; Please Select -&#45;&#45;-->
+    <!--                                        </option>-->
+    <!--                                        @for (location_area of location_area; track location_area) {-->
+    <!--                                            <option-->
+    <!--                                                    [value]="location_area"-->
+    <!--                                            >-->
+    <!--                                                {{ location_area }}-->
+    <!--                                            </option>-->
+    <!--                                        }-->
+    <!--                                    </select>-->
+    <!--                                    @if (submitted && adf['correpondence_location_area'].errors) {-->
+    <!--                                        <div-->
+    <!--                                                class="invalid-feedback"-->
+    <!--                                        >-->
+    <!--                                            @if (adf['correpondence_location_area'].errors?.['required']) {-->
+    <!--                                                <div-->
+    <!--                                                >-->
+    <!--                                                    Location Area is required-->
+    <!--                                                </div>-->
+    <!--                                            }-->
+    <!--                                        </div>-->
+    <!--                                    }-->
+    <!--                                </c-col>-->
+    <!--                            </c-row>-->
+    
+    <!--                            <div class="my-2"></div>-->
+    
+    <!--                            <c-row>-->
+    <!--                                <c-col [md]="4" class="form-group col-md-4">-->
+    <!--                                    <label size="sm" cLabel for="correpondence_country" class="required"-->
+    <!--                                    >Country</label-->
+    <!--                                    >-->
+    <!--                                    <select cSelect-->
+    <!--                                            id="correpondence_country"-->
+    <!--                                            [ngClass]="{-->
+    <!--                                              'is-invalid':-->
+    <!--                                                (submitted || adf['correpondence_country'].touched) &&-->
+    <!--                                                adf['correpondence_country'].errors,-->
+    <!--                                              'is-valid':-->
+    <!--                                                adf['correpondence_country'].touched &&-->
+    <!--                                                !adf['correpondence_country'].errors-->
+    <!--                                            }"-->
+    <!--                                            formControlName="correpondence_country"-->
+    <!--                                            class="form-control"-->
+    <!--                                    >-->
+    <!--                                        <option value="" disabled selected>-->
+    <!--                                            -&#45;&#45; Please Select -&#45;&#45;-->
+    <!--                                        </option>-->
+    <!--                                        @for (country of country; track country) {-->
+    <!--                                            <option [value]="country">-->
+    <!--                                                {{ country }}-->
+    <!--                                            </option>-->
+    <!--                                        }-->
+    <!--                                    </select>-->
+    <!--                                    @if (submitted && adf['correpondence_country'].errors) {-->
+    <!--                                        <div-->
+    <!--                                                class="invalid-feedback"-->
+    <!--                                        >-->
+    <!--                                            @if (adf['correpondence_country'].errors?.['required']) {-->
+    <!--                                                <div>-->
+    <!--                                                    Country is required-->
+    <!--                                                </div>-->
+    <!--                                            }-->
+    <!--                                        </div>-->
+    <!--                                    }-->
+    <!--                                </c-col>-->
+    <!--                                <c-col [md]="4">-->
+    <!--                                    <label size="sm" cLabel for="correpondence_state" class="required"-->
+    <!--                                    >State</label-->
+    <!--                                    >-->
+    <!--                                    <select cSelect-->
+    <!--                                            id="correpondence_state"-->
+    <!--                                            formControlName="correpondence_state"-->
+    <!--                                            [ngClass]="{-->
+    <!--                                              'is-invalid':-->
+    <!--                                                (submitted || adf['correpondence_state'].touched) &&-->
+    <!--                                                adf['correpondence_state'].errors,-->
+    <!--                                              'is-valid':-->
+    <!--                                                adf['correpondence_state'].touched &&-->
+    <!--                                                !adf['correpondence_state'].errors-->
+    <!--                                            }"-->
+    <!--                                            class="form-control"-->
+    <!--                                    >-->
+    <!--                                        <option value="" disabled selected>-->
+    <!--                                            -&#45;&#45; Please Select -&#45;&#45;-->
+    <!--                                        </option>-->
+    <!--                                        @for (state of state; track state) {-->
+    <!--                                            <option [value]="state">-->
+    <!--                                                {{ state }}-->
+    <!--                                            </option>-->
+    <!--                                        }-->
+    <!--                                    </select>-->
+    <!--                                    @if (submitted && adf['correpondence_state'].errors) {-->
+    <!--                                        <div-->
+    <!--                                                class="invalid-feedback"-->
+    <!--                                        >-->
+    <!--                                            @if (adf['correpondence_state'].errors?.['required']) {-->
+    <!--                                                <div>-->
+    <!--                                                    State is required-->
+    <!--                                                </div>-->
+    <!--                                            }-->
+    <!--                                        </div>-->
+    <!--                                    }-->
+    <!--                                </c-col>-->
+    <!--                                <c-col [md]="4">-->
+    <!--                                    <label size="sm" cLabel class="required" for="correpondence_district"-->
+    <!--                                    >District</label-->
+    <!--                                    >-->
+    <!--                                    <input cFormControl-->
+    <!--                                            id="correpondence_district"-->
+    <!--                                            type="text"-->
+    <!--                                            [ngClass]="{-->
+    <!--                                              'is-invalid':-->
+    <!--                                                (submitted || adf['correpondence_district'].touched) &&-->
+    <!--                                                adf['correpondence_district'].errors,-->
+    <!--                                              'is-valid':-->
+    <!--                                                adf['correpondence_district'].touched &&-->
+    <!--                                                !adf['correpondence_district'].errors-->
+    <!--                                            }"-->
+    <!--                                            formControlName="correpondence_district"-->
+    <!--                                            class="form-control capitalize"-->
+    <!--                                            placeholder="District"-->
+    <!--                                    />-->
+    <!--                                    @if (submitted && adf['correpondence_district'].errors) {-->
+    <!--                                        <div-->
+    <!--                                                class="invalid-feedback"-->
+    <!--                                        >-->
+    <!--                                            @if (adf['correpondence_district'].errors?.['required']) {-->
+    <!--                                                <div>-->
+    <!--                                                    District is required-->
+    <!--                                                </div>-->
+    <!--                                            }-->
+    <!--                                        </div>-->
+    <!--                                    }-->
+    <!--                                </c-col>-->
+    <!--                            </c-row>-->
+    
+    <!--                            <div class="my-2"></div>-->
+    
+    <!--                            <c-row>-->
+    <!--                                <c-col [md]="4">-->
+    <!--                                    <label size="sm" cLabel for="correpondence_city" class="required">City</label>-->
+    <!--                                    <input cFormControl-->
+    <!--                                            id="correpondence_city"-->
+    <!--                                            type="text"-->
+    <!--                                            [ngClass]="{-->
+    <!--                                              'is-invalid':-->
+    <!--                                                (submitted || adf['correpondence_city'].touched) &&-->
+    <!--                                                adf['correpondence_city'].errors,-->
+    <!--                                              'is-valid':-->
+    <!--                                                adf['correpondence_city'].touched &&-->
+    <!--                                                !adf['correpondence_city'].errors-->
+    <!--                                            }"-->
+    <!--                                            formControlName="correpondence_city"-->
+    <!--                                            class="form-control capitalize"-->
+    <!--                                            placeholder="City"-->
+    <!--                                    />-->
+    <!--                                    @if (submitted && adf['correpondence_city'].errors) {-->
+    <!--                                        <div-->
+    <!--                                                class="invalid-feedback"-->
+    <!--                                        >-->
+    <!--                                            @if (adf['correpondence_city'].errors?.['required']) {-->
+    <!--                                                <div>-->
+    <!--                                                    City is required-->
+    <!--                                                </div>-->
+    <!--                                            }-->
+    <!--                                            &lt;!&ndash; <div *ngIf="f4.corCity.errors.pattern">Only Alphabets, Numbers and Spaces-->
+    <!--                                          allowed</div> &ndash;&gt;-->
+    <!--                                            @if (adf['correpondence_city'].errors?.['maxlength']) {-->
+    <!--                                                <div>-->
+    <!--                                                    Maximum Length 60 in allowed-->
+    <!--                                                </div>-->
+    <!--                                            }-->
+    <!--                                        </div>-->
+    <!--                                    }-->
+    <!--                                </c-col>-->
+    <!--                                <c-col [md]="4">-->
+    <!--                                    <label size="sm" cLabel for="correpondence_pincode" class="required"-->
+    <!--                                    >Pincode</label-->
+    <!--                                        >-->
+    <!--                                    <input cFormControl-->
+    <!--                                            id="correpondence_pincode"-->
+    <!--                                            type="number"-->
+    <!--                                            [ngClass]="{-->
+    <!--                                              'is-invalid':-->
+    <!--                                                (submitted || adf['correpondence_pincode'].touched) &&-->
+    <!--                                                adf['correpondence_pincode'].errors,-->
+    <!--                                              'is-valid':-->
+    <!--                                                adf['correpondence_pincode'].touched &&-->
+    <!--                                                !adf['correpondence_pincode'].errors-->
+    <!--                                            }"-->
+    <!--                                            formControlName="correpondence_pincode"-->
+    <!--                                            class="form-control capitalize"-->
+    <!--                                            placeholder="Pincode"-->
+    <!--                                    />-->
+    <!--                                    @if (submitted && adf['correpondence_pincode'].errors) {-->
+    <!--                                        <div-->
+    <!--                                                class="invalid-feedback"-->
+    <!--                                        >-->
+    <!--                                            @if (adf['correpondence_pincode'].errors?.['required']) {-->
+    <!--                                                <div>-->
+    <!--                                                    Pincode is required-->
+    <!--                                                </div>-->
+    <!--                                            }-->
+    <!--                                            @if (adf['correpondence_pincode'].errors?.['minlength']) {-->
+    <!--                                                <div>-->
+    <!--                                                    Pincode can contain only 6 characters-->
+    <!--                                                </div>-->
+    <!--                                            }-->
+    <!--                                        </div>-->
+    <!--                                    }-->
+    <!--                                </c-col>-->
+    <!--                            </c-row>-->
+    
+    <!--                            <div class="my-2"></div>-->
+    
+    <!--                            <c-row>-->
+    <!--                                <c-col [md]="3">-->
+    <!--                                    <label size="sm" cLabel for="same_as_permenant"-->
+    <!--                                    >Same as Permanent Address?</label-->
+    <!--                                    >-->
+    <!--                                    <select cSelect cSelect-->
+    <!--                                            id="same_as_permenant"-->
+    <!--                                            formControlName="same_as_permenant"-->
+    <!--                                            class="form-control"-->
+    <!--                                            (change)="updateAddress($event.target.value)"-->
+    <!--                                    >-->
+    <!--                                        <option value="Yes">Yes</option>-->
+    <!--                                        <option value="No">No</option>-->
+    <!--                                    </select>-->
+    <!--                                </c-col>-->
+    <!--                            </c-row>-->
+    
+    <!--                            <div class="my-2"></div>-->
+    
+    <!--                            <h4>Permanent Address</h4>-->
+    <!--                            <c-row>-->
+    <!--                                <c-col [md]="6">-->
+    <!--                                    <label size="sm" cLabel for="permanent_flatno" class="required"-->
+    <!--                                    >Flat No / Building Name / House No / Block No</label-->
+    <!--                                    >-->
+    <!--                                    <input cFormControl-->
+    <!--                                            id="permanent_flatno"-->
+    <!--                                            type="text"-->
+    <!--                                            [ngClass]="{-->
+    <!--                                              'is-invalid':-->
+    <!--                                                (submitted || adf['permanent_flatno'].touched) &&-->
+    <!--                                                adf['permanent_flatno'].errors,-->
+    <!--                                              'is-valid':-->
+    <!--                                              adf['permanent_flatno'].touched &&-->
+    <!--                                                !adf['permanent_flatno'].errors-->
+    <!--                                            }"-->
+    <!--                                            formControlName="permanent_flatno"-->
+    <!--                                            class="form-control capitalize"-->
+    <!--                                            placeholder="Flat No / Building Name / House No / Block No"-->
+    <!--                                    />-->
+    <!--                                    @if (submitted && adf['permanent_flatno'].errors) {-->
+    <!--                                        <div-->
+    <!--                                                class="invalid-feedback"-->
+    <!--                                        >-->
+    <!--                                            @if (adf['permanent_flatno'].errors?.['required']) {-->
+    <!--                                                <div>-->
+    <!--                                                    Flat Number is required-->
+    <!--                                                </div>-->
+    <!--                                            }-->
+    <!--                                            &lt;!&ndash; <div *ngIf="f4.perFlatNo.errors.pattern">Only Alphabets, Numbers and Spaces allowed</div> &ndash;&gt;-->
+    <!--                                            @if (adf['permanent_flatno'].errors?.['maxlength']) {-->
+    <!--                                                <div>-->
+    <!--                                                    Maximum Length 60 in allowed-->
+    <!--                                                </div>-->
+    <!--                                            }-->
+    <!--                                        </div>-->
+    <!--                                    }-->
+    <!--                                </c-col>-->
+    <!--                                <c-col [md]="6">-->
+    <!--                                    <label size="sm" cLabel for="permanent_colonyname" class="required"-->
+    <!--                                    >Street Name / Area Name / Colony Name / Ward Name</label-->
+    <!--                                    >-->
+    <!--                                    <input cFormControl-->
+    <!--                                            id="permanent_colonyname"-->
+    <!--                                            type="text"-->
+    <!--                                            [ngClass]="{-->
+    <!--                                              'is-invalid':-->
+    <!--                                                (submitted || adf['permanent_colonyname'].touched) &&-->
+    <!--                                                adf['permanent_colonyname'].errors,-->
+    <!--                                              'is-valid':-->
+    <!--                                              adf['permanent_colonyname'].touched &&-->
+    <!--                                                !adf['permanent_colonyname'].errors-->
+    <!--                                            }"-->
+    <!--                                            formControlName="permanent_colonyname"-->
+    <!--                                            class="form-control capitalize"-->
+    <!--                                            placeholder="Street Name / Area Name / Colony Name / Ward Name"-->
+    <!--                                    />-->
+    <!--                                    @if (submitted && adf['permanent_colonyname'].errors) {-->
+    <!--                                        <div-->
+    <!--                                                class="invalid-feedback"-->
+    <!--                                        >-->
+    <!--                                            @if (adf['permanent_colonyname'].errors?.['required']) {-->
+    <!--                                                <div>-->
+    <!--                                                    Area Name is required-->
+    <!--                                                </div>-->
+    <!--                                            }-->
+    <!--                                            &lt;!&ndash; <div *ngIf="f4.perArea.errors.pattern">Only Alphabets, Numbers and-->
+    <!--                                          Spaces allowed</div> &ndash;&gt;-->
+    <!--                                            @if (adf['permanent_colonyname'].errors?.['maxlength']) {-->
+    <!--                                                <div>-->
+    <!--                                                    Maximum Length 60 in allowed-->
+    <!--                                                </div>-->
+    <!--                                            }-->
+    <!--                                        </div>-->
+    <!--                                    }-->
+    <!--                                </c-col>-->
+    <!--                            </c-row>-->
+    
+    <!--                            <div class="my-2"></div>-->
+    
+    <!--                            <c-row>-->
+    <!--                                <c-col [md]="4">-->
+    <!--                                    <label size="sm" cLabel for="permanent_villagename">Additional Address</label>-->
+    <!--                                    <input cFormControl-->
+    <!--                                            id="permanent_villagename"-->
+    <!--                                            type="text"-->
+    <!--                                            [ngClass]="{-->
+    <!--                                              'is-invalid':-->
+    <!--                                                (submitted || adf['permanent_villagename'].touched) &&-->
+    <!--                                                adf['permanent_villagename'].errors,-->
+    <!--                                              'is-valid':-->
+    <!--                                              adf['permanent_villagename'].touched &&-->
+    <!--                                                !adf['permanent_villagename'].errors-->
+    <!--                                            }"-->
+    <!--                                            formControlName="permanent_villagename"-->
+    <!--                                            class="form-control capitalize"-->
+    <!--                                            placeholder="Additional Address"-->
+    <!--                                    />-->
+    <!--                                    @if (submitted && adf['permanent_villagename'].errors) {-->
+    <!--                                        <div-->
+    <!--                                                class="invalid-feedback"-->
+    <!--                                        >-->
+    <!--                                            &lt;!&ndash; <div *ngIf="f4.perVillageName.errors.pattern">Only Alphabets, Numbers-->
+    <!--                                          and Spaces</div> &ndash;&gt;-->
+    <!--                                            @if (adf['permanent_villagename'].errors?.['maxlength']) {-->
+    <!--                                                <div>-->
+    <!--                                                    Maximum Length 60 in allowed-->
+    <!--                                                </div>-->
+    <!--                                            }-->
+    <!--                                        </div>-->
+    <!--                                    }-->
+    <!--                                </c-col>-->
+    <!--                                <c-col [md]="4">-->
+    <!--                                    <label size="sm" cLabel for="permanent_landmark">LandMark</label>-->
+    <!--                                    <input cFormControl-->
+    <!--                                            id="permanent_landmark"-->
+    <!--                                            type="text"-->
+    <!--                                            [ngClass]="{-->
+    <!--                                      'is-invalid':-->
+    <!--                                        (submitted || adf['permanent_landmark'].touched) &&-->
+    <!--                                        adf['permanent_landmark'].errors,-->
+    <!--                                      'is-valid':-->
+    <!--                                      adf['permanent_landmark'].touched &&-->
+    <!--                                        !adf['permanent_landmark'].errors-->
+    <!--                                    }"-->
+    <!--                                            formControlName="permanent_landmark"-->
+    <!--                                            class="form-control capitalize"-->
+    <!--                                            placeholder="LandMark"-->
+    <!--                                    />-->
+    <!--                                    @if (submitted && adf['permanent_landmark'].errors) {-->
+    <!--                                        <div-->
+    <!--                                                class="invalid-feedback"-->
+    <!--                                        >-->
+    <!--                                            &lt;!&ndash; <div *ngIf="f4.perLandmark.errors.pattern">Only Alphabets, Numbers and-->
+    <!--                                          Spaces</div> &ndash;&gt;-->
+    <!--                                            @if (adf['permanent_landmark'].errors?.['maxlength']) {-->
+    <!--                                                <div>-->
+    <!--                                                    Maximum Length 60 in allowed-->
+    <!--                                                </div>-->
+    <!--                                            }-->
+    <!--                                        </div>-->
+    <!--                                    }-->
+    <!--                                </c-col>-->
+    <!--                                <c-col [md]="4">-->
+    <!--                                    <label size="sm" cLabel for="permanent_location_area" class="required"-->
+    <!--                                    >Location Area</label-->
+    <!--                                    >-->
+    <!--                                    <select cSelect-->
+    <!--                                            id="permanent_location_area"-->
+    <!--                                            [ngClass]="{-->
+    <!--                                              'is-invalid':-->
+    <!--                                                (submitted || adf['permanent_location_area'].touched) &&-->
+    <!--                                                adf['permanent_location_area'].errors,-->
+    <!--                                              'is-valid':-->
+    <!--                                              adf['permanent_location_area'].touched &&-->
+    <!--                                                !adf['permanent_location_area'].errors-->
+    <!--                                            }"-->
+    <!--                                            formControlName="permanent_location_area"-->
+    <!--                                            class="form-control"-->
+    <!--                                    >-->
+    <!--                                        <option value="" disabled selected>-->
+    <!--                                            -&#45;&#45; Please Select -&#45;&#45;-->
+    <!--                                        </option>-->
+    <!--                                        @for (location_area of location_area; track location_area) {-->
+    <!--                                            <option-->
+    <!--                                                    [value]="location_area"-->
+    <!--                                            >-->
+    <!--                                                {{ location_area }}-->
+    <!--                                            </option>-->
+    <!--                                        }-->
+    <!--                                    </select>-->
+    <!--                                    @if (submitted && adf['permanent_location_area'].errors) {-->
+    <!--                                        <div-->
+    <!--                                                class="invalid-feedback"-->
+    <!--                                        >-->
+    <!--                                            @if (adf['permanent_location_area'].errors?.['required']) {-->
+    <!--                                                <div>-->
+    <!--                                                    Location Area is required-->
+    <!--                                                </div>-->
+    <!--                                            }-->
+    <!--                                        </div>-->
+    <!--                                    }-->
+    <!--                                </c-col>-->
+    <!--                            </c-row>-->
+    <!--                            <c-row>-->
+    <!--                                <c-col [md]="4">-->
+    <!--                                    <label size="sm" cLabel for="permanent_country" class="required"-->
+    <!--                                    >Country</label-->
+    <!--                                    >-->
+    <!--                                    <select cSelect-->
+    <!--                                            id="permanent_country"-->
+    <!--                                            [ngClass]="{-->
+    <!--                                      'is-invalid':-->
+    <!--                                        (submitted || adf['permanent_country'].touched) &&-->
+    <!--                                        adf['permanent_country'].errors,-->
+    <!--                                      'is-valid':-->
+    <!--                                      adf['permanent_country'].touched &&-->
+    <!--                                        !adf['permanent_country'].errors-->
+    <!--                                    }"-->
+    <!--                                            formControlName="permanent_country"-->
+    <!--                                            class="form-control"-->
+    <!--                                    >-->
+    <!--                                        <option value="" disabled selected>-->
+    <!--                                            -&#45;&#45; Please Select -&#45;&#45;-->
+    <!--                                        </option>-->
+    <!--                                        @for (country of country; track country) {-->
+    <!--                                            <option [value]="country">-->
+    <!--                                                {{ country }}-->
+    <!--                                            </option>-->
+    <!--                                        }-->
+    <!--                                    </select>-->
+    <!--                                    @if (submitted && adf['permanent_country'].errors) {-->
+    <!--                                        <div-->
+    <!--                                                class="invalid-feedback"-->
+    <!--                                        >-->
+    <!--                                            @if (adf['permanent_country'].errors?.['required']) {-->
+    <!--                                                <div>-->
+    <!--                                                    Country is required-->
+    <!--                                                </div>-->
+    <!--                                            }-->
+    <!--                                        </div>-->
+    <!--                                    }-->
+    <!--                                </c-col>-->
+    <!--                                <c-col [md]="4">-->
+    <!--                                    <label size="sm" cLabel for="permanent_state" class="required">State</label>-->
+    <!--                                    <select cSelect-->
+    <!--                                            id="permanent_state"-->
+    <!--                                            formControlName="permanent_state"-->
+    <!--                                            [ngClass]="{-->
+    <!--                                              'is-invalid':-->
+    <!--                                                (submitted || adf['permanent_state'].touched) &&-->
+    <!--                                                adf['permanent_state'].errors,-->
+    <!--                                              'is-valid':-->
+    <!--                                              adf['permanent_state'].touched &&-->
+    <!--                                                !adf['permanent_state'].errors-->
+    <!--                                            }"-->
+    <!--                                            class="form-control"-->
+    <!--                                    >-->
+    <!--                                        <option value="" disabled selected>-->
+    <!--                                            -&#45;&#45; Please Select -&#45;&#45;-->
+    <!--                                        </option>-->
+    <!--                                        @for (state of state; track state) {-->
+    <!--                                            <option [value]="state">-->
+    <!--                                                {{ state }}-->
+    <!--                                            </option>-->
+    <!--                                        }-->
+    <!--                                    </select>-->
+    <!--                                    @if (submitted && adf['permanent_state'].errors) {-->
+    <!--                                        <div-->
+    <!--                                                class="invalid-feedback"-->
+    <!--                                        >-->
+    <!--                                            @if (adf['permanent_state'].errors?.['required']) {-->
+    <!--                                                <div>-->
+    <!--                                                    State is required-->
+    <!--                                                </div>-->
+    <!--                                            }-->
+    <!--                                        </div>-->
+    <!--                                    }-->
+    <!--                                </c-col>-->
+    <!--                                <c-col [md]="4">-->
+    <!--                                    <label size="sm" cLabel for="permanent_district" class="required"-->
+    <!--                                    >District</label-->
+    <!--                                    >-->
+    <!--                                    <input cFormControl-->
+    <!--                                            id="permanent_district"-->
+    <!--                                            type="text"-->
+    <!--                                            [ngClass]="{-->
+    <!--                                              'is-invalid':-->
+    <!--                                                (submitted || adf['permanent_district'].touched) &&-->
+    <!--                                                adf['permanent_district'].errors,-->
+    <!--                                              'is-valid':-->
+    <!--                                                adf['permanent_district'].touched &&-->
+    <!--                                                !adf['permanent_district'].errors-->
+    <!--                                            }"-->
+    <!--                                            formControlName="permanent_district"-->
+    <!--                                            class="form-control capitalize"-->
+    <!--                                            placeholder="District"-->
+    <!--                                    />-->
+    <!--                                    @if (submitted && adf['permanent_district'].errors) {-->
+    <!--                                        <div-->
+    <!--                                                class="invalid-feedback"-->
+    <!--                                        >-->
+    <!--                                            @if (adf['permanent_district'].errors?.['required']) {-->
+    <!--                                                <div>-->
+    <!--                                                    District is required-->
+    <!--                                                </div>-->
+    <!--                                            }-->
+    <!--                                        </div>-->
+    <!--                                    }-->
+    <!--                                </c-col>-->
+    <!--                            </c-row>-->
+    <!--                            <c-row>-->
+    
+    <!--                                <c-col [md]="4">-->
+    <!--                                    <label size="sm" cLabel for="permanent_city" class="required">City</label>-->
+    <!--                                    <input cFormControl-->
+    <!--                                            id="permanent_city"-->
+    <!--                                            type="text"-->
+    <!--                                            [ngClass]="{-->
+    <!--                                          'is-invalid':-->
+    <!--                                            (submitted || adf['permanent_city'].touched) &&-->
+    <!--                                            adf['permanent_city'].errors,-->
+    <!--                                          'is-valid':-->
+    <!--                                          adf['permanent_city'].touched && !adf['permanent_city'].errors-->
+    <!--                                        }"-->
+    <!--                                            formControlName="permanent_city"-->
+    <!--                                            class="form-control capitalize"-->
+    <!--                                            placeholder="City"-->
+    <!--                                    />-->
+    <!--                                    @if (submitted && adf['permanent_city'].errors) {-->
+    <!--                                        <div-->
+    <!--                                                class="invalid-feedback"-->
+    <!--                                        >-->
+    <!--                                            @if (adf['permanent_city'].errors?.['required']) {-->
+    <!--                                                <div>-->
+    <!--                                                    City is required-->
+    <!--                                                </div>-->
+    <!--                                            }-->
+    <!--                                            &lt;!&ndash; <div *ngIf="f4.perCity.errors.pattern">Only Alphabets, Numbers and-->
+    <!--                                          Spaces</div> &ndash;&gt;-->
+    <!--                                            @if (adf['permanent_city'].errors?.['maxlength']) {-->
+    <!--                                                <div>-->
+    <!--                                                    Maximum Length 60 in allowed-->
+    <!--                                                </div>-->
+    <!--                                            }-->
+    <!--                                        </div>-->
+    <!--                                    }-->
+    <!--                                </c-col>-->
+    <!--                                <c-col [md]="4">-->
+    <!--                                    <label size="sm" cLabel for="permanent_pincode" class="required"-->
+    <!--                                    >Pincode</label-->
+    <!--                                    >-->
+    <!--                                    <input cFormContro-->
+    <!--                                            id="permanent_pincode"-->
+    <!--                                            type="number"-->
+    <!--                                            [ngClass]="{-->
+    <!--                                              'is-invalid':-->
+    <!--                                                (submitted ||adf['permanent_pincode'].touched) &&-->
+    <!--                                                adf['permanent_pincode'].errors,-->
+    <!--                                              'is-valid':-->
+    <!--                                              adf['permanent_pincode'].touched &&-->
+    <!--                                                !adf['permanent_pincode'].errors-->
+    <!--                                            }"-->
+    <!--                                            formControlName="permanent_pincode"-->
+    <!--                                            class="form-control capitalize"-->
+    <!--                                            placeholder="Pincode"-->
+    <!--                                    />-->
+    <!--                                    @if (submitted && adf['permanent_pincode'].errors) {-->
+    <!--                                        <div-->
+    <!--                                                class="invalid-feedback"-->
+    <!--                                        >-->
+    <!--                                            @if (adf['permanent_pincode'].errors?.['required']) {-->
+    <!--                                                <div>-->
+    <!--                                                    Pincode is required-->
+    <!--                                                </div>-->
+    <!--                                            }-->
+    <!--                                            @if (adf['permanent_pincode'].errors?.['minlength']) {-->
+    <!--                                                <div>-->
+    <!--                                                    Pincode can contain only 6 characters-->
+    <!--                                                </div>-->
+    <!--                                            }-->
+    <!--                                        </div>-->
+    <!--                                    }-->
+    <!--                                </c-col>-->
+    
+    <!--                                <c-row class="d-grid gap-2 d-md-flex justify-content-md-center">-->
+    <!--                                    <c-col [md]="2" style="padding-top: 22px">-->
+    <!--                                        <button size="sm" cButton-->
+    <!--                                                type="submit"-->
+    <!--                                                class="btn btn-success"-->
+    <!--                                                (click)="IU_Address()"-->
+    <!--                                        >-->
+    <!--                                            Save-->
+    <!--                                            @if (addressloader) {-->
+    <!--                                                <c-spinner aria-hidden="false" size="sm"></c-spinner>-->
+    <!--                                            }-->
+    
+    <!--                                        </button>-->
+    <!--                                    </c-col>-->
+    <!--                                </c-row>-->
+    <!--                            </c-row>-->
+    <!--                        </div>-->
+    <!--                    </form>-->
+    <!--                </c-tab-pane>-->
+    <!--                -->
+    <!--                -->
+    <!--            </c-tab-content>-->
+</c-col>

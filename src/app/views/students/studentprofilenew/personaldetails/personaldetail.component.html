@@ -1,0 +1,1589 @@
+<c-accordion>
+    <c-accordion-item
+        #item0="cAccordionItem"
+        [visible]="openoneacc"
+    >
+        <ng-template cTemplateId="accordionHeaderTemplate">
+            <button size="sm"
+                    (click)="item0.toggleItem()"
+                    [collapsed]="!item0.visible"
+                    cAccordionButton
+            >
+                Upload Personal Photo & Signature:
+                @if (!this.ires_parents?.photosubmited) {
+                    <c-badge
+                            color="danger">
+                        Pending
+                    </c-badge>
+                }
+                @if (this.ires_parents?.photosubmited) {
+                    <c-badge
+                            color="success">
+                        Completed
+                    </c-badge>
+                }
+            </button>
+        </ng-template>
+        <ng-template cTemplateId="accordionBodyTemplate">
+            <div class="accordion-body">
+                <form
+                        [formGroup]="Profilepictform"
+                        (keydown.enter)="$event.preventDefault()"
+                >
+                    <c-callout color="primary">
+                        <c-row>
+                            <c-col [md]="3">
+                                <h3><label size="sm" cLabel>Upload Personal Photo:</label></h3>
+                                <input sizing="sm" cFormControl size="sm"
+                                        type="file"
+                                        (change)="showPreview($event)"
+                                        formControlName="upload"
+                                        class="fileInputProfile"
+                                />
+                                @if (picture_fld?.invalid &&
+                                picture_fld?.touched) {
+                                    <span
+                                            class="text-danger"
+                                    >image is required</span
+                                    >
+                                }
+                            </c-col>
+                        </c-row>
+
+                        <div class="my-3"></div>
+
+                        <c-row>
+                            <c-col [sm]="6">
+                                <c-card class="mb-6 w-75 h-100">
+                                    <c-card-body>
+                                        <h5 cCardTitle>
+                                            Crop image for perfect face.
+                                        </h5>
+                                        <p cCardText>
+                                            <image-cropper
+                                                    [imageChangedEvent]="
+                                            imageChangedEvent
+                                          "
+                                                    [maintainAspectRatio]="false"
+                                                    [containWithinAspectRatio]="
+                                            containWithinAspectRatio
+                                          "
+                                                    [aspectRatio]="4 / 3"
+                                                    [resizeToWidth]="256"
+                                                    [cropperMinHeight]="150"
+                                                    [cropperMinWidth]="130"
+                                                    [onlyScaleDown]="true"
+                                                    [roundCropper]="false"
+                                                    [canvasRotation]="canvasRotation"
+                                                    [transform]="transform"
+                                                    [alignImage]="'left'"
+                                                    format="png"
+                                                    (imageCropped)="imageCropped($event)"
+                                                    (imageLoaded)="imageLoaded($event)"
+                                                    (cropperReady)="cropperReady()"
+                                                    (loadImageFailed)="loadImageFailed()"
+                                            ></image-cropper>
+                                        </p>
+                                    </c-card-body>
+                                </c-card>
+                            </c-col>
+                            <c-col [sm]="6">
+                                <c-card class="mb-6 w-75 h-100">
+                                    <c-card-body>
+                                        <h5 cCardTitle>Preview Image</h5>
+                                        <p cCardText>
+                                            <img
+                                                    [src]="croppedImage || ProfilephotoImage"
+                                                    [style.border]="
+                                            croppedImage
+                                              ? '1px solid black'
+                                              : 'none'
+                                          "
+                                                    with="300"
+                                                    height="300"
+                                                    class="center"
+                                            />
+                                        </p>
+                                    </c-card-body>
+                                </c-card>
+                            </c-col>
+                        </c-row>
+                    </c-callout>
+                    <c-callout color="success">
+                        <c-row>
+                            <c-col [md]="3">
+                                <h3><label size="sm" cLabel>Upload signature:</label></h3>
+                                <input sizing="sm"   cFormControl
+                                        type="file"
+                                        (change)="showPreview_sign($event)"
+                                        formControlName="upload_signature"
+                                        class="fileInputProfile"
+                                />
+                            </c-col>
+                        </c-row>
+
+                        <div class="my-3"></div>
+
+                        <c-row>
+                            <c-col [sm]="6">
+                                <c-card class="mb-6 w-75 h-100">
+                                    <c-card-body>
+                                        <h5 cCardTitle>
+                                            Crop image for signature.
+                                        </h5>
+                                        <p cCardText>
+                                            <image-cropper
+                                                    [imageChangedEvent]="
+                                            imageChanged_signEvent
+                                          "
+                                                    [maintainAspectRatio]="false"
+                                                    [containWithinAspectRatio]="
+                                            containWithinAspectRatio
+                                          "
+                                                    [aspectRatio]="4 / 3"
+                                                    [resizeToWidth]="256"
+                                                    [cropperMinHeight]="150"
+                                                    [cropperMinWidth]="130"
+                                                    [onlyScaleDown]="true"
+                                                    [roundCropper]="false"
+                                                    [canvasRotation]="signcanvasRotation"
+                                                    [transform]="signtransform"
+                                                    [alignImage]="'left'"
+                                                    format="png"
+                                                    (imageCropped)="
+                                            image_signCropped($event)
+                                          "
+                                                    (imageLoaded)="
+                                            imagesignLoaded($event)
+                                          "
+                                                    (cropperReady)="cropperSignReady()"
+                                                    (loadImageFailed)="
+                                            loadSignImageFailed()
+                                          "
+                                            ></image-cropper>
+                                        </p>
+                                    </c-card-body>
+                                </c-card>
+                            </c-col>
+                            <c-col [sm]="6">
+                                <c-card class="mb-6 w-75 h-100">
+                                    <c-card-body>
+                                        <h5 cCardTitle>Preview Image</h5>
+                                        <p cCardText>
+                                            <img
+                                                    [src]="croppedsignImage || SignatureImage "
+                                                    [style.border]="
+                                            croppedsignImage
+                                              ? '1px solid black'
+                                              : 'none'
+                                          "
+                                                    with="300"
+                                                    height="300"
+                                                    class="center"
+                                            />
+                                        </p>
+                                    </c-card-body>
+                                </c-card>
+                            </c-col>
+                        </c-row>
+                    </c-callout>
+                </form>
+                <c-row
+                        class="d-grid gap-2 d-md-flex justify-content-md-center"
+                >
+                    <c-col [sm]="3" class="d-flex justify-content-center align-content-center">
+                        <button size="sm"
+                                (click)="UploadImage()"
+                                [disabled]="Profilepictform.invalid"
+                                 class="btn btn-sm btn-success text-white"
+                        >
+                            Submit
+                            @if (uploadphotoloader) {
+                                <c-spinner aria-hidden="false"
+                                           size="sm"></c-spinner>
+                            }
+                        </button>
+                    </c-col>
+                </c-row>
+            </div>
+        </ng-template>
+    </c-accordion-item>
+    <c-accordion-item
+        #item1="cAccordionItem"
+        [visible]="opentwoacc">
+        <ng-template cTemplateId="accordionHeaderTemplate">
+            <button size="sm"
+                    (click)="item1.toggleItem()"
+                    [collapsed]="!item1.visible"
+                    cAccordionButton
+            >
+                Parent Details
+                @if (!this.ires_parents?.parentsubmited) {
+                    <c-badge
+                            color="danger">
+                        Pending
+                    </c-badge>
+                }
+                @if (this.ires_parents?.parentsubmited) {
+                    <c-badge
+                            color="success">
+                        Completed
+                    </c-badge>
+                }
+            </button>
+        </ng-template>
+        <ng-template cTemplateId="accordionBodyTemplate">
+            <form
+                    cForm
+                    [formGroup]="parentDetailsForm"
+            >
+                <div class="accordion-body">
+                    <div>
+                        <h5>Parents Details</h5>
+                        <hr/>
+                    </div>
+                    <c-row>
+                        <c-col [md]="4">
+                            <label size="sm" cLabel for="parentsemailid"  class="required"
+                            >Parents/Guardians Email ID</label
+                            >
+                            <input sizing="sm"   cFormControl
+                                    id="parentsemailid"
+                                    type="text"
+                                    formControlName="parentsemailid"
+                                    name="parentsemailid"
+                                    maxlength="50"
+                                    class="form-control"
+                                    placeholder="Parents/Guardians Email ID"
+                            />
+                        </c-col>
+                        <c-col [md]="4">
+                            <label size="sm" cLabel for="parentsmobile" class="required"
+                            >Parents/Guardians Mobile Number</label
+                            >
+                            <input sizing="sm"  cFormControl size="sm"
+                                   id="parentsmobile"
+                                   type="text"
+                                   formControlName="parentsmobile"
+                                   class="form-control"
+                                   placeholder="Parents/Guardians Mobile Number"
+                                   minlength="9"
+                                   maxlength="10"
+                            />
+                            @if (parentDetailsForm.get('parentsmobile')?.hasError('invalidMobile')) {
+                                <div>
+                                    <h6 style="color: red">Please enter a valid 10-digit
+                                        mobile number.</h6>
+                                </div>
+                            }
+                        </c-col>
+                        <c-col [md]="4">
+                            <label size="sm" cLabel for="relationtype" class="required"
+                            >Relation Type</label
+                            >
+                            <select cSelect sizing="sm"
+                                    id="relationtype"
+                                    formControlName="relationtype"
+                                    class="form-control"
+                            >
+                                <option value="" disabled selected>
+                                    --- Please Select ---
+                                </option>
+                                @for (relation of relation; track relation) {
+                                    <option
+                                            [value]="relation"
+                                    >
+                                        {{ relation }}
+                                    </option>
+                                }
+                            </select>
+                            @if (submitted && pdf['relationtype'].errors) {
+                                <div
+                                        class="invalid-feedback"
+                                >
+                                    @if (this.pdf['relationtype']?.errors?.['required']) {
+                                        <div>
+                                            Relation Type is required
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </c-col>
+                    </c-row>
+
+                    <div class="my-3"></div>
+
+                    <c-row>
+                        <c-col [md]="4">
+                            <label size="sm" cLabel
+                                    class="required"
+                                    for="occupation_guardian"
+                            >Occupation</label
+                            >
+                            <select cSelect sizing="sm"
+                                    id="occupation_guardian"
+                                    formControlName="occupation_guardian"
+                                    class="form-control"
+                            >
+                                <option value="" disabled selected>
+                                    --- Please Select ---
+                                </option>
+                                @for (occupation of occupation; track occupation) {
+                                    <option
+                                            [value]="occupation"
+                                    >
+                                        {{ occupation }}
+                                    </option>
+                                }
+                            </select>
+                            @if (submitted &&
+                            pdf['occupation_guardian'].errors) {
+                                <div
+                                        class="invalid-feedback"
+                                >
+                                    @if (this.pdf['occupation_guardian'].errors['required']) {
+                                        <div
+                                        >
+                                            Occupation is required
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </c-col>
+                        <c-col [md]="3">
+                            <label size="sm" cLabel for="annual_income"  class="required"
+                            >Annual Income of Guardian</label
+                            >
+                            <select cSelect sizing="sm"
+                                    id="annual_income"
+                                    formControlName="annual_income"
+                                    class="form-control"
+                            >
+                                <option value="" disabled selected>
+                                    --- Please Select ---
+                                </option>
+                                @for (annual_income of annual_income; track annual_income) {
+                                    <option
+                                            [value]="annual_income"
+                                    >
+                                        {{ annual_income }}
+                                    </option>
+                                }
+                            </select>
+                        </c-col>
+                        <c-col [md]="3">
+                            <label size="sm" cLabel for="ebc"
+                            >Economic Backward Class(EBC)</label
+                            >
+                            <select cSelect sizing="sm"
+                                    id="ebc"
+                                    formControlName="ebc"
+                                    class="form-control"
+                            >
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </c-col>
+                    </c-row>
+
+                    <div class="my-3"></div>
+
+                    <c-row style="justify-content: center">
+                        <c-col [md]="3" style="padding-top: 22px"  class="d-flex justify-content-center align-content-center">
+                            <button size="sm"
+                                    type="submit"
+                                    [disabled]="parentDetailsForm.invalid  || this.oSession.isprofilesubmited == 'true'"
+                                     class="btn btn-sm btn-success text-white"
+                                    (click)="IU_Parents()"
+                            >
+                                Save
+                                @if (saveparentsloader) {
+                                    <c-spinner aria-hidden="false"
+                                               size="sm"></c-spinner>
+                                }
+                            </button>
+                        </c-col>
+                    </c-row>
+                </div>
+            </form>
+        </ng-template>
+    </c-accordion-item>
+    <c-accordion-item #item2="cAccordionItem" [visible]="false">
+        <ng-template cTemplateId="accordionHeaderTemplate">
+            <button size="sm"
+                    (click)="item2.toggleItem()"
+                    [collapsed]="!item2.visible"
+                    cAccordionButton
+            >
+                Address Details
+                @if (!this.ires_parents?.addresssubmited) {
+                    <c-badge
+                            color="danger">
+                        Pending
+                    </c-badge>
+                }
+                @if (this.ires_parents?.addresssubmited) {
+                    <c-badge
+                            color="success">
+                        Completed
+                    </c-badge>
+                }
+            </button>
+        </ng-template>
+        <ng-template cTemplateId="accordionBodyTemplate">
+            <form cForm [formGroup]="addressDetailsForm">
+                <div class="accordion-body">
+                    <c-row>
+                        <c-col [md]="6">
+                            <label size="sm"  cLabel
+                                    for="correpondence_flatno"
+                                    class="required"
+                            >Flat No / Building Name / House No / Block
+                                No</label
+                            >
+                            <input sizing="sm"   cFormControl
+                                    id="correpondence_flatno"
+                                    type="text"
+                                    formControlName="correpondence_flatno"
+                                    class="form-control capitalize"
+                                    maxlength="150"
+                                    placeholder="Flat No / Building Name / House No / Block No"
+                            />
+                            @if (submitted &&
+                            adf['correpondence_flatno'].errors) {
+                                <div
+                                        class="invalid-feedback"
+                                >
+                                    @if (this.adf['correpondence_flatno'].errors['required']) {
+                                        <div
+                                        >
+                                            Flat Number is required
+                                        </div>
+                                    }
+                                    @if (this.adf['correpondence_flatno'].errors['maxlength']) {
+                                        <div
+                                        >
+                                            Maximum Length 150 in allowed
+                                        </div>
+                                    }
+                                    <!-- <div *ngIf="f4.corFlatNo.errors.pattern">Only Alphabets, Numbers and Spaces allowed</div>
+                                    <div *ngIf="f4.corFlatNo.errors.maxlength">Maximum Length 60 in allowed</div> -->
+                                </div>
+                            }
+                        </c-col>
+                        <c-col [md]="6">
+                            <label size="sm" cLabel
+                                    for="correpondence_colonyname"
+                                    class="required"
+                            >Street Name / Area Name / Colony Name / Ward
+                                Name</label
+                            >
+                            <input sizing="sm"    cFormControl
+                                    id="correpondence_colonyname"
+                                    type="text"
+                                    formControlName="correpondence_colonyname"
+                                    class="form-control capitalize"
+                                    maxlength="150"
+                                    placeholder="Street Name / Area Name / Colony Name / Ward Name"
+                            />
+                            @if (submitted &&
+                            adf['correpondence_colonyname'].errors) {
+                                <div
+                                        class="invalid-feedback"
+                                >
+                                    @if (this.adf['correpondence_colonyname'].errors['required']) {
+                                        <div
+                                        >
+                                            Area Name is required
+                                        </div>
+                                    }
+                                    <!-- <div *ngIf="f4.corArea.errors.pattern">Only Alphabets, Numbers and Spaces
+                                  allowed</div> -->
+                                    @if (this.adf['correpondence_colonyname'].errors['maxlength']) {
+                                        <div
+                                        >
+                                            Maximum Length 150 in allowed
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </c-col>
+                    </c-row>
+
+                    <div class="my-3"></div>
+
+                    <c-row>
+                        <c-col [md]="4">
+                            <label size="sm" cLabel for="correpondence_villagename"  class="required"
+                            >Additional Address</label
+                            >
+                            <input sizing="sm"    cFormControl
+                                    id="correpondence_villagename"
+                                    type="text"
+                                    formControlName="correpondence_villagename"
+                                    class="form-control capitalize"
+                                    placeholder="Additional Address"
+                                    maxlength="150"
+                                    appUppercase
+                            />
+                            <!-- <div *ngIf="f4.corVillageName.errors.pattern">Only Alphabets, Numbers and
+                          Spaces allowed</div> -->
+                        </c-col>
+                        <c-col [md]="4">
+                            <label size="sm" cLabel for="correpondence_landmark"  class="required"
+                            >LandMark</label
+                            >
+                            <input sizing="sm"   cFormControl
+                                    id="correpondence_landmark"
+                                    type="text"
+                                    formControlName="correpondence_landmark"
+                                    class="form-control capitalize"
+                                    maxlength="150"
+                                    placeholder="LandMark"
+                            />
+                            @if (submitted &&
+                            adf['correpondence_landmark'].errors) {
+                                <div
+                                        class="invalid-feedback"
+                                >
+                                    <!-- <div *ngIf="f4.corLandmark.errors.pattern">Only Alphabets, Numbers and
+                                  Spaces</div> -->
+                                    @if (this.adf['correpondence_landmark'].errors['required']) {
+                                        <div
+                                        >
+                                            Maximum Length 60 in allowed
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </c-col>
+                        <c-col [md]="4">
+                            <label size="sm" cLabel
+                                    for="correpondence_location_area"
+                                    class="required"
+                            >Location Area</label
+                            >
+                            <select cSelect sizing="sm"
+                                    id="correpondence_location_area"
+                                    formControlName="correpondence_location_area"
+                                    class="form-control"
+                            >
+                                <option value="" disabled selected>
+                                    --- Please Select ---
+                                </option>
+                                @for (location_area of location_area; track location_area) {
+                                    <option
+                                            [value]="location_area"
+                                    >
+                                        {{ location_area }}
+                                    </option>
+                                }
+                            </select>
+                            @if (submitted &&
+                            adf['correpondence_location_area'].errors) {
+                                <div
+                                        class="invalid-feedback"
+                                >
+                                    @if (this.adf['correpondence_location_area'].errors['required']) {
+                                        <div
+                                        >
+                                            Location Area is required
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </c-col>
+                    </c-row>
+
+                    <div class="my-3"></div>
+                    
+                    <c-row>
+                        <div class="form-group col-md-4">
+                            <label size="sm" cLabel
+                                    for="correpondence_country"
+                                    class="required"
+                            >Country</label
+                            >
+                            <select cSelect sizing="sm"
+                                    id="correpondence_country"
+                                    formControlName="correpondence_country"
+                                    class="form-control"
+                            >
+                                <option value="" disabled selected>
+                                    --- Please Select ---
+                                </option>
+                                @for (country of country; track country) {
+                                    <option
+                                            [value]="country"
+                                    >
+                                        {{ country }}
+                                    </option>
+                                }
+                            </select>
+                            @if (submitted &&
+                            adf['correpondence_country'].errors) {
+                                <div
+                                        class="invalid-feedback"
+                                >
+                                    @if (this.adf['correpondence_country'].errors['required']) {
+                                        <div
+                                        >
+                                            Country is required
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label size="sm" cLabel
+                                    for="correpondence_state"
+                                    class="required"
+                            >State</label
+                            >
+                            <select cSelect sizing="sm"
+                                    id="correpondence_state"
+                                    formControlName="correpondence_state"
+                                    class="form-control"
+                            >
+                                <option value="" disabled selected>
+                                    --- Please Select ---
+                                </option>
+                                @for (state of state; track state) {
+                                    <option
+                                            [value]="state"
+                                    >
+                                        {{ state }}
+                                    </option>
+                                }
+                            </select>
+                            @if (submitted &&
+                            adf['correpondence_state'].errors) {
+                                <div
+                                        class="invalid-feedback"
+                                >
+                                    @if (this.adf['correpondence_state'].errors['required']) {
+                                        <div
+                                        >
+                                            State is required
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label size="sm"  cLabel
+                                    class="required"
+                                    for="correpondence_district"
+                            >District</label
+                            >
+                            <input sizing="sm"   cFormControl
+                                    id="correpondence_district"
+                                    type="text"
+                                    formControlName="correpondence_district"
+                                    class="form-control capitalize"
+                                    placeholder="District"
+                                    maxlength="30"
+                            />
+                            <!--                                <select cSelect sizing="sm"-->
+                            <!--                                  id="correpondence_district"-->
+                            <!--                                  [ngClass]="{-->
+                            <!--                                    'is-invalid':-->
+                            <!--                                      (submitted ||-->
+                            <!--                                        adf['correpondence_district'].touched) &&-->
+                            <!--                                      adf['correpondence_district'].errors,-->
+                            <!--                                    'is-valid':-->
+                            <!--                                      adf['correpondence_district'].touched &&-->
+                            <!--                                      !adf['correpondence_district'].errors-->
+                            <!--                                  }"-->
+                            <!--                                  formControlName="correpondence_district"-->
+                            <!--                                  class="form-control"-->
+                            <!--                                >-->
+                            <!--                                  <option value="" disabled selected>-->
+                            <!--                                    --- Please Select ----->
+                            <!--                                  </option>-->
+                            <!--                                  <option-->
+                            <!--                                    *ngFor="let district of district"-->
+                            <!--                                    [value]="district"-->
+                            <!--                                  >-->
+                            <!--                                    {{ district }}-->
+                            <!--                                  </option>-->
+                            <!--                                </select>-->
+                            @if (submitted &&
+                            adf['correpondence_district'].errors) {
+                                <div
+
+                                        class="invalid-feedback"
+                                >
+                                    @if (this.adf['correpondence_district'].errors['required']) {
+                                        <div
+                                        >
+                                            District is required
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </c-row>
+
+                    <div class="my-3"></div>
+
+                    <c-row>
+                        <c-col [md]="4">
+                            <label size="sm" cLabel for="correpondence_city" class="required"
+                            >City</label
+                            >
+                            <input sizing="sm"   cFormControl
+                                    id="correpondence_city"
+                                    type="text"
+                                    formControlName="correpondence_city"
+                                    class="form-control capitalize"
+                                    placeholder="City"
+                                    maxlength="30"
+                            />
+                            @if (submitted && adf['correpondence_city'].errors) {
+                                <div
+                                        class="invalid-feedback"
+                                >
+                                    @if (this.adf['correpondence_city'].errors) {
+                                        <div
+                                        >
+                                            City is required
+                                        </div>
+                                    }
+                                    <!-- <div *ngIf="f4.corCity.errors.pattern">Only Alphabets, Numbers and Spaces
+                                  allowed</div> -->
+                                    @if (this.adf['correpondence_city'].errors['maxlength']) {
+                                        <div
+                                        >
+                                            Maximum Length 60 in allowed
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </c-col>
+                        <c-col [md]="4">
+                            <label size="sm" cLabel
+                                    for="correpondence_pincode"
+                                    class="required"
+                            >Pincode</label
+                            >
+                            <input sizing="sm"   cFormControl
+                                    id="correpondence_pincode"
+                                    type="number"
+                                    formControlName="correpondence_pincode"
+                                    class="form-control capitalize"
+                                    placeholder="Pincode"
+                            />
+                            @if (submitted &&
+                            adf['correpondence_pincode'].errors) {
+                                <div
+                                        class="invalid-feedback"
+                                >
+                                    @if (this.adf['correpondence_pincode'].errors['required']) {
+                                        <div
+                                        >
+                                            Pincode is required
+                                        </div>
+                                    }
+                                    @if (this.adf['correpondence_pincode'].errors['minlength']) {
+                                        <div
+                                        >
+                                            Pincode can contain only 6 characters
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </c-col>
+                    </c-row>
+
+                    <div class="my-3"></div>
+
+                    <!-- <input sizing="sm"  type="checkbox" [checked]="false" (change)="updateAddress($event)"> -->
+                    <c-row>
+                        <c-col [md]="3">
+                            <label size="sm" cLabel for="same_as_permenant"
+                            >Same as Permanent Address?</label
+                            >
+                            <select cSelect sizing="sm"
+                                    id="same_as_permenant"
+                                    formControlName="same_as_permenant"
+                                    class="form-control"
+                                    (change)="updateAddress()"
+                            >
+                                <!--                                                            (change)="updateAddress($event)"-->
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </c-col
+                        >
+                    </c-row>
+
+                    <div class="my-3"></div>
+
+                    <h4>Permanent Address</h4>
+                    <c-row>
+                        <c-col [md]="6">
+                            <label size="sm" cLabel for="permanent_flatno" class="required"
+                            >Flat No / Building Name / House No / Block
+                                No</label
+                            >
+                            <input sizing="sm"   cFormControl
+                                    id="permanent_flatno"
+                                    type="text"
+                                    formControlName="permanent_flatno"
+                                    class="form-control capitalize"
+                                    placeholder="Flat No / Building Name / House No / Block No"
+                                    maxlength="150"
+                            />
+                            @if (submitted && this.adf['permanent_flatno'].errors) {
+                                <div
+                                        class="invalid-feedback"
+                                >
+                                    @if (this.adf['permanent_flatno'].errors['required']) {
+                                        <div
+                                        >
+                                            Flat Number is required
+                                        </div>
+                                    }
+                                    <!-- <div *ngIf="f4.perFlatNo.errors.pattern">Only Alphabets, Numbers and Spaces allowed</div> -->
+                                    @if (this.adf['permanent_flatno'].errors['maxlength']) {
+                                        <div
+                                        >
+                                            Maximum Length 60 in allowed
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </c-col>
+                        <c-col [md]="6">
+                            <label size="sm"  cLabel
+                                    for="permanent_colonyname"
+                                    class="required"
+                            >Street Name / Area Name / Colony Name / Ward
+                                Name</label
+                            >
+                            <input sizing="sm"   cFormControl
+                                    id="permanent_colonyname"
+                                    type="text"
+                                    formControlName="permanent_colonyname"
+                                    class="form-control capitalize"
+                                    maxlength="150"
+                                    placeholder="Street Name / Area Name / Colony Name / Ward Name"
+                            />
+                            @if (submitted && this.adf['permanent_colonyname'].errors) {
+                                <div
+                                        class="invalid-feedback"
+                                >
+                                    @if (this.adf['permanent_colonyname'].errors['required']) {
+                                        <div
+                                        >
+                                            Area Name is required
+                                        </div>
+                                    }
+                                    <!-- <div *ngIf="f4.perArea.errors.pattern">Only Alphabets, Numbers and
+                                  Spaces allowed</div> -->
+                                    @if (this.adf['permanent_colonyname'].errors['maxlength']) {
+                                        <div
+                                        >
+                                            Maximum Length 60 in allowed
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </c-col>
+                    </c-row>
+
+                    <div class="my-3"></div>
+
+                    <c-row>
+                        <div class="form-group col-md-4">
+                            <label size="sm" cLabel for="permanent_villagename"
+                            >Additional Address</label
+                            >
+                            <input sizing="sm"   cFormControl
+                                    id="permanent_villagename"
+                                    type="text"
+                                    formControlName="permanent_villagename"
+                                    class="form-control capitalize"
+                                    placeholder="Additional Address"
+                                    maxlength="150"
+                            />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label size="sm" cLabel for="permanent_landmark">LandMark</label>
+                            <input sizing="sm"   cFormControl
+                                    id="permanent_landmark"
+                                    type="text"
+                                    formControlName="permanent_landmark"
+                                    class="form-control capitalize"
+                                    placeholder="LandMark"
+                                    maxlength="150"
+                            />
+
+                            @if (submitted && this.adf['permanent_landmark'].errors) {
+                                <div
+                                        class="invalid-feedback"
+                                >
+                                    <!-- <div *ngIf="f4.perLandmark.errors.pattern">Only Alphabets, Numbers and
+                                  Spaces</div> -->
+                                    @if (this.adf['permanent_landmark'].errors['maxlength']) {
+                                        <div
+                                        >
+                                            Maximum Length 60 in allowed
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label size="sm" cLabel
+                                    for="permanent_location_area"
+                                    class="required"
+                            >Location Area</label
+                            >
+                            <select cSelect sizing="sm"
+                                    id="permanent_location_area"
+                                    formControlName="permanent_location_area"
+                                    class="form-control"
+                            >
+                                <option value="" disabled selected>
+                                    --- Please Select ---
+                                </option>
+                                @for (location_area of location_area; track location_area) {
+                                    <option
+                                            [value]="location_area"
+                                    >
+                                        {{ location_area }}
+                                    </option>
+                                }
+                            </select>
+                            @if (submitted &&
+                            this.adf['permanent_location_area'].errors) {
+                                <div
+                                        class="invalid-feedback"
+                                >
+                                    @if (this.adf['permanent_location_area'].errors['required']) {
+                                        <div
+                                        >
+                                            Location Area is required
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </c-row>
+
+                    <div class="my-3"></div>
+
+                    <c-row>
+                        <div class="form-group col-md-4">
+                            <label size="sm" cLabel for="permanent_country" class="required"
+                            >Country</label
+                            >
+                            <select cSelect sizing="sm"
+                                    id="permanent_country"
+                                    formControlName="permanent_country"
+                                    class="form-control"
+                            >
+                                <option value="" disabled selected>
+                                    --- Please Select ---
+                                </option>
+                                @for (country of country; track country) {
+                                    <option
+                                            [value]="country"
+                                    >
+                                        {{ country }}
+                                    </option>
+                                }
+                            </select>
+                            @if (submitted && this.adf['permanent_country'].errors) {
+                                <div
+                                        class="invalid-feedback"
+                                >
+                                    @if (this.adf['permanent_country'].errors['required']) {
+                                        <div
+                                        >
+                                            Country is required
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label size="sm" cLabel for="permanent_state" class="required"
+                            >State</label
+                            >
+                            <select cSelect sizing="sm"
+                                    id="permanent_state"
+                                    formControlName="permanent_state"
+                                    class="form-control"
+                            >
+                                <option value="" disabled selected>
+                                    --- Please Select ---
+                                </option>
+                                @for (state of state; track state) {
+                                    <option
+                                            [value]="state"
+                                    >
+                                        {{ state }}
+                                    </option>
+                                }
+                            </select>
+                            @if (submitted && this.adf['permanent_district'].errors) {
+                                <div
+                                        class="invalid-feedback"
+                                >
+                                    @if (this.adf['permanent_district'].errors['required']) {
+                                        <div
+                                        >
+                                            State is required
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label size="sm" cLabel for="permanent_district" class="required"
+                            >District</label
+                            ><input sizing="sm"   cFormControl
+                                id="permanent_district"
+                                type="text"
+                                formControlName="permanent_district"
+                                class="form-control capitalize"
+                                placeholder="District"
+                                maxlength="30"
+                        />
+                            <!--                                <select cSelect sizing="sm"-->
+                            <!--                                  id="permanent_district"-->
+                            <!--                                  [ngClass]="{-->
+                            <!--                                    'is-invalid':-->
+                            <!--                                      (submitted ||-->
+                            <!--                                        adf.permanent_district.touched) &&-->
+                            <!--                                      adf.permanent_district.errors,-->
+                            <!--                                    'is-valid':-->
+                            <!--                                      adf.permanent_district.touched &&-->
+                            <!--                                      !adf.permanent_district.errors-->
+                            <!--                                  }"-->
+                            <!--                                  formControlName="permanent_district"-->
+                            <!--                                  class="form-control"-->
+                            <!--                                >-->
+                            <!--                                  <option value="" disabled selected>-->
+                            <!--                                    --- Please Select ----->
+                            <!--                                  </option>-->
+                            <!--                                  <option-->
+                            <!--                                    *ngFor="let district of district"-->
+                            <!--                                    [value]="district"-->
+                            <!--                                  >-->
+                            <!--                                    {{ district }}-->
+                            <!--                                  </option>-->
+                            <!--                                </select>-->
+                            @if (submitted && this.adf['permanent_district'].errors) {
+                                <div
+
+                                        class="invalid-feedback"
+                                >
+                                    @if (this.adf['permanent_district']?.errors?.['required']) {
+                                        <div
+                                        >
+                                            District is required
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </c-row>
+
+                    <div class="my-3"></div>
+
+                    <c-row>
+                        <!--                              <div class="form-group col-md-4">-->
+                        <!--                                <label size="sm" cLabel for="permanent_taluka" class="required"-->
+                        <!--                                >Tehsil / Taluka-->
+                        <!--                                </label>-->
+                        <!--                                <input sizing="sm" -->
+                        <!--                                  id="permanent_taluka"-->
+                        <!--                                  type="text"-->
+                        <!--                                  [ngClass]="{-->
+                        <!--                                    'is-invalid':-->
+                        <!--                                      (submitted ||-->
+                        <!--                                        adf.permanent_taluka.touched) &&-->
+                        <!--                                      adf.permanent_taluka.errors,-->
+                        <!--                                    'is-valid':-->
+                        <!--                                      adf.permanent_taluka.touched &&-->
+                        <!--                                      !adf.permanent_taluka.errors-->
+                        <!--                                  }"-->
+                        <!--                                  formControlName="permanent_taluka"-->
+                        <!--                                  class="form-control capitalize"-->
+                        <!--                                  placeholder="Tehsil / Taluka"-->
+                        <!--                                />-->
+                        <!--                                <div-->
+                        <!--                                  *ngIf="-->
+                        <!--                                    submitted && adf.permanent_taluka.errors-->
+                        <!--                                  "-->
+                        <!--                                  class="invalid-feedback"-->
+                        <!--                                >-->
+                        <!--                                  <div-->
+                        <!--                                    *ngIf="adf.permanent_taluka.errors.required"-->
+                        <!--                                  >-->
+                        <!--                                    Tehsil / Taluka is required-->
+                        <!--                                  </div>-->
+                        <!--                                  &lt;!&ndash; <div *ngIf="f4.perTaluka.errors.pattern">Only Alphabets, Numbers and-->
+                        <!--                                                                          Spaces</div> &ndash;&gt;-->
+                        <!--                                  <div-->
+                        <!--                                    *ngIf="adf.permanent_taluka.errors.maxlength"-->
+                        <!--                                  >-->
+                        <!--                                    Maximum Length 60 in allowed-->
+                        <!--                                  </div>-->
+                        <!--                                </div>-->
+                        <!--                              </div>-->
+                        <c-col [md]="4">
+                            <label size="sm" cLabel for="permanent_city" class="required"
+                            >City</label
+                            >
+                            <input sizing="sm"   cFormControl
+                                    id="permanent_city"
+                                    type="text"
+                                    formControlName="permanent_city"
+                                    class="form-control capitalize"
+                                    placeholder="City"
+                                    maxlength="30"
+                            />
+                            @if (submitted && this.adf['permanent_city'].errors) {
+                                <div
+                                        class="invalid-feedback"
+                                >
+                                    @if (this.adf['permanent_city']?.errors?.['required']) {
+                                        <div
+                                        >
+                                            City is required
+                                        </div>
+                                    }
+                                    <!-- <div *ngIf="f4.perCity.errors.pattern">Only Alphabets, Numbers and
+                                  Spaces</div> -->
+                                    @if (this.adf['permanent_city']?.errors?.['maxlength']) {
+                                        <div
+                                        >
+                                            Maximum Length 60 in allowed
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </c-col>
+                        <c-col [md]="4">
+                            <label size="sm" cLabel for="permanent_pincode" class="required"
+                            >Pincode</label
+                            >
+                            <input sizing="sm"   cFormControl
+                                    id="permanent_pincode"
+                                    type="number"
+                                    formControlName="permanent_pincode"
+                                    class="form-control capitalize"
+                                    placeholder="Pincode"
+                            />
+                            @if (submitted &&
+                            this.adf['permanent_pincode'].errors) {
+                                <div
+                                        class="invalid-feedback"
+                                >
+                                    @if (this.adf['permanent_pincode'].errors['required']) {
+                                        <div
+                                        >
+                                            Pincode is required
+                                        </div>
+                                    }
+                                    @if (this.adf['permanent_pincode'].errors['minlength']) {
+                                        <div
+                                        >
+                                            Pincode can contain only 6 characters
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </c-col>
+                        <c-row
+                                class="d-grid gap-2 d-md-flex justify-content-md-center"
+                        >
+                            <c-col [md]="3" style="padding-top: 22px"  class="d-flex justify-content-center align-content-center">
+                                <button size="sm"
+                                        [disabled]="addressDetailsForm.invalid  || this.oSession.isprofilesubmited == 'true'"
+                                        type="submit"
+                                         class="btn btn-sm btn-success text-white"
+                                        (click)="IU_Address()"
+                                >
+                                    Save
+                                    @if (addressloader) {
+                                        <c-spinner aria-hidden="false"
+                                                   size="sm"></c-spinner>
+                                    }
+                                </button>
+                            </c-col>
+                        </c-row>
+                    </c-row>
+                </div>
+            </form>
+        </ng-template>
+    </c-accordion-item>
+    <c-accordion-item #item3="cAccordionItem" [visible]="false">
+        <ng-template cTemplateId="accordionHeaderTemplate">
+            <button size="sm"
+                    (click)="item3.toggleItem()"
+                    [collapsed]="!item3.visible"
+                    cAccordionButton
+            >
+                Nationality status & Nominee Details for Insurance
+                @if (!this.ires_parents?.nationalitysubmited) {
+                    <c-badge
+                            color="danger">
+                        Pending
+                    </c-badge>
+                }
+                @if (this.ires_parents?.nationalitysubmited) {
+                    <c-badge
+                            color="success">
+                        Completed
+                    </c-badge>
+                }
+            </button>
+        </ng-template>
+        <ng-template cTemplateId="accordionBodyTemplate">
+            <form cForm [formGroup]="nationalitynomineeForm">
+                <div class="accordion-body">
+                    <c-row>
+                        <c-col [md]="6">
+                            <label size="sm" cLabel for="country" class="required"
+                            >Country of Citizenship</label
+                            >
+                            <select cSelect sizing="sm"
+                                    id="country"
+                                    formControlName="country"
+                                    class="form-control"
+                            >
+                                <option value="" disabled selected>
+                                    --- Please Select ---
+                                </option>
+                                @for (country of country; track country) {
+                                    <option
+                                            [value]="country"
+                                    >
+                                        {{ country }}
+                                    </option>
+                                }
+                            </select>
+                        </c-col>
+                        <c-col [md]="6">
+                            <label size="sm" cLabel for="state" class="required"
+                            >Domicile State</label
+                            >
+                            <select cSelect sizing="sm"
+                                    id="state"
+                                    formControlName="state"
+                                    class="form-control"
+                            >
+                                <option value="" disabled selected>
+                                    --- Please Select ---
+                                </option>
+                                @for (state of state; track state) {
+                                    <option
+                                            [value]="state"
+                                    >
+                                        {{ state }}
+                                    </option>
+                                }
+                            </select>
+                            @if (submitted && nnf['state'].errors) {
+                                <div
+                                        class="invalid-feedback"
+                                >
+                                    @if (this.nnf['state']?.errors?.['required']) {
+                                        <div>
+                                            Domicile State required
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </c-col>
+                    </c-row>
+
+                    <div class="my-3"></div>
+
+                    <c-row>
+                        <c-col [md]="6">
+                            <label size="sm" cLabel for="nomineename" class="required">Nominee
+                                Name</label>
+                            <input sizing="sm"   cFormControl
+                                    id="nomineename"
+                                    type="text"
+                                    class="form-control capitalize"
+                                    formControlName="nomineename"
+                                    maxlength="100"
+                                    placeholder="Nominee Name"
+                            />
+                        </c-col>
+                        <c-col [md]="3">
+                            <label size="sm" cLabel for="nomineedob" class="required"
+                            >Nominee Date of Birth</label
+                            >
+                            <input sizing="sm"   cFormControl
+                                    id="nomineedob"
+                                    type="date"
+                                    class="form-control capitalize"
+                                    formControlName="nomineedob"
+                                    placeholder="Nominee Date of Birth"
+                            />
+                        </c-col>
+                        <c-col [md]="3">
+                            <label size="sm" cLabel for="nomineerelation" class="required"
+                            >Nominee Relation with Student</label
+                            >
+                            <select cSelect sizing="sm"
+                                    id="nomineerelation"
+                                    formControlName="nomineerelation"
+                                    class="form-control"
+                            >
+                                <option value="" disabled selected>
+                                    --- Please Select ---
+                                </option>
+                                @for (nominee_relation of nominee_relation; track
+                                    nominee_relation) {
+                                    <option
+                                            [value]="nominee_relation"
+                                    >
+                                        {{ nominee_relation }}
+                                    </option>
+                                }
+                            </select>
+                        </c-col>
+                    </c-row>
+
+                    <div class="my-3"></div>
+
+                    <c-row
+                            class="d-grid gap-2 d-md-flex justify-content-md-center"
+                    >
+                        <c-col [md]="3" style="padding-top: 22px"  class="d-flex justify-content-center align-content-center">
+                            <button size="sm"
+                                    [disabled]="nationalitynomineeForm.invalid || this.oSession.isprofilesubmited == 'true'"
+                                    type="submit"
+                                     class="btn btn-sm btn-success  text-white"
+                                    (click)="IU_Nationalty()"
+                            >
+                                Save
+                                @if (nationalitynomineeloader) {
+                                    <c-spinner
+                                            aria-hidden="false" size="sm"></c-spinner>
+                                }
+                            </button>
+                        </c-col>
+                    </c-row>
+                </div>
+            </form>
+        </ng-template>
+    </c-accordion-item>
+    <c-accordion-item #item4="cAccordionItem" [visible]="false">
+        <ng-template cTemplateId="accordionHeaderTemplate">
+            <button size="sm"
+                    (click)="item4.toggleItem()"
+                    [collapsed]="!item4.visible"
+                    cAccordionButton
+            >
+                Other Details
+                @if (!this.ires_parents?.othersubmited) {
+                    <c-badge
+                            color="danger">
+                        Pending
+                    </c-badge>
+                }
+                @if (this.ires_parents?.othersubmited) {
+                    <c-badge
+                            color="success">
+                        Completed
+                    </c-badge>
+                }
+            </button>
+        </ng-template>
+        <ng-template cTemplateId="accordionBodyTemplate">
+            <form
+                    cForm
+                    [formGroup]="otherDetailsForm"
+            >
+                <div class="accordion-body">
+                    <c-row>
+                        <c-col [md]="3">
+                            <label size="sm"  class="required" cLabel for="Pan">Pancard Number</label>
+                            <input sizing="sm"   cFormControl
+                                    id="Pan"
+                                    type="text"
+                                    class="form-control capitalize"
+                                    formControlName="Pan"
+                                    maxlength="20"
+                                    placeholder="Pancard Number"
+                            />
+                        </c-col>
+                        <c-col [md]="3">
+                            <label size="sm"  class="required" cLabel for="voterid">Voter Id</label>
+                            <input sizing="sm"   cFormControl
+                                    id="voterid"
+                                    type="text"
+                                    class="form-control capitalize"
+                                    formControlName="voterid"
+                                    maxlength="20"
+                                    placeholder="Voter Id"
+                            />
+                        </c-col>
+                        <c-col [md]="3">
+                            <label size="sm" cLabel for="educationgap" class="required"
+                            >Education Gap (in yrs)</label
+                            >
+                            <input sizing="sm"   cFormControl
+                                    id="educationgap"
+                                    type="text"
+                                    class="form-control"
+                                    formControlName="educationgap"
+                                    placeholder="Education Gap (in yrs)"
+                            />
+                            @if (submitted && odf['educationgap'].errors) {
+                                <div
+                                        class="invalid-feedback"
+                                >
+                                    @if (this.odf['educationgap']?.errors?.['required']) {
+                                        <div>
+                                            Area Name is required
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </c-col>
+                        <c-col [md]="3">
+                            <label size="sm" cLabel for="bloodgroup" class="required">Blood
+                                Group</label>
+                            <select cSelect sizing="sm"
+                                    id="bloodgroup"
+                                    formControlName="bloodgroup"
+                                    class="form-control"
+                            >
+                                <option value="" disabled selected>
+                                    --- Please Select ---
+                                </option>
+                                @for (bloodgroup of bloodgroup; track bloodgroup) {
+                                    <option
+                                            [value]="bloodgroup"
+                                    >
+                                        {{ bloodgroup }}
+                                    </option>
+                                }
+                            </select>
+                        </c-col>
+                    </c-row>
+
+                    <div class="my-3"></div>
+
+                    <c-row>
+                        <c-col [md]="3">
+                            <label size="sm" cLabel for="maxqualification_family"  class="required"
+                            >Max Qualification in family</label
+                            >
+                            <input sizing="sm"   cFormControl
+                                    id="maxqualification_family"
+                                    type="text"
+                                    class="form-control capitalize"
+                                    formControlName="maxqualification_family"
+                                    maxlength="20"
+                                    placeholder="Maximum Qualification in family"
+                            />
+                        </c-col>
+                        <c-col [md]="3">
+                            <label size="sm" cLabel for="organ_donation"  class="required"
+                            >Willingness of Organ Donation</label
+                            >
+                            <select cSelect sizing="sm"
+                                    id="organ_donation"
+                                    formControlName="organ_donation"
+                                    class="form-control"
+                            >
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </c-col>
+                    </c-row>
+
+                    <div class="my-3"></div>
+
+                    <c-row
+                            class="d-grid gap-2 d-md-flex justify-content-md-center"
+                    >
+                        <c-col [md]="3" style="padding-top: 22px"  class="d-flex justify-content-center align-content-center">
+                            <!--                                                            [disabled]="otherDetailsForm.invalid || this.oSession.isprofilesubmited == 'true'"-->
+                            <button size="sm"
+                                    type="submit"
+                                     class="btn btn-sm btn-success text-white"
+                                    (click)="IU_Others()"
+                                    [disabled]="otherDetailsForm.invalid"
+                            >
+                                Save
+                                @if (otherdetailsloader) {
+                                    <c-spinner
+                                            aria-hidden="false" size="sm"></c-spinner>
+                                }
+                            </button>
+                        </c-col>
+                    </c-row>
+                </div>
+            </form>
+        </ng-template>
+    </c-accordion-item>
+
+    <div class="my-3"></div>
+
+    <strong><h5 style="color: red">Your application will be considered for Merit List
+        only once you do
+        the Final Submit.{{checkbox_personal}}</h5></strong>
+    @if (checkbox_personal) {
+        <form
+                [formGroup]="checkfinalSubmit"
+                (keydown.enter)="$event.preventDefault()"
+        >
+            <h5 style="color: red">Note:&nbsp;</h5>
+            <c-row class="d-grid gap-2 d-md-flex justify-content-md-center">
+                <c-col [md]="12">
+                    <c-form-check class="d-flex align-items-start">
+                        <input
+                                cFormCheckInput
+                                class="me-3 mt-1"
+                                formControlName="checkprofile"
+                                type="checkbox"
+                                id="checkProfile"
+                        />
+                        
+                        <label
+                                cFormCheckLabel
+                                for="checkProfile"
+                                style="color: black; font-weight: 600;"
+                        >
+                            Please make sure you have uploaded the correct details.
+                            Once you have submitted, you are not allowed to make any changes.
+                        </label>
+                    </c-form-check>
+                </c-col>
+            </c-row>
+            
+
+            <div class="my-3"></div>
+
+            <c-row style="justify-content: center">
+                <c-col [md]="4">
+                    <button size="sm"
+                            type="submit"
+                            (click)="PersonalSubmit()"
+                            [disabled]="checkfinalSubmit.invalid || this.oSession.isprofilesubmited == 'true'"
+                            cButton
+                            color="success"
+                            style="color: white"
+                    >
+                        Submit
+                        <!-- <c-icon name="cil-dollar"></c-icon> Proceed to Payment -->
+                    </button>
+                </c-col>
+            </c-row>
+        </form>
+    }
+</c-accordion>

@@ -1,0 +1,8 @@
+<div [formGroup]="fileUploadForm">
+  <input sizing="sm" cFormControl type="file"  class="form-control"
+    id="fileInput" (change)="onFileSelected($event)" formControlName="file" #fileInput>
+    <!--    <button type="button" (click)="fileInput.click()">{{ buttonText }}</button>-->
+    @if (selectedFile) {
+      <span>{{ selectedFile.name }}</span>
+    }
+  </div>

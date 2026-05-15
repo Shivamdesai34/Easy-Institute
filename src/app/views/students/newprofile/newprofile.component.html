@@ -1,0 +1,313 @@
+<script src="newprofile.component.ts"></script>
+<div
+>
+    <div>
+        <h2>Complete Your Profile</h2>
+        <hr/>
+    </div>
+    <c-card class="card">
+        <c-card-body class="card-body">
+            <form
+                    cForm
+                    [formGroup]="studentDetailsForm"
+            >
+                <c-row>
+                    <c-col [sm]="3">
+                        <label cLabel size="sm" for="firstname" class="required">First Name</label>
+                        <input cFormControl sizing="sm"
+                                id="firstname"
+                                type="text"
+                                formControlName="firstname"
+                                class="form-control capitalize"
+                                placeholder="Enter your Firstname"
+                        />
+                        @if (submitted && sdf['firstname'].errors) {
+                            <div
+                                    class="invalid-feedback"
+                            >
+                            </div>
+                        }
+                    </c-col>
+
+                    <c-col [sm]="3">
+                        <label cLabel size="sm" for="lastname">Last Name/ Surname</label>
+                        <input cFormControl sizing="sm"
+                                type="text"
+                                formControlName="lastname"
+                                class="form-control capitalize"
+                                id="lastname"
+                                placeholder="Enter your Lastname"
+                        />
+                        <!-- <div *ngIf="submitted && f1.lastName.errors" class="invalid-feedback">
+                        <div *ngIf="f1.lastName.errors.required">Last Name is required</div>
+                      </div> -->
+                    </c-col>
+
+                    <c-col [sm]="3">
+                        <label cLabel size="sm" for="fathername" class="required">Father's Name</label>
+                        <input cFormControl sizing="sm"
+                                type="text"
+                                formControlName="fathername"
+                                class="form-control capitalize"
+                                id="fathername"
+                                placeholder="Enter your Father's First Name"
+                        />
+                        @if (submitted && sdf['fathername'].errors) {
+                            <div
+                                    class="invalid-feedback"
+                            >
+                            </div>
+                        }
+                    </c-col>
+
+                    <c-col [sm]="3">
+                        <label cLabel size="sm" for="mothername" class="required">Mother's Name</label>
+                        <input cFormControl sizing="sm"
+                                id="mothername"
+                                type="text"
+                                formControlName="mothername"
+                                class="form-control capitalize"
+                                placeholder="Enter your Mother's First Name"
+                        />
+                        @if (submitted && sdf['mothername'].errors) {
+                            <div
+                                    class="invalid-feedback"
+                            >
+                            </div>
+                        }
+                    </c-col>
+                </c-row>
+
+                <c-row>
+
+                    <c-col [sm]="3">
+                        <label cLabel size="sm" class="required" for="gender">Gender</label>
+                        <select sizing="sm"
+                                cSelect
+                                id="gender"
+                                [(ngModel)]="selctgen"
+                                formControlName="gender"
+                                class="form-control"
+                                [ngClass]="{
+                'is-invalid':
+                  (submitted || sdf['gender'].touched) &&
+                  sdf['gender'].errors,
+                'is-valid': sdf['gender'].touched && !sdf['gender'].errors
+              }"
+                        >
+                            <option value="" selected disabled>--- Please Select ---</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Transgender">Transgender</option>
+                            <!--              <option *ngFor="let gender of gender" [ngValue]="gender">-->
+                            <!--                {{ gender }}-->
+                            <!--              </option>-->
+                        </select>
+                    </c-col>
+                    <c-col [sm]="3">
+                        <label cLabel size="sm" for="dob" class="required">Date of Birth</label>
+                        <input cFormControl sizing="sm"
+                                id="dob"
+                                type="date"
+                                class="form-control capitalize"
+                                [ngClass]="{
+                                    'is-invalid':
+                                      (submitted || sdf['dob'].touched) && sdf['dob'].errors,
+                                    'is-valid': sdf['dob'].touched && !sdf['dob'].errors
+                                  }"
+                                formControlName="dob"
+                                placeholder="Enter your Date of Birth"
+                        />
+                        <!-- <ng-month-picker formControlName="dob"></ng-month-picker> -->
+                        @if (submitted && sdf['dob'].errors) {
+                            <div class="invalid-feedback">
+                                @if (sdf.dob.errors.required) {
+                                    <div>
+                                        Date of Birth is required
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </c-col>
+                    <c-col [sm]="3">
+                        <label cLabel size="sm" for="placeofbirth">Place of Birth</label>
+                        <input cFormControl sizing="sm"
+                                id="placeofbirth"
+                                type="text"
+                                class="form-control capitalize"
+                                formControlName="placeofbirth"
+                                placeholder="Place of Birth"
+                        />
+                    </c-col>
+                    <c-col [sm]="3">
+                        <label cLabel size="sm" for="religion">Religion</label>
+                        <select sizing="sm"
+                                cSelect
+                                id="religion"
+                                formControlName="religion"
+                                class="form-control"
+                        >
+                            <option value="" disabled selected>--- Please Select ---</option>
+                            @for (religion of religion; track religion) {
+                                <option [value]="religion">
+                                    {{ religion }}
+                                </option>
+                            }
+                        </select>
+                    </c-col>
+                </c-row>
+
+                <c-row>
+                    <c-col [sm]="3">
+                        <label cLabel size="sm" for="mothertongue">Mother Tongue</label>
+                        <select sizing="sm"
+                                cSelect
+                                id="mothertongue"
+                                formControlName="mothertongue"
+                                class="form-control"
+                        >
+                            <option value="" disabled selected>--- Please Select ---</option>
+                            @for (mother_tongue of mother_tongue; track mother_tongue) {
+                                <option
+                                        [value]="mother_tongue"
+                                >
+                                    {{ mother_tongue }}
+                                </option>
+                            }
+                        </select>
+                    </c-col>
+                    <c-col [sm]="3">
+                        <label cLabel size="sm" for="marital_status">Marital Status</label>
+                        <select sizing="sm"
+                                cSelect
+                                id="marital_status"
+                                formControlName="marital_status"
+                                class="form-control"
+                        >
+                            <option value="" disabled selected>--- Please Select ---</option>
+                            @for (martial_status of martial_status; track martial_status) {
+                                <option
+                                        [value]="martial_status"
+                                >
+                                    {{ martial_status }}
+                                </option>
+                            }
+                        </select>
+                    </c-col>
+
+                    <c-col [md]="3">
+                        <label cLabel size="sm" class="required" for="inhouse">Inhouse</label>
+                        <select sizing="sm" cSelect
+                                id="inhouse"
+                                [(ngModel)]="select_inhouse"
+                                formControlName="inhouse"
+                                class="form-control"
+
+                        >
+                            <option value="" disabled selected>
+                                --- Please Select ---
+                            </option>
+
+                            <option value="YES">Yes</option>
+                            <option value="NO">No</option>
+
+                        </select>
+                    </c-col>
+
+                    <c-col [md]="3">
+                        <label cLabel size="sm" class="required" for="hindilinguistic">Hindi-Linguistic Minority</label>
+                        <select sizing="sm" cSelect
+                                id="hindilinguistic"
+                                [(ngModel)]="select_hindiling"
+                                formControlName="hindilinguistic"
+                                class="form-control"
+                        >
+                            <option value="" disabled selected>
+                                --- Please Select ---
+                            </option>
+
+                            <option value="YES">Yes</option>
+                            <option value="NO">No</option>
+
+                        </select>
+                    </c-col>
+
+                </c-row>
+
+                <c-row>
+                    <c-col [sm]="6">
+                        <label cLabel size="sm" for="applicant_name_on_marksheet" class="required"
+                        >Name on Statement of Marks / Leaving Certificate</label
+                        >
+                        <input cFormControl sizing="sm"
+                                id="applicant_name_on_marksheet"
+                                type="text"
+                                formControlName="applicant_name_on_marksheet"
+                                [ngClass]="{
+                                    'is-invalid':
+                                      (submitted || sdf['applicant_name_on_marksheet'].touched) &&
+                                      sdf['applicant_name_on_marksheet'].errors,
+                                    'is-valid':
+                                      sdf['applicant_name_on_marksheet'].touched &&
+                                      !sdf['applicant_name_on_marksheet'].errors
+                                  }"
+                                class="form-control capitalize"
+                                placeholder="Name on Statement of Marks / Leaving Certificate"
+                        />
+                        @if (submitted && sdf['applicant_name_on_marksheet'].errors) {
+                            <div
+                                    class="invalid-feedback"
+                            >
+                                @if (sdf.applicant_name_on_marksheet.errors.required) {
+                                    <div>
+                                        Full Name required as on Marksheet/LC
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </c-col>
+                    <c-col [sm]="3">
+                        <label cLabel size="sm" for="name_change_after_passing"
+                        >Name changes after Passing Exam</label
+                        >
+                        <select sizing="sm"
+                                cSelect
+                                id="name_change_after_passing"
+                                formControlName="name_change_after_passing"
+                                class="form-control"
+                        >
+                            <option value="" selected disabled>--- Please Select ---</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </c-col>
+                </c-row>
+                <br/>
+                <c-row style="justify-content: center">
+                    <c-col [sm]="3">
+                        <button
+                                cButton
+                                type="submit"
+                                size="sm"
+                                [disabled]="studentDetailsForm.invalid"
+
+                                (click)="onSavedetails()"
+                                class="btn btn-success"
+                        >
+                            Save
+                            @if (savepersonalloader) {
+                                <c-spinner aria-hidden="false" size="sm"></c-spinner>
+                            }
+
+                        </button>
+                    </c-col>
+
+                </c-row>
+
+                <br/>
+            </form>
+        </c-card-body>
+    </c-card>
+</div>
+
+<!-- Admission Form -->

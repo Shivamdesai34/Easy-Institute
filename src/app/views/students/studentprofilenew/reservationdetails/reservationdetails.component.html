@@ -1,0 +1,281 @@
+<c-card>
+    <c-card-body>
+            <form cForm
+                  [formGroup]="reservationdetailForm"
+            >
+                <h5>Caste Reservation Details</h5>
+                <c-row>
+                    <c-col [md]="3">
+                        <label size="sm" cLabel for="opencategory">Show Category</label>
+                        <select sizing="sm"
+                                cSelect
+                                id="opencategory"
+                                formControlName="opencategory"
+                                (change)="Opencategory()"
+                                class="form-control">
+                            <option value="" selected disabled>--- Please Select ---</option>
+                            <option value="OPEN">Open/General</option>
+                            <option value="RESERVED">Reserved</option>
+                            <!--                    <option *ngFor="let data of Categorydata" [ngValue]="data.id">-->
+                            <!--                      {{data.name}}-->
+                            <!--                    </option>-->
+                        </select>
+                    </c-col>
+                    
+                </c-row>
+                @if (this.reservationdetailForm.controls['opencategory'].value == 'RESERVED') {
+                    <div>
+                        <c-row>
+                            <c-col [md]="3">
+                                 <label size="sm"  cLabel class="required" for="category">Category</label>
+                                <select sizing="sm"
+                                        id="category"
+                                        formControlName="category"
+                                        class="form-control"
+                                >
+                                    <option value="" disabled>--- Please Select ---</option>
+                                    @for (category of category; track category) {
+                                        <option
+                                                [value]="category"
+                                        >
+                                            {{ category }}
+                                        </option>
+                                    }
+                                </select>
+                                @if (reservationSubmit && rdf['category'].errors) {
+                                    <div
+                                            class="invalid-feedback"
+                                    >
+                                        @if (this.rdf['category'].errors['required']) {
+                                            <div>
+                                                Category is required
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </c-col>
+                            <c-col [md]="3">
+                                 <label size="sm"  cLabel for="subcategory">Sub Category</label>
+                                 <input sizing="sm"  cFormControl
+                                        id="subcategory"
+                                        type="text"
+                                        formControlName="subcategory"
+                                        class="form-control capitalize"
+                                        placeholder="Sub Category"
+                                />
+                                <!-- <div *ngIf="reservationSubmit && f6.subCategory.errors"
+                                class="invalid-feedback">
+                                <div *ngIf="f6.subCategory.errors.required">Sub-Category is required
+                                </div>
+                              </div> -->
+                            </c-col>
+                            <c-col [md]="3">
+                                <h6>Upload PDF</h6>
+                                 <input sizing="sm"  cFormControl
+                                        aria-label="file example"
+                                        accept="image/jpeg,image/jpg,image/png,.pdf"
+                                        id="validationTextupload_caste"
+                                        (change)="xlsxUpload_category($event)"
+                                        type="file"
+                                />
+                            </c-col>
+                        </c-row>
+                    </div>
+                }
+                <br/>
+                <div>
+                    <!-- <div style="float: right;">
+                    <button type="submit" class="btn btn-sm btn-primary"><i
+                    class="fa fa-plus"></i>
+                  &nbsp;Add</button>
+                </div> -->
+                    <h5>Special Abled Details</h5>
+                    <hr/>
+                </div>
+                <c-col [md]="3">
+                     <label size="sm"  cLabel for="checkspeciallyabled">Specially Abled?</label>
+                    <select sizing="sm" cSelect
+                            id="checkspeciallyabled"
+                            formControlName="checkspeciallyabled"
+                            class="form-control">
+                        <option value="" selected disabled>--- Please Select ---</option>
+                        <option value="YES">Yes</option>
+                        <option value="NO">No</option>
+                    </select>
+                </c-col>
+                @if (this.reservationdetailForm.controls['checkspeciallyabled'].value == 'YES') {
+                    <c-row>
+                        <div class="form-group col-md-4">
+                             <label size="sm"  cLabel for="specially_abled">Special Abled</label>
+                            <select sizing="sm" cSelect
+                                    id="specially_abled"
+                                    formControlName="specially_abled"
+                                    class="form-control"
+                            >
+                                <option value="" disabled selected>
+                                    --- Please Select ---
+                                </option>
+                                @for (specially_abled of specially_abled; track specially_abled) {
+                                    <option
+                                            [value]="specially_abled"
+                                    >
+                                        {{ specially_abled }}
+                                    </option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                             <label size="sm"  cLabel for="percentage">Percentage %</label>
+                             <input sizing="sm"  cFormControl
+                                    id="percentage"
+                                    step="0.01"
+                                    type="number"
+                                    formControlName="percentage"
+                                    class="form-control capitalize"
+                                    placeholder="Percentage"
+                            />
+                        </div>
+                        <c-col [md]="3">
+                             <label size="sm"  cLabel for="udid_no">UDID Number</label>
+                             <input sizing="sm"  cFormControl
+                                    id="udid_no"
+                                    type="text"
+                                    formControlName="udid_no"
+                                    class="form-control capitalize"
+                                    placeholder="UDID No"
+                            />
+                        </c-col>
+                        <c-col [md]="3">
+                            <h6>Upload PDF</h6>
+                             <input sizing="sm"  cFormControl
+                                    aria-label="file example"
+                                    accept="image/jpeg,image/jpg,image/png,.pdf"
+                                    id="validationTextupload_abled"
+                                    (change)="xlsxUpload_eligible($event)"
+                                    type="file"
+                            />
+                        </c-col>
+                    </c-row>
+                }
+                <br/>
+                <div>
+                    <!-- <div style="float: right;">
+                    <button type="submit" class="btn btn-sm btn-primary"><i
+                      class="fa fa-plus">&nbsp;Add
+                    Activity</i></button>
+                  </div> -->
+                    <h5>Other Reservation Details</h5>
+                    <hr/>
+                </div>
+                <c-col [md]="3">
+                     <label size="sm"  cLabel for="checkotherreservation">Reservation?</label>
+                    <select sizing="sm" cSelect
+                            id="checkotherreservation"
+                            formControlName="checkotherreservation"
+                            class="form-control">
+                        <option value="" selected disabled>--- Please Select ---</option>
+                        <option value="YES">Yes</option>
+                        <option value="NO">No</option>
+                    </select>
+                </c-col>
+                <br>
+                @if (this.reservationdetailForm.controls['checkotherreservation'].value == 'YES') {
+                    <c-row>
+                        <div class="form-group col-md-5">
+                             <label size="sm"  cLabel for="parallel_reservation"
+                            >Parallel / Horizontal Reservation</label
+                            >
+                            <select sizing="sm"
+                                    id="parallel_reservation"
+                                    formControlName="parallel_reservation"
+                                    class="form-control"
+                            >
+                                <option value="" disabled selected>
+                                    --- Please Select ---
+                                </option>
+                                @for (reservation of reservation; track reservation) {
+                                    <option
+                                            [value]="reservation"
+                                    >
+                                        {{ reservation }}
+                                    </option>
+                                }
+                            </select>
+                        </div>
+                        <c-col [md]="3">
+                            <h6>Upload PDF</h6>
+                             <input sizing="sm"  cFormControl
+                                    aria-label="file example"
+                                    accept="image/jpeg,image/jpg,image/png,.pdf"
+                                    id="validationTextupload_reservation"
+                                    (change)="xlsxUpload_reservation($event)"
+                                    type="file"
+                            />
+                        </c-col>
+                    </c-row>
+                }
+                <br>
+<!--                @if (this.res_singlebatch?.Rationcard == 1) {-->
+<!--                    <div>-->
+<!--                        <h5>Ration Card Upload</h5>-->
+<!--                        <hr>-->
+<!--                        <c-col [md]="3">-->
+<!--                            <h6>Upload PDF</h6>-->
+<!--                             <input sizing="sm"  cFormControl-->
+<!--                                    aria-label="file example"-->
+<!--                                    accept="image/jpeg,image/jpg,image/png,.pdf"-->
+<!--                                    id="validationTextupload_ration"-->
+<!--                                    (change)="xlsxUpload_ration($event)"-->
+<!--                                    type="file"-->
+<!--                            />-->
+<!--                        </c-col>-->
+<!--                    </div>-->
+<!--                }-->
+
+                <h5 style="color: red">Note:&nbsp;</h5>
+                 <label size="sm"  cLabel>
+                    <b style="color: black"
+                    >&nbsp;&nbsp;Please make sure you have uploaded the
+                        correct details.Once you have submitted you are not
+                        allowed to make any changes.
+                    </b></label
+                >
+
+                <div class="my-3"></div>
+                
+<!--                [disabled]="reservationdetailForm.invalid ||-->
+<!--                this.oSession.isprofilesubmited == 'true'"-->
+
+                <div style="padding-left: 45%">
+                    <button cButton
+                            type="submit"
+                            size="sm"
+                            
+                            (click)="saveReservDetails()"
+                            
+                            [disabled]="reservationdetailForm.invalid || this.oSession.isprofilesubmited == 'true'"
+                            class="btn btn-success btn-sm"
+                            style="color: white"
+                    >
+                        Save
+                        @if (reservationsaveloader) {
+                            <c-spinner aria-hidden="false" size="sm"></c-spinner>
+                        }
+                    </button
+                    >&nbsp;&nbsp;&nbsp;
+                    <button cButton
+                            type="reset"
+                            size="sm"
+                            [attr.disabled]="changeStateReservation ? '' : null"
+                            class="btn btn-danger btn-sm"
+                            style="color: white"
+                    >
+                        Cancel
+                    </button>
+                </div>
+<!--                <strong><h5 style="color: red">Your application will be considered for Merit List only once-->
+<!--                    you do-->
+<!--                    the Final Submit.</h5></strong>-->
+            </form>
+    </c-card-body>
+</c-card>

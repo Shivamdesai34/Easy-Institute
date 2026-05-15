@@ -1,0 +1,113 @@
+<c-card>
+    <c-card-body>
+        <form
+                cForm
+                [formGroup]="finalsubmitForm"
+        >
+            <c-row style="justify-content: center">
+                @if (finalsubmitForm.controls['checkOne']; as ctrl) {
+                    <c-col>
+                        <c-form-check>
+                            <input size="sm"
+                                    cFormCheckInput
+                                    formControlName="checkOne"
+                                    type="checkbox"
+                            />
+                            <label size="sm" cFormCheckLabel>
+                                Undertaking for Ragging by Student: I have carefully read
+                                and fully understood the law prohibiting ragging and the
+                                directions of the Supreme Court and the Central/State
+                                Government in this regard. I have read carefully copy of
+                                the UGC Regulations on Curbing the Menace of Ragging in
+                                Higher Educational Institutions, 2009 available on the
+                                college website www.rjcollege.edu.in. I hereby undertake
+                                that (i) I will not indulge in any behavior or act that
+                                may come under the definition of ragging, (ii) I will not
+                                participate in or abet or propagate ragging in any form,
+                                (iii) I will not hurt anyone physically or psychologically
+                                or cause any other harm. (iv) I hereby agree that if found
+                                guilty of any aspect of ragging, I may be punished as per
+                                the provisions of the UGC Regulations mentioned above
+                                and/or as per the law in force. (v) I hereby affirm that I
+                                have not been expelled or debarred from admission by any
+                                institute. I hereby declare that I will fill Online Anti
+                                Ragging Undertaking on
+                            </label>
+                            <a href="https://antiragging.in/affidavit_registration_disclaimer.html">https://antiragging.in</a>
+                        </c-form-check>
+                        <br/>
+                    </c-col>
+                }
+            </c-row>
+            <c-row style="justify-content: center">
+                @if (finalsubmitForm.controls['checktwo']; as ctrl) {
+                    <c-col>
+                        <c-form-check>
+                            <input size="sm"
+                                    cFormCheckInput
+                                    formControlName="checktwo"
+                                    id="checktwo"
+                                    type="checkbox"
+                            />
+                            <label size="sm"cFormCheckLabel for="checktwo">
+                                Declaration by Student: I hereby declare that, I have read
+                                the rules related to admission and the information filled
+                                in by me in this form is accurate and true to the best of
+                                my knowledge. I will be responsible for any discrepancy
+                                arising out of the form signed by me and I undertake that
+                                in absence of any document the final admission will not be
+                                granted and /or admission will stand cancel.
+                            </label>
+                        </c-form-check>
+                        <br/>
+                    </c-col>
+                }
+            </c-row>
+            <c-row style="justify-content: center">
+                @if (finalsubmitForm.controls['checkthree']; as ctrl) {
+                    <c-col
+                    >
+                        <c-form-check>
+                            <input size="sm"
+                                    cFormCheckInput
+                                    id="checkthree"
+                                    type="checkbox"
+                                    formControlName="checkthree"
+                            />
+                            <label size="sm"cFormCheckLabel for="checkthree">
+                                Declaration by Guardian: I hereby permit my
+                                son/daughter/ward to join your college. The information
+                                supplied by him/her is correct to the best of my
+                                knowledge. I have acquainted myself with the rules and
+                                fees, dues to my son/duaghter/ward and to see that he/she
+                                observes.
+                            </label>
+                        </c-form-check>
+                        <br/>
+                    </c-col>
+                }
+            </c-row>
+            <c-row style="justify-content: center">
+                <c-col [sm]="2">
+                    <button
+                            cButton
+                            (click)="Final_ProfileSubmitted()"
+                            type="submit"
+                            size="sm"
+                            [disabled]="
+                      profilesubmitted ||
+                      finalsubmitForm.invalid
+                    "
+                            class="btn btn-success btn-sm"
+                            style="color: white"
+                    >
+                        Final Submit
+                        @if (finalsubmitloader) {
+                            <c-spinner aria-hidden="false" size="sm"></c-spinner>
+                        }
+                    </button>
+                </c-col>
+            </c-row>
+        </form>
+    </c-card-body>
+</c-card>

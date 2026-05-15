@@ -1,0 +1,179 @@
+<c-card class="main-container">
+    <c-card-header>
+        <h3 size="sm">Fees Payment</h3>
+    </c-card-header>
+    <c-card-body class="p-4">
+        <form [formGroup]="FeesPaymentForm">
+            <!-- //new 13-07-2022 -->
+            <c-row>
+                <c-col [md]="5" class="form-group">
+                    <label size="sm" cLabel class="required">Batch</label>
+                    <select cSelect class="form-control modal-validation" formControlName="batch"
+                            [(ngModel)]="selected_batch"
+                            (ngModelChange)="onBatchSelected($event)">
+                        <option value="" disabled selected>--- Please Select ---</option>
+                        @for (data of aApprovedCourses; track data) {
+                            <option [ngValue]="data">{{ data.batch_name }}</option>
+                        }
+                    </select>
+                </c-col>
+                <c-col [md]="3" class="form-group">
+                    <label cLabel class="required">Subject</label>
+                    <select cSelect formControlName="batchSubjects"
+                            (ngModelChange)="onSubjectSelect($event)"
+                            class="form-control modal-validation">
+                        <option value="" disabled selected>--- Please Select ---</option>
+                        <option [ngValue]="selected_batch">{{ selected_batch?.subject_group_code }}</option>
+                    </select>
+                    <div style="padding-left: 1px;padding-top: 3px;">
+                        <p><b size="sm">Selected Subject Code Consists : </b> <br> {{ firstSubjectGroupName }}</p>
+                    </div>
+                </c-col>
+                
+                <c-col [md]="2" class="form-group">
+                    <label size="sm" cLabel class="required">Select Installment</label>
+                    <select cSelect formControlName="installment" [(ngModel)]="FeeStructure"
+                            (change)="showFeesAmount(FeeStructure)"
+                            class="form-control modal-validation">
+                        <option value="" disabled selected>--- Please Select ---</option>
+                        @for (data of aInstallment_res?.installments; track data) {
+                            <option [ngValue]="data">
+                                {{ data.header?.installment }}
+                            </option>
+                        }
+                    </select>
+                </c-col>
+                
+                @if (environment.demoMode) {
+                    <c-col [md]="2">
+                        <label cLabel for="">Fees Amount</label>
+                        <input cFormControl type="text" (selectionchange)="checkAmountLength()"
+                               formControlName="feesamount">
+                        <!--                        (input)="checkAmountLength()"-->
+                    </c-col>
+                }
+            </c-row>
+        </form>
+        
+        <div class="my-2"></div>
+        
+        <table cTable class="academic-table">
+            <thead>
+            <tr>
+                <th class="academic-table-th text-center">#</th>
+                <th class="academic-table-th text-center">Description</th>
+                <th class="academic-table-th text-center">Total</th>
+            </tr>
+            </thead>
+            
+            <tbody>
+                @for (data of Lineitem; track data; let i = $index) {
+                    <tr>
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ data.fees_name }}</td>
+                        <td>₹ {{ data.amount }}</td>
+                    </tr>
+                }
+            <tr>
+                <td></td>
+                <td><strong>Total</strong></td>
+                <td><strong>₹ {{ Amount }}</strong></td>
+            </tr>
+            </tbody>
+        </table>
+        
+        <div class="my-2"></div>
+        
+        <table cTable class="academic-table">
+            <thead>
+            <tr>
+                <th class="academic-table-th text-center">#</th>
+                <th class="academic-table-th text-center">Installment</th>
+                <th class="academic-table-th text-center">Amount</th>
+            </tr>
+            </thead>
+            
+            <tbody>
+                @for (data of MyInstallment; track data; let i = $index) {
+                    <tr>
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ data.installment }}</td>
+                        <td>₹ {{ data.amount }}</td>
+                    </tr>
+                }
+            
+            </tbody>
+        </table>
+        <c-card-body>
+            <form [formGroup]="PaymentForm">
+                <div class="form-group">
+                    <c-row>
+                        <c-col [md]="12">
+                            <label size="sm" cLabel style="font-size: 18px;"><b style="text-decoration: underline;">Terms
+                                of
+                                Payment
+                                :</b><br/>
+                                (a) GST and other tax / taxes if any applicable, will be charged in addition. <br/>
+                                (b) It is clarified that in respect of transactions that are successfully processed
+                                and
+                                subsequently reversed/refunded/charged-back, all Fees levied on the original
+                                transaction
+                                shall
+                                persist and not be reversed.
+                            </label>
+                        </c-col>
+                    </c-row>
+                    <c-row>
+                        <c-col [md]="12">
+                            @if (firstInstallmenttext) {
+                                <c-form-check>
+                                    <input style="margin-top: 4px" cFormCheckInput id="checkdec" type="checkbox"
+                                           formControlName="checkdec" class="feespayment-checkbox"/>
+                                    <label size="sm" style="font-size: 17px;" cFormCheckLabel
+                                           class="text-danger fw-bold"
+                                           [(innerHTML)]="InstallmentTerm"></label>
+                                </c-form-check>
+                            }
+                        </c-col>
+                    </c-row>
+                </div>
+                
+                <div class="my-2"></div>
+                
+                <div class="form-group">
+                    <c-row>
+                        <c-col [md]="12">
+                            <input class="feespayment-checkbox" cFormCheckInput formControlName="termsandconditions"
+                                   type="checkbox"/>
+                            <label size="sm" class="feespayment-message" cLabel style="color:green"><b style="font-size: 20px;">I hereby declare
+                                that I have read all the charges above and I am proceeding with the payment option.</b></label>
+                        </c-col>
+                        <!--                        <c-col [md]="11">-->
+                        <!--                        </c-col>-->
+                    </c-row>
+                    
+                    
+<!--                    [disabled]="PaymentForm.invalid"-->
+                    
+                    <c-row>
+                        <c-col [md]="5"></c-col>
+                        <c-col [md]="4">
+                            <button type="submit" cButton class="btn-add btn-success text-white fee-payment-btn"
+                                    [disabled]="PaymentForm.invalid"
+                                    (click)="FeesPayment()">
+                                <b>Proceed to Payment</b>
+                                @if (paymentloader) {
+                                    <c-spinner aria-hidden="false" size="sm"></c-spinner>
+                                }
+                            </button>
+                        </c-col>
+                    </c-row>
+                </div>
+            </form>
+        </c-card-body>
+    </c-card-body>
+</c-card>
+@if (environment.demoMode) {
+    {{ this.PaymentForm.value | json }}
+}
+

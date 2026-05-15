@@ -1,0 +1,69 @@
+<c-card class="main-container mb-5">
+  <div class="card-header">
+    <c-row>
+      <c-col [md]="9">
+        <h4>Internal Exam Marks</h4>
+      </c-col>
+    </c-row>
+  </div>
+
+  <div class="card-body">
+    <form [formGroup]="marksForm" (keydown.enter)="$event.preventDefault()" (ngSubmit)="onShowClick()">
+      <c-row>
+        <c-col [md]="6">
+          <label cLabel size="sm" for="Batch_name">Batch:</label>
+          <select cSelect    id="Batch_name" [(ngModel)]="SelectedBatch" formControlName="Batch_name"
+            class="form-control"
+            (change)="onChangeBatchSelect()">
+            <option disabled>Select Batch</option>
+            @for (bat of Batchs; track bat) {
+              <option [ngValue]="bat">
+              {{bat.Batch_name}}</option>
+            }
+          </select>
+          @if (marksForm.get('Batch_name')?.invalid && marksForm.get('Batch_name')?.touched) {
+            <span
+            class="text-danger">Batch is required</span>
+          }
+        </c-col>
+
+        <c-col [md]="4">
+          <label cLabel size="sm" for="Internal_Name">Internal Exam:</label>
+          <select cSelect id="Internal_Name" [(ngModel)]="SelectedInternalExam" formControlName="Internal_Name"
+            class="form-control"
+            (change)="onChangeInternalExamSelect()">
+            <option disabled>Select Exam</option>
+            @for (exam of InternalExam; track exam) {
+              <option [ngValue]="exam">
+              {{exam.Userexamname}}</option>
+            }
+          </select>
+          @if (marksForm.get('Internal_Name')?.invalid && marksForm.get('Internal_Name')?.touched) {
+            <span
+            class="text-danger">exam is required</span>
+          }
+        </c-col>
+
+
+        <c-col [md]="2">
+          <button cButton type="submit" [disabled]="marksForm.invalid"
+          class="btn-show buttons" style="width: 80px" >&nbsp;&nbsp;Show</button>
+        </c-col>
+      </c-row>
+    </form>
+    <br/><br/>
+    <c-row>
+      <c-col [md]="12" style="z-index: 1">
+        <ag-grid-angular
+          style="width: 100%; height: 300px;"
+          class="ag-theme-balham"
+          [rowData]="res_Showinternalmarks"
+          [gridOptions]="gridOptions"
+          [columnDefs]="columnData"
+          [rowSelection]="rowSelection"
+          (gridReady)="onGridReady($event)" (selectionChanged)="onSelectionChanged($event)">
+        </ag-grid-angular>
+      </c-col>
+    </c-row>
+  </div>
+</c-card>

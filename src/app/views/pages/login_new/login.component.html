@@ -1,0 +1,129 @@
+<div class="bg-light dark:bg-transparent min-vh-100 d-flex flex-column align-items-center ">
+  <c-card style="width: 100%">
+
+    <h5 style="color: rgba(51, 153, 255, 100);margin-left: 40px;margin-top:8px">
+      RAMNIRANJAN JHUNJHUNWALA COLLEGE OF ARTS , COMMERCE AND SCIENCE
+      (AUTONOMOUS)<br/>
+      <h6 style="color: black">
+        Opposite Ghatkopar Railway Station West Mumbai-400086,
+        Maharashtra, India
+      </h6>
+    </h5>
+  </c-card>
+  <br><br><br><br><br><br>
+
+  <c-container breakpoint="md">
+    <c-row class="justify-content-center">
+
+      <c-col lg="10" xl="9">
+        <c-card-group>
+          <c-card class="p-6">
+            <c-card-body>
+              <form cForm [formGroup]="loginForm" class="justify-content-center">
+
+                <c-row>
+                  <c-col>
+                    <h1>Login</h1>
+                  </c-col>
+                  <c-col><p style="padding-left: 122px;margin-top: 7px">version {{ currentApplicationVersion }}</p></c-col>
+                <p class="text-medium-emphasis">Sign In to your account</p>
+
+                <c-input-group class="mb-3">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilUser"></svg>
+                  </span>
+                  <input sizing="sm"
+                    type="number"
+                    formControlName="aadhaar"
+                    autoComplete="aadhaar"
+                    cFormControl
+                    placeholder="Aadhaar"
+                    required
+                    [autofocus]="true"
+                    [valid]=""
+                    />
+
+                </c-input-group>
+
+
+                <c-input-group class="mb-3">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilLockLocked"></svg>
+                  </span>
+                  <input sizing="sm"
+                    autoComplete="current-password"
+                    cFormControl
+                    formControlName="user_pwd"
+                    placeholder="Password"
+                    type="password"
+                    />
+                </c-input-group>
+
+
+                <c-row>
+                  <img cImg [src]="Res_Captcha?.image" height="60"
+                    style="margin-left :140px; width: 180px;" alt="image">
+                </c-row>
+
+                <c-input-group class="mb-3">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilInput"></svg>
+                  </span>
+                  <input sizing="sm"
+                    cFormControl
+                    formControlName="Valuesdata"
+                    placeholder="Captcha"
+                    />
+                    
+                    
+                    
+                </c-input-group>
+
+
+                <c-row>
+                  <c-col xs="6">
+                    <button size="sm" cButton class="px-4" color="primary" [disabled]="logindisable"
+                      (click)="loginme()">
+                      Login
+                      @if (loginLoader) {
+                        <c-spinner aria-hidden="false" size="sm"></c-spinner>
+                      }
+                    </button>
+                  </c-col>
+                  <c-col xs="6">
+                    <a
+                      style="padding-left: 10px"
+                      [routerLink]="'/forgotpassword'"
+                      >Forgot password?</a
+                      >
+                    </c-col>
+                  </c-row>
+                </c-row>
+                </form>
+              </c-card-body>
+            </c-card>
+
+
+            <c-card>
+
+              <div>
+                  <div class="text-white bg-danger p-4" style="height: 400px">
+                      <div class="card-body text-center" style="margin-top: 75px">
+                          <h2>Sign up</h2>
+                          <h5>Students from other colleges seeking admission!</h5>
+                          
+                          <button cButton color="success" style="width: 55%;color: white"
+                                  (click)="DisplayOUTSIDEmessage()">
+                              New Registration!
+                          </button>
+                      </div>
+                  </div>
+              </div>
+              <router-outlet></router-outlet>
+            </c-card>
+          </c-card-group>
+        </c-col>
+      </c-row>
+    </c-container>
+  </div>
+

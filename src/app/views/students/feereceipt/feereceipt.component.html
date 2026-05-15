@@ -1,0 +1,61 @@
+<c-card class="main-container">
+  <c-card-header>
+    <h4>Fee Reciept</h4>
+  </c-card-header>
+
+  <c-card-body>
+
+    <c-smart-table class="table-bordered-custom"
+      #smartTable="cSmartTable"
+      [(activePage)]="activePage"
+      [columns]="columns"
+      [items]="signal_users()"
+      [itemsPerPage]="itemsPerPage"
+      [tableProps]="{ hover: true, striped: true, responsive: true }"
+      header
+      pagination
+      selectable
+      [selectAll]="false"
+      (selectedItemsChange)="onSelectedItemsChange($event)">
+    </c-smart-table>
+
+      <div class="my-2"></div>
+
+    <c-row>
+
+      <c-col [md]="3" >
+        <button cButton
+          type="submit"
+          (click)="view('PDF')"
+          >
+          Download
+          @if (downloadloader) {
+            <c-spinner aria-hidden="false" size="sm"></c-spinner>
+          }
+
+        </button>
+      </c-col>
+
+      <c-col [md]="3" >
+        <button cButton
+          (click)="view('IMG')"
+          >
+          View
+        </button>
+      </c-col>
+    </c-row>
+  </c-card-body>
+</c-card>
+
+
+<br />
+
+@if (FeeReceipt) {
+  <c-card>
+    <c-card-body>
+      <img cImg [src]="this.reciept_img" style="width: 75%" alt="this is image">
+    </c-card-body>
+  </c-card>
+}
+
+

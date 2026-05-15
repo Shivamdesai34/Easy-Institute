@@ -1,0 +1,488 @@
+<!--<div>-->
+<!--  <h4>-->
+<!--    Registration {{this.formtype!}}-->
+<!--  </h4>-->
+<!--  <hr>-->
+<!--</div>-->
+
+<c-card>
+  <c-card-header><strong>Registration {{this.formtype!}}</strong></c-card-header>
+  <c-card-body>
+    <c-col [md]="12">
+
+      <form [formGroup]="NepAdditionalsubjectForm" (ngSubmit)="asPayment()">
+
+        <div class="modal-body">
+
+          <div class="form-group">
+            <label cLabel size="sm"  class="required"><b>Batch</b></label>
+            <select cSelect sizing="sm"  class="form-control"
+              id="batch"
+              [(ngModel)]="BatchObject"
+              (change)="PortalOpen()"
+              (focusin)="formreset()"
+              formControlName="batch">
+              <option value="" disabled selected>
+              --- Please Select ---</option>
+              @for (data of modalBatch; track data; let i = $index) {
+                <option [ngValue]="data">
+                  {{ data.batch_name }}
+                </option>
+              }
+            </select>
+          </div>
+          <div class="form-group">
+            <label cLabel size="sm"  class="required"><b>Major Subject Papers</b></label>
+            <c-row class="align-items-start">
+              <div class="form-group col">
+                <select cSelect sizing="sm"  formControlName="frm_majorsubjects" [(ngModel)]="selected_major" [ngClass]="{
+                                          'is-invalid':
+                                            (modalSubmit || frmsubject['frm_majorsubjects'].touched) &&
+                                            frmsubject['frm_majorsubjects'].errors,
+                                          'is-valid': frmsubject['frm_majorsubjects'].touched && !frmsubject['frm_majorsubjects'].errors
+                                        }" (change)="onMajorSelected(selected_major)"
+                  class="form-control modal-validation">
+                  <option value="" disabled selected>--- Please Select ---</option>
+                  @for (data of majorsubjects; track data; let i = $index) {
+                    <option [ngValue]="data">
+                      {{ data.subject_group_code }}
+                    </option>
+                  }
+                </select>
+              </div>
+              <c-col>
+                <!--                      <button size="sm" type="button" class="btn-info" (click)="onusermessage(1)">Click here</button>-->
+                <button size="sm" cButton color="info" shape="rounded-0" class="btn-info" (click)="onusermessage(1)">Click here
+                </button>
+              </c-col>
+            </c-row>
+            <div>
+              <p>
+                <b>Selected Major Subject Paper consists : {{ major_subjectgroup }}</b> <br/>
+              </p>
+            </div>
+          </div>
+          <c-row class="align-items-start">
+            <c-col>
+              <div class="form-group">
+                <label cLabel size="sm"  class="required"><b>Minor subject </b></label>
+                <div class="form-group">
+                
+<!--                    (focusin)="minor_subject(2)"-->
+                  
+                  <select cSelect sizing="sm"  formControlName="frm_minorsubjects" [(ngModel)]="selected_minor" [ngClass]="{
+                                          'is-invalid':
+                                            (frmsubject['frm_minorsubjects'].touched) &&
+                                            frmsubject['frm_minorsubjects'].errors,
+                                          'is-valid': frmsubject['frm_minorsubjects'].touched && !frmsubject['frm_minorsubjects'].errors
+                                        }"
+                          (focusin)="minor_subject(2)"
+                    (change)="onLevelSelect(3)"
+                    class="form-control modal-validation">
+                    <option value="" disabled selected>--- Select Minor---</option>
+                    @for (data of minorsubjects; track data; let i = $index) {
+                      <option [ngValue]="data">
+                        {{ data.otherlevel}}
+                      </option>
+                    }
+                  </select>
+                </div>
+              </div>
+            </c-col>
+            <c-col>
+              <label cLabel size="sm" ></label>
+              <div class="form-group">
+                <!--                      <button size="sm" type="button" class="btn-info" (click)="onusermessage(2)">Click here</button>-->
+                <button size="sm" cButton color="info" shape="rounded-0" class="btn-info" (click)="onusermessage(2)">Click here
+                </button>
+
+              </div>
+            </c-col>
+          </c-row>
+          <c-row class="align-items-start">
+            <c-col>
+              <div class="form-group">
+                <label cLabel size="sm"  class="required"><b>Open Elective </b></label>
+                <div class="form-group">
+                  <select cSelect sizing="sm"  formControlName="frm_oesubjects" [(ngModel)]="selected_oe" [ngClass]="{
+                                          'is-invalid':
+                                            (frmsubject['frm_oesubjects'].touched) &&
+                                            frmsubject['frm_oesubjects'].errors,
+                                          'is-valid': frmsubject['frm_oesubjects'].touched && !frmsubject['frm_oesubjects'].errors
+                                        }" (change)="onLevelSelect(4)"
+                    class="form-control modal-validation">
+                    <option value="" disabled selected>--- Open Elective---</option>
+                    @for (data of oesubjects; track data; let i = $index) {
+                      <option [ngValue]="data">
+                        {{data.otherlevel}}
+                      </option>
+                    }
+                  </select>
+                </div>
+              </div>
+            </c-col>
+            <c-col>
+              <label cLabel size="sm" ></label>
+              <div class="form-group">
+                <!--                      <button size="sm" type="button" class="btn-info" (click)="onusermessage(3)">Click here</button>-->
+                <button size="sm" cButton color="info" shape="rounded-0" class="btn-info" (click)="onusermessage(3)">Click here
+                </button>
+
+              </div>
+            </c-col>
+          </c-row>
+          <c-row class="align-items-start">
+            <c-col>
+              <div class="form-group">
+                <label cLabel size="sm" ><b>Vocational and skill Enhancement courses(VSEC) </b></label>
+                <div class="form-group">
+                  <select cSelect sizing="sm"  formControlName="frm_vscsubjects" [(ngModel)]="selected_vsc" [ngClass]="{
+                                          'is-invalid':
+                                            (frmsubject['frm_vscsubjects'].touched) &&
+                                            frmsubject['frm_vscsubjects'].errors,
+                                          'is-valid': frmsubject['frm_vscsubjects'].touched && !frmsubject['frm_vscsubjects'].errors
+                                        }" (change)="onLevelSelect(5)"
+                    class="form-control modal-validation">
+                    <option value="" disabled selected>--- Select VSC---</option>
+                    @for (data of vscsubjects; track data; let i = $index) {
+                      <option [ngValue]="data">
+                        {{ data.otherlevel}}
+                      </option>
+                    }
+                  </select>
+                </div>
+              </div>
+            </c-col>
+            <c-col>
+              <label cLabel size="sm" ></label>
+              <div class="form-group">
+                <!--                      <button size="sm" type="button" class="btn-info" (click)="onusermessage(4)">Click here</button>-->
+                <button size="sm" cButton color="info" shape="rounded-0" class="btn-info" (click)="onusermessage(4)">Click here
+                </button>
+
+              </div>
+            </c-col>
+          </c-row>
+          <c-row class="row align-items-start">
+            <c-col>
+              <div class="form-group">
+                <label cLabel size="sm"  class="required"><b>Skill Enhancement Course </b></label>
+                <div class="form-group">
+                  <select cSelect sizing="sm"  formControlName="frm_secsubjects" [(ngModel)]="selected_sec" [ngClass]="{
+                                          'is-invalid':
+                                            (frmsubject['frm_secsubjects'].touched) &&
+                                            frmsubject['frm_secsubjects'].errors,
+                                          'is-valid': frmsubject['frm_secsubjects'].touched && !frmsubject['frm_secsubjects'].errors
+                                        }" (change)="onLevelSelect(6)"
+                    class="form-control modal-validation">
+                    <option value="" disabled selected>--- SEC-Student will chosse from the basket of
+                      coursesr---
+                    </option>
+                    @for (data of secsubjects; track data; let i = $index) {
+                      <option [ngValue]="data">
+                        {{ data.otherlevel}}
+                      </option>
+                    }
+                  </select>
+                </div>
+              </div>
+            </c-col>
+            <c-col>
+              <label cLabel size="sm" ></label>
+              <div class="form-group">
+                <!--                      <button size="sm" type="button" class="btn-info" (click)="onusermessage(5)">Click here</button>-->
+                <button size="sm" cButton color="info" shape="rounded-0" class="btn-info" (click)="onusermessage(5)">Click here
+                </button>
+
+              </div>
+            </c-col>
+          </c-row>
+          <c-row class="row align-items-start">
+            <c-col>
+              <div class="form-group">
+                <label cLabel size="sm"  class="required"><b>Ability Enhancement Courses(AEC) </b></label>
+                <div class="form-group">
+                  <select cSelect sizing="sm"  formControlName="frm_aecsubjects" [(ngModel)]="selected_aec" [ngClass]="{
+                                          'is-invalid':
+                                            (frmsubject['frm_aecsubjects'].touched) &&
+                                            frmsubject['frm_aecsubjects'].errors,
+                                          'is-valid': frmsubject['frm_aecsubjects'].touched && !frmsubject['frm_aecsubjects'].errors
+                                        }" (change)="onLevelSelect(7)"
+                    class="form-control modal-validation">
+                    <option value="" disabled selected>--- Select Ability Enhancement Courses(AEC)---</option>
+                    @for (data of aecsubjects; track data; let i = $index) {
+                      <option [ngValue]="data">
+                        {{ data.otherlevel}}
+                      </option>
+                    }
+                  </select>
+                </div>
+              </div>
+            </c-col>
+            <c-col>
+              <label cLabel size="sm" ></label>
+              <div class="form-group">
+                <!--                      <button size="sm" type="button" class="btn-info" (click)="onusermessage(6)">Click here</button>-->
+                <button size="sm" cButton color="info" shape="rounded-0" class="btn-info" (click)="onusermessage(6)">Click here
+                </button>
+
+              </div>
+            </c-col>
+          </c-row>
+          <c-row class="row align-items-start">
+            <c-col>
+              <div class="form-group">
+                <label cLabel size="sm"  class="required"><b>Values Education Course(VEC) </b></label>
+                <div class="form-group">
+                  <select cSelect sizing="sm"  formControlName="frm_vecsubjects" [(ngModel)]="selected_vec" [ngClass]="{
+                                          'is-invalid':
+                                            (frmsubject['frm_vecsubjects'].touched) &&
+                                            frmsubject['frm_vecsubjects'].errors,
+                                          'is-valid': frmsubject['frm_vecsubjects'].touched && !frmsubject['frm_vecsubjects'].errors
+                                        }" (change)="onLevelSelect(8)"
+                    class="form-control modal-validation">
+                    <option value="" disabled selected>--- Select Minor---</option>
+                    @for (data of vecsubjects; track data; let i = $index) {
+                      <option [ngValue]="data">
+                        {{ data.otherlevel}}
+                      </option>
+                    }
+                  </select>
+                </div>
+              </div>
+            </c-col>
+            <c-col>
+              <label cLabel size="sm" ></label>
+              <div class="form-group">
+                <!--                      <button size="sm" type="button" class="btn-info" (click)="onusermessage(7)">Click here</button>-->
+                <button size="sm" cButton color="info" shape="rounded-0" class="btn-info" (click)="onusermessage(7)">Click here
+                </button>
+
+              </div>
+            </c-col>
+          </c-row>
+          <c-row class="align-items-start">
+            <c-col>
+              <div class="form-group">
+                <label cLabel size="sm"  class="required"><b>Indian Knowledge system(IKS) </b></label>
+                <div class="form-group">
+                  <select cSelect sizing="sm"  formControlName="frm_ikssubjects" [(ngModel)]="selected_iks" [ngClass]="{
+                                          'is-invalid':
+                                            (frmsubject['frm_ikssubjects'].touched) &&
+                                            frmsubject['frm_ikssubjects'].errors,
+                                          'is-valid': frmsubject['frm_ikssubjects'].touched && !frmsubject['frm_ikssubjects'].errors
+                                        }" (change)="onLevelSelect(9)"
+                    class="form-control modal-validation">
+                    <option value="" disabled selected>--- Select IKS---</option>
+                    @for (data of ikssubjects; track data; let i = $index) {
+                      <option [ngValue]="data">
+                        {{ data.otherlevel}}
+                      </option>
+                    }
+                  </select>
+                </div>
+              </div>
+            </c-col>
+            <c-col>
+              <label cLabel size="sm" ></label>
+              <div class="form-group">
+                <!--                      <button size="sm" type="button" class="btn-info" (click)="onusermessage(8)">Click here</button>-->
+                <button size="sm" cButton color="info" shape="rounded-0" class="btn-info" (click)="onusermessage(8)">Click here
+                </button>
+
+              </div>
+            </c-col>
+          </c-row>
+          <c-row class="align-items-start">
+            <c-col>
+              <div class="form-group">
+                <label cLabel size="sm" ><b>Co-Curricular Activities(CC)</b></label>
+                <div class="form-group">
+                  <select cSelect sizing="sm"  formControlName="frm_ccsubjects" [(ngModel)]="selected_cc" [ngClass]="{
+                                          'is-invalid':
+                                            (frmsubject['frm_ccsubjects'].touched) &&
+                                            frmsubject['frm_ccsubjects'].errors,
+                                          'is-valid': frmsubject['frm_ccsubjects'].touched && !frmsubject['frm_ccsubjects'].errors
+                                        }" class="form-control modal-validation"
+                    (change)="onLevelSelect(10)"
+                    >
+                    <option value="" disabled selected>--- Select CC Subject---</option>
+                    @for (data of ccsubjects; track data; let i = $index) {
+                      <option [ngValue]="data">
+                        {{ data.otherlevel}}
+                      </option>
+                    }
+                  </select>
+                </div>
+              </div>
+            </c-col>
+            <c-col>
+              <label cLabel size="sm" ></label>
+              <div class="form-group">
+                <!--                      <button size="sm" type="button" class="btn-info" (click)="onusermessage(8)">Click here</button>-->
+                <button size="sm" cButton color="info" shape="rounded-0" class="btn-info" (click)="onusermessage(8)">Click here
+                </button>
+
+              </div>
+            </c-col>
+          </c-row>
+
+          <c-row class="align-items-start">
+            <c-col>
+              <div class="form-group">
+                <label cLabel size="sm" ><b>Field Project/Community Engagement Program.(FP/CEP)</b></label>
+                <div class="form-group">
+                  <select cSelect sizing="sm"  formControlName="frm_fpsubjects" [(ngModel)]="selected_fp" [ngClass]="{
+                                          'is-invalid':
+                                            (frmsubject['frm_fpsubjects'].touched) &&
+                                            frmsubject['frm_fpsubjects'].errors,
+                                          'is-valid': frmsubject['frm_fpsubjects'].touched
+                                          && !frmsubject['frm_fpsubjects'].errors
+                                        }" class="form-control modal-validation">
+                    <option value="" disabled selected>--- Select FP---</option>
+                    @for (data of fpsubjects; track data; let i = $index) {
+                      <option [ngValue]="data">
+                        {{ data.otherlevel}}
+                      </option>
+                    }
+                  </select>
+                </div>
+              </div>
+            </c-col>
+            <c-col>
+              <label cLabel size="sm" ></label>
+              <div class="form-group">
+                <!--                      <button size="sm" type="button" class="btn-info" (click)="onusermessage(8)">Click here</button>-->
+                <button size="sm" cButton color="info" shape="rounded-0" class="btn-info" (click)="onusermessage(8)">Click here
+                </button>
+
+              </div>
+            </c-col>
+          </c-row>
+
+          <br>
+
+            <div>
+              <h3>Form Amount : ₹ {{ this.BatchObject?.formamount }}</h3>
+            </div>
+          </div>
+
+          <div>
+
+
+            <div style="padding-left: 18px;">
+              <h4>You have selected following subjects :</h4>
+            </div>
+            <div class="card-body">
+              <table class="table table-responsive">
+                <tbody>
+                  @if (selected_major?.subject_group_name) {
+                    <tr>
+                      <th>Major subject</th>
+                      <td>{{selected_major?.subject_group_name}}</td>
+                    </tr>
+                  }
+                  @if (selected_minor?.otherlevel) {
+                    <tr>
+                      <th>Minor subject</th>
+                      <td>{{selected_minor?.otherlevel}}</td>
+                    </tr>
+                  }
+                  @if (selected_oe?.otherlevel) {
+                    <tr>
+                      <th>Open Elective</th>
+                      <td>{{selected_oe?.otherlevel}}</td>
+                    </tr>
+                  }
+                  @if (selected_vsc?.otherlevel) {
+                    <tr>
+                      <th>VSEC</th>
+                      <td>{{selected_vsc?.otherlevel}}</td>
+                    </tr>
+                  }
+                  @if (selected_sec?.otherlevel) {
+                    <tr>
+                      <th>SEC</th>
+                      <td>{{selected_sec?.otherlevel}}</td>
+                    </tr>
+                  }
+                  @if (selected_aec?.otherlevel) {
+                    <tr>
+                      <th>AEC</th>
+                      <td>{{selected_aec?.otherlevel}}</td>
+                    </tr>
+                  }
+                  @if (selected_vec?.otherlevel) {
+                    <tr>
+                      <th>VEC</th>
+                      <td>{{selected_vec?.otherlevel}}</td>
+                    </tr>
+                  }
+                  @if (selected_iks?.otherlevel) {
+                    <tr>
+                      <th>IKS</th>
+                      <td>{{selected_iks?.otherlevel}}</td>
+                    </tr>
+                  }
+                  @if (selected_cc?.otherlevel) {
+                    <tr>
+                      <th>CC</th>
+                      <td>{{selected_cc?.otherlevel}}</td>
+                    </tr>
+                  }
+                  @if (selected_fp?.otherlevel) {
+                    <tr>
+                      <th>FP</th>
+                      <td>{{selected_fp?.otherlevel}}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <c-row
+            class="d-grid gap-2 d-md-flex justify-content-md-center"
+            >
+            <c-col [md]="3">
+              <button size="sm" type="submit" style="color: white"
+                [disabled]="NepAdditionalsubjectForm.invalid"
+                size="md" class="btn btn-success">
+                Pay
+              </button>
+            </c-col>
+          </c-row>
+
+        </form>
+
+      </c-col>
+    </c-card-body>
+  </c-card>
+
+  <div class="col-lg-12">
+
+    <div style="padding-left: 18px;">
+      <h4>Courses Already Applied.</h4>
+    </div>
+    <div class="card-body">
+      <table class="table table-responsive table-striped">
+        <thead>
+          <tr>
+            <th>Batch Name</th>
+            <th>Subject Group Name</th>
+            <th>Receipt Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (data of AppliedCourses; track data; let i = $index) {
+            <tr>
+              <td>{{data.batch_name}}</td>
+              <td>{{data.subject_group_name}}</td>
+              <td>{{data.receiptamount}}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+  </div>

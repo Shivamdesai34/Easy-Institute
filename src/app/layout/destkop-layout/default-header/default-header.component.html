@@ -1,0 +1,159 @@
+<!--<c-header class="mb-4 d-print-none" position="sticky">-->
+<ng-container>
+  <c-container [fluid]="true" class="border-bottom px-4">
+    <div class="d-flex align-items-center">
+      <button
+        [cSidebarToggle]="sidebarId()"
+        cHeaderToggler
+        class="btn"
+        toggle="visible"
+        style="margin-inline-start: -14px;"
+        aria-label="Toggle sidebar navigation"
+      >
+        <svg cIcon name="cilMenu" size="lg"></svg>
+      </button>
+
+<!--        <button-->
+<!--                [cSidebarToggle]="sidebarId()"-->
+<!--                cHeaderToggler-->
+<!--                class="btn sidebar-toggle-highlight d-md-none"-->
+<!--                toggle="visible"-->
+<!--                style="margin-inline-start: -14px;"-->
+<!--                aria-label="Toggle sidebar navigation"-->
+<!--        >-->
+<!--            <svg cIcon name="cilMenu" size="lg"></svg>-->
+<!--        </button>-->
+
+      <!-- ✅ Company Info -->
+<!--      <div class="d-flex flex-column ms-3">-->
+
+        <div class="d-none d-lg-flex me-auto">
+            <b style="color: #39f; margin-top: 8px; font-size: medium;">RAMNIRANJAN JHUNJHUNWALA COLLEGE OF ARTS , COMMERCE AND SCIENCE (AUTONOMOUS) <br>
+                <h6 style="color: black;">Opposite Ghatkopar Railway Station West Mumbai-400086, Maharashtra, India</h6></b>
+<!--        <span class="fw-semibold fs-5 text-dark">RAMNIRANJAN JHUNJHUNWALA COLLEGE OF ARTS, SCIENCE & COMMERCE (EMPOWERED AUTONOMOUS) </span>-->
+<!--        <small class="text-muted">Opposite Ghatkopar Railway Station, Ghatkopar West, Mumbai 400086 Maharashtra, INDIA</small>-->
+        </div>
+
+
+
+    </div>
+
+    <!--Vishnu-->
+    <!-- <c-header-nav class="d-none d-md-flex me-auto">
+       <c-nav-item>
+         <a cNavLink routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+       </c-nav-item>
+       <c-nav-item>
+         <a cNavLink routerLink="/page" routerLinkActive="active">Page</a>
+       </c-nav-item>
+     </c-header-nav>-->
+
+    <!--<c-header-nav class="ms-auto ms-md-0">
+      &lt;!&ndash;Vishnu&ndash;&gt;
+      &lt;!&ndash;<div class="nav-item py-1">
+        <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
+      </div>
+      <ng-container *ngTemplateOutlet="themeDropdown"/>&ndash;&gt;
+      <div class="nav-item py-1">
+        <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
+      </div>
+    </c-header-nav>-->
+
+    <!--aside toggler-->
+    <!-- <button
+       cHeaderToggler
+       cSidebarToggle="aside1"
+       style="margin-inline-end: -12px"
+       toggle="visible"
+       aria-label="Open aside"
+     >
+       <svg cIcon name="cilApplicationsSettings" size="lg"></svg>
+     </button>-->
+
+<!--      <c-header-nav class="d-none d-lg-flex me-auto" >-->
+<!--          <c-nav-item>-->
+<!--              <div class="d-none d-lg-flex me-auto">-->
+<!--                  <b style="color: #39f; font-size: medium;">RAMNIRANJAN JHUNJHUNWALA COLLEGE OF ARTS , COMMERCE AND SCIENCE (AUTONOMOUS) <br>-->
+<!--                      <h6 style="color: black;">Opposite Ghatkopar Railway Station West Mumbai-400086, Maharashtra, India</h6></b>-->
+<!--                  &lt;!&ndash;        <span class="fw-semibold fs-5 text-dark">RAMNIRANJAN JHUNJHUNWALA COLLEGE OF ARTS, SCIENCE & COMMERCE (EMPOWERED AUTONOMOUS) </span>&ndash;&gt;-->
+<!--                  &lt;!&ndash;        <small class="text-muted">Opposite Ghatkopar Railway Station, Ghatkopar West, Mumbai 400086 Maharashtra, INDIA</small>&ndash;&gt;-->
+<!--              </div>-->
+<!--&lt;!&ndash;              <a cNavLink routerLink="/dashboard" routerLinkActive="active">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <b style="color: #39f; margin-top: 50px;font-size: small; ">RAMNIRANJAN JHUNJHUNWALA COLLEGE OF ARTS&ndash;&gt;-->
+<!--&lt;!&ndash;                      , COMMERCE AND SCIENCE (AUTONOMOUS)&ndash;&gt;-->
+<!--&lt;!&ndash;                      <h6 style="color: black;">Opposite Ghatkopar Railway Station West Mumbai-400086, Maharashtra, India</h6></b>&ndash;&gt;-->
+<!--&lt;!&ndash;              </a>&ndash;&gt;-->
+<!--          </c-nav-item>-->
+
+<!--      </c-header-nav>-->
+
+
+
+
+    <c-header-nav class="ms-0">
+        <ul class="c-header-nav">
+            <p style=" padding-top: 10px;    color: red" ><b>Financial Year - {{this.oSession.maxfinyear}}</b></p>
+        </ul>
+      <ng-container *ngTemplateOutlet="userDropdown" />
+    </c-header-nav>
+
+  </c-container>
+
+  <!--  <c-container [fluid]="true" class="px-4">
+      <c-breadcrumb-router/>
+    </c-container>-->
+</ng-container>
+<!--</c-header>-->
+
+
+<ng-template #userDropdown>
+  <c-dropdown alignment="end" variant="nav-item">
+    <button
+      cButton
+      color=""
+      [caret]="false"
+      cDropdownToggle
+    >
+      <!--      <c-avatar-->
+      <!--        cTextColor="primary"-->
+      <!--        shape="rounded-circle"-->
+      <!--        size="sm"-->
+      <!--        [src]="MyImage"-->
+
+      <!--        status="success"-->
+      <!--      >-->
+      <!--      </c-avatar>-->
+      <img cImg [src]="MyImage" alt="Admin" class="rounded-circle" width="43" height="43">
+    </button>
+    <ul cDropdownMenu class="pt-0 pr-5 w-auto">
+      <li>
+        <h6 cDropdownHeader class="bg-light fw-semibold py-2">Settings</h6>
+      </li>
+      <li></li>
+      <!--      <li>-->
+      <!--        <a routerLink="./" cDropdownItem>-->
+      <!--          <svg cIcon class="me-2" name="cilUser"></svg>-->
+      <!--          Profile-->
+      <!--        </a>-->
+      <!--      </li>-->
+      <!--      <li>-->
+      <!--        <a routerLink="./" cDropdownItem>-->
+      <!--          <svg cIcon class="me-2" name="cilSettings"></svg>-->
+      <!--          <b>Financial Year - {{Finyear}}</b>-->
+      <!--        </a>-->
+      <!--      </li>-->
+      <!--      <li>-->
+      <!--        <hr cDropdownDivider/>-->
+      <!--      </li>-->
+      <li>
+        <a (click)="session_clear_logout()" cDropdownItem>
+          <svg cIcon class="me-2" name="cilLockLocked"></svg>
+          LogOut
+        </a>
+      </li>
+      <li></li>
+    </ul>
+  </c-dropdown>
+</ng-template>
+
+

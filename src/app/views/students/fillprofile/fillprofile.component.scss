@@ -1,0 +1,19 @@
+.required {
+	&:after {
+		content: " *";
+		color: red;
+	}
+}
+
+.modal-validation.ng-touched.ng-invalid{
+    border:1px solid red;
+}
+.modal-validation.ng-touched.ng-valid{
+    border:1px solid green;
+}
+
+.capitalize{
+	text-transform: capitalize;
+}
+
+

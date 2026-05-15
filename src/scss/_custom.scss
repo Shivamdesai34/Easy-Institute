@@ -1,0 +1,310 @@
+// Here you can add other styles
+
+
+// custom tweaks for scrollbar styling (wip)
+@use "scrollbar";
+
+//For Mobile sidebar drawer icon
+@media (max-width: 767.98px) {
+  .sidebar-toggle-highlight {
+    animation: pulse 1.5s infinite;
+    border: 2px solid #0d6efd;
+    border-radius: 50%;
+    box-shadow: 0 0 0 rgba(13, 110, 253, 0.4);
+    transition: box-shadow 0.3s ease-in-out;
+  }
+
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(13, 110, 253, 0.6);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(13, 110, 253, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(13, 110, 253, 0);
+    }
+  }
+}
+
+:root {
+  --button-height-sm: 33px;
+  --button-height-lg: 40px;
+  --input-height-sm: 33px !important;
+  --input-height-lg: 40px !important;
+  --datepicker-height-sm: 33px !important;
+}
+
+ // custom calendar today cell color
+.calendar-cell.today {
+  --cui-calendar-cell-today-color: var(--cui-info) !important;
+}
+
+// custom select week cursor pointer
+.select-week .calendar-row.current {
+  cursor: pointer;
+}
+
+//.btn btn-success{
+//  font-size: 14px;
+//  padding: 0.5rem 1rem;
+//  border-radius: 0.375rem;
+//  color: #ffffff; // White text
+//}
+
+//.btn-primary {
+//  font-size: 14px;
+//  padding: 0.5rem 1rem;
+//  color: #ffffff !important;
+//}
+
+input.form-control:focus {
+  border: 1px solid orange !important;
+  box-shadow: none !important;
+}
+
+.tab-button.active[aria-selected="true"] {
+  background-color: orange;
+  color: white;
+  font-weight: bold;
+}
+
+input,
+span,
+textarea,
+select,
+input[cFormControl],
+textarea[cFormControl],
+select[cFormControl]{
+  height: var(--input-height-sm);
+  padding: 4px 10px !important;
+  font-size: 14px !important;
+}
+
+
+
+button{
+  color: #ffffff;
+}
+
+.btn-show {           // btn-info || primary
+  width: 20%;
+  height: var(--button-height-sm);
+  padding: 5px ;
+  margin-top: 30px;
+  background-color: #6398ff;
+  border: none;
+}
+.btn-show:hover{
+  background-color: #65b2fd;
+}
+
+.btn-delete {         // btn-danger
+  height: var(--button-height-sm);
+  padding: 5px 10px;
+  margin-top: 29px;
+  background-color: #e64c5e;
+  border: none;
+}
+.btn-delete:hover{
+  background-color: #E96D6D;
+}
+
+.btn-add { // btn-success
+  height: var(--button-height-sm);
+  padding: 5px 15px;
+  margin-top: 29px;
+  background-color: #06a158;
+  border: none;
+}
+.btn-add:hover{
+  background-color: #12ba6a;
+}
+
+/* INFO BOX */
+.info-card {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #e2ecf8;
+}
+
+.info-table th,
+.info-table td {
+  padding: 12px;
+  vertical-align: middle;
+  border-bottom: 1px solid #e6eef9;
+}
+
+/* ACADEMIC HEADER */
+
+.background-academic-wrapper {
+  width: 102%;
+  height: 35px;
+  background: #ece4d8;
+  margin-left: -1%;
+}
+
+.academic-wrapper {
+  //margin: 20px 0 20px;
+  height: 41px;
+  width: 15%;
+  background-color: orange;
+  margin-top: -2.2%;
+  margin-left: -1%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  z-index: -2;
+  font-family: Arial, Helvetica, sans-serif;
+  clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
+
+}
+
+
+.academic-label {
+  color: #fff;
+  padding: 8px 22px;
+  font-weight: 600;
+}
+
+/* TABLE */
+.academic-table {
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  margin-top: 1%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid orange;
+}
+
+.academic-table thead {
+  color: #fff;
+}
+
+.academic-table th,
+.academic-table td {
+  padding: 12px;
+  vertical-align: middle;
+}
+
+.academic-table tbody tr:hover {
+  background: #f3f8ff;
+}
+
+.academic-table thead th{
+  background-color: orange;
+  color: #fff;
+}
+
+.academic-table tbody td {
+  text-align: center;
+}
+
+.academic-table thead tr th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.academic-table thead tr th:last-child {
+  border-top-right-radius: 10px;
+}
+
+.feespayment-checkbox{
+  width: 10px;
+  height: 20px;
+  margin-left: 2px;
+  margin-right: 15px;
+  margin-top: 6px
+}
+
+
+@media (max-width: 600px) {
+
+  .profile-card {
+    width: 100%;
+  }
+
+  .academic-table {
+    width: 100%;
+    display: block;
+    overflow-x: auto;      // horizontal scroll
+    white-space: nowrap;  // columns break na ho
+    border: 0;
+  }
+
+  .academic-table thead {
+    background: #f3f4f6;   // same color rahe
+  }
+
+  .academic-table th,
+  .academic-table td {
+    padding: 6px 8px;
+    font-size: 12px;       // mobile friendly
+    text-align: left;
+  }
+
+  .academic-table-th {
+    font-weight: 600;
+  }
+
+  .background-academic-wrapper {
+    width: 107.2%;
+    height: 32px;
+    margin-left: -3%;
+    overflow-x: hidden;
+  }
+
+  .academic-wrapper {
+    width: 40%;              // fixed % hatao
+    height: 34px;
+    margin-top: -32px;
+    margin-left: -17px;
+    padding-right: 10px;
+    z-index: 1;
+    overflow-x: hidden;
+  }
+
+  .academic-label {
+    font-size: 13px;
+    padding: 6px 14px;
+    white-space: nowrap;      // text wrap na ho
+  }
+
+  .info-card-02{
+    margin-top: 15px;
+  }
+
+  .main-container{
+    margin: 10px 10px 10px 10px;
+  }
+  .atktform-notes{
+    font-size: 15px;
+  }
+  .buttons{
+    margin-left: 35% !important;
+  }
+}
+@media screen and (max-width: 500px) {
+  .main-container{
+    margin: 10px 10px 10px 10px;
+  }
+  .buttons{
+    margin-left: 35% !important;
+  }
+}
+@media screen and (max-width: 412px) {
+  .main-container{
+    margin: 10px 10px 10px 10px;
+  }
+  .buttons{
+    margin-left: 35% !important;
+  }
+  .atktformbtn{
+    margin-left: 40% !important;
+  }
+}
+
+label[cLabel].required::after {
+  content: " *";
+  color: red;
+}

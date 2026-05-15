@@ -1,0 +1,53 @@
+pdf-viewer {
+  display: block;
+  height: 80vh;
+}
+//pdf
+// style containers
+.output-pdf-viewer {
+  padding-top: 10px;
+  height: 60vh;
+  width: 100%;
+  overflow: auto;
+  position: relative;
+  background-color: rgba(#ddd, 0.5);
+
+//     // pdf viewer overwriting styles
+  ::ng-deep {
+    .pdfViewer {
+      .page {
+        border: none;
+        border-image: none;
+        -webkit-border-image: none;
+        box-shadow: 1px 0 5px -3px rgba(#000, 0.2);
+        margin-bottom: 15px;
+      }
+    }
+  }
+
+  button{
+    width: 100%;
+  }
+
+}
+th {
+  // background-color: #524ab8;
+  background-color: #39f;
+  color: white;
+}
+td,
+th,
+span {
+  // border: 1px solid #dddddd;
+  border: 1px solid grey;
+  text-align: left;
+  padding: 8px;
+  font-size: 12px;
+  font-weight: bold;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+}

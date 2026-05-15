@@ -1,0 +1,99 @@
+:host c-input-group-prepend c-input-group-text c-icon {
+  &:only-child {
+    display: flex;
+  }
+}
+
+:host c-input-group-append c-input-group-text c-icon {
+  &:only-child {
+    display: flex;
+  }
+}
+
+.required {
+	&:after {
+		content: " *";
+		color: red;
+	}
+}
+
+.modal-validation.ng-touched.ng-invalid{
+    border:1px solid red;
+}
+.modal-validation.ng-touched.ng-valid{
+    border:1px solid green;
+}
+
+.academic-table-th {
+  background-color: orange;
+  color: #fff;
+}
+
+.academic-table tbody{
+  border: 1px solid orange;
+}
+
+.academic-table tr:last-child td {
+  border-bottom: none;   /* 👈 bottom double border fix */
+}
+
+
+@media screen and (max-width: 600px) {
+  .academic-table {
+    width: 450px;
+    margin-top: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid orange;
+  }
+  .academic-table thead th, .academic-table tbody td {
+    width: 450px;
+  }
+  .feespayment-message {
+    width: 85%;
+    margin-left: 5px;
+    font-size: 10px;
+    text-align: justify;
+  }
+  .fee-payment-btn{
+    margin-left: 30%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .academic-table {
+    width: 375px;
+    margin-top: 10px;
+    //border: 1px solid orange;
+  }
+  .academic-table thead th, .academic-table tbody td {
+    width: 450px;
+  }
+  .fee-payment-btn{
+    margin-left: 26%;
+  }
+}
+@media screen and (max-width: 400px) {
+  .academic-table {
+    width: 320px;
+    margin-top: 10px;
+    //border: 1px solid orange;
+  }
+  .academic-table thead th, .academic-table tbody td {
+    width: 450px;
+  }
+  .fee-payment-btn{
+    margin-left: 22%;
+  }
+}
+
+//td{
+//  border-top: 1px solid;
+//  border-left: 1px solid;
+//  border-right: 1px solid;
+//  border-bottom: 1px solid;
+//  padding-left: 10px;
+//  width:50%;
+//}

@@ -1,0 +1,121 @@
+<c-card>
+    <c-card-header>
+        <c-row>
+            <c-col [md]="9">
+                <h4>Question Paper Download</h4>
+            </c-col>
+        </c-row>
+    </c-card-header>
+    <c-card-body>
+        <form [formGroup]="QuestionpaperForm" (keydown.enter)="$event.preventDefault()">
+            <c-row>
+                <c-col [md]="3">
+                    <label cLabel size="sm" class="required">Finyear</label>
+                    <select sizing="sm" cSelect
+                            class="form-control"
+                            [(ngModel)]="SelectedFinyear_json"
+                            (change)="selectFin()"
+                            formControlName="finyear"
+                    >
+                        <option>
+                            --- Select Financial Year---
+                        </option>
+                        @for (fin of Finyear_json; track fin) {
+                            <option
+                                    [ngValue]="fin">{{ fin.FinyearName }}
+                            </option>
+                        }
+                    </select>
+                </c-col>
+                <c-col [md]="4">
+                    <label cLabel size="sm">Batch:</label>
+                    <div class="ng-autocomplete" style="width: 100%">
+                        <ng-autocomplete
+                                [data]="Batchs"
+                                [searchKeyword]="Batchkeyword"
+                                (selected)="selectBatch($event)"
+                                (inputChanged)="onChangeSearch($event)"
+                                (inputFocused)="onFocused($event)"
+                                [itemTemplate]="batTemplate"
+                                [notFoundTemplate]="notFoundTemplate"
+                                placeholder="Select Batch"
+                        >
+                        </ng-autocomplete>
+                        <ng-template #batTemplate let-bat>
+                            <a [innerHTML]="bat.Batch_Name"></a>
+                        </ng-template>
+                        <ng-template #notFoundTemplate let-notFound>
+                            <div [innerHTML]="notFound"></div>
+                        </ng-template>
+                    </div>
+                </c-col>
+            </c-row>
+            <c-row>
+                <c-col [md]="3">
+                    <label cLabel size="sm">Semester Exam:</label>
+                    <select sizing="sm" cSelect
+                            [(ngModel)]="SelectedSemExam"
+                            formControlName="Exam_Name"
+                            class="form-control"
+                            (change)="onChangeSemExamSelect()"
+                    >
+                        <option disabled>Select Semester Exam</option>
+                        @for (exam of Exam; track exam) {
+                            <option [ngValue]="exam">
+                                {{ exam.Semester }}
+                            </option>
+                        }
+                    </select>
+                    @if (QuestionpaperForm.get('Exam_Name')?.invalid &&
+                    QuestionpaperForm.get('Exam_Name')?.touched) {
+                        <span
+                                class="text-danger"
+                        >field is required</span
+                        >
+                    }
+                </c-col>
+                <c-col [md]="4">
+                    <label cLabel size="sm">Subject Name:</label>
+                    <select sizing="sm" cSelect
+                            [(ngModel)]="SelectedSemSubjects"
+                            formControlName="SubjectName"
+                            class="form-control"
+                            (change)="onChangeSemSubjectsSelect()"
+                    >
+                        <option disabled>Select Subject Name</option>
+                        @for (subject of namesubject; track subject) {
+                            <option
+                                    [ngValue]="subject"
+                            >
+                                {{ subject.Subject_name }}
+                            </option>
+                        }
+                    </select>
+                    @if (QuestionpaperForm.get('SubjectName')?.invalid &&
+                    QuestionpaperForm.get('SubjectName')?.touched) {
+                        <span
+                                class="text-danger"
+                        >field is required</span
+                        >
+                    }
+                </c-col>
+                <c-col [sm]="2" [md]="3" style="padding-top: 22px">
+                    <button
+                            type="submit"
+                            class="btn btn-success"
+                            (click)="OnDownloadFile()"
+                            size="sm"
+                    >
+                        @if (downloadloader) {
+                            <c-spinner aria-hidden="false" size="sm"></c-spinner>
+                        }
+
+                        Download
+                    </button>
+                </c-col>
+            </c-row>
+            <!--          <form [formGroup]="DownloadUploadForm" (keydown.enter)="$event.preventDefault()">-->
+
+        </form>
+    </c-card-body>
+</c-card>

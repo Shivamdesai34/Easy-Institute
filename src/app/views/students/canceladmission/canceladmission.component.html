@@ -1,0 +1,388 @@
+<c-card class="main-container">
+    <div class="card-header">
+        <c-row>
+            <c-col [md]="9">
+                <h4 >Cancel Admission</h4>
+            </c-col>
+        </c-row>
+    </div>
+
+    <c-card-body>
+        <c-col [md]="12">
+
+            <c-row>
+                <c-col [md]="12">
+                    <form [formGroup]="cancelAdmissionForm" class="form-horizontal">
+
+                        <c-row>
+
+                            <c-col [md]="6">
+                                 <label size="sm" cLabel for="studentbatch" class="required">Student Batch</label>
+                                <select cSelect id="studentbatch" class="form-control" [ngClass]="{ 'is-invalid': (submitted || f['studentbatch'].touched) && f['studentbatch'].errors,
+                                        'is-valid': f['studentbatch'].touched && !f['studentbatch'].errors }" formControlName="studentbatch"
+                                        class="form-control capitalize" placeholder="Student Batch"
+                                        [(ngModel)]="SelectedBatch"
+                                        (change)="onBatchSelected($event)">
+                                    <option value="" disabled>--- Please Select Batch---</option>
+                                    @for (data of BatchName; track data) {
+                                        <option [ngValue]="data">{{ data.Batch_name }}</option>
+                                    }
+                                </select>
+
+                                @if (submitted && f['studentbatch'].errors) {
+                                    <div class="invalid-feedback">
+                                        @if (f.studentbatch.errors.required) {
+                                            <div size="sm">Student Batch is required</div>
+                                        }
+                                    </div>
+                                }
+                            </c-col>
+                            <c-col [md]="6">
+                                <label size="sm" cLabel for="reason" class="required">Reason For Admission Cancellation</label>
+                                <input cFormControl id="reason" type="text" [ngClass]="{ 'is-invalid': (submitted || f['reason'].touched) && f['reason'].errors,
+                                    'is-valid': f['reason'].touched && !f['reason'].errors }" formControlName="reason"
+                                       class="form-control capitalize"
+                                       placeholder="Reason for Cancellation">
+                                @if (submitted && f['reason'].errors) {
+                                    <div class="invalid-feedback">
+                                        @if (f.reason.errors.required) {
+                                            <div>Reason of Cancellation is required</div>
+                                        }
+                                    </div>
+                                }
+                            </c-col>
+                        </c-row>
+
+                        <br>
+                        <div>
+                            <h5>Student or Parent Bank Details</h5>
+                            <hr>
+                        </div>
+                        <c-row>
+                            <c-col [md]="4">
+                                <label size="sm" cLabel for="bankname" class="required">Bank Name</label>
+                                <input cFormControl id="bankname" type="text" [ngClass]="{ 'is-invalid': (submitted || f['bankname'].touched) && f['bankname'].errors,
+                                  'is-valid': f['bankname'].touched && !f['bankname'].errors }" formControlName="bankname"
+                                       class="form-control capitalize" placeholder="Enter Your Bank Name">
+                                @if (submitted && f['bankname'].errors) {
+                                    <div class="invalid-feedback">
+                                        @if (f.bankname.errors.required) {
+                                            <div>Bank Name is required</div>
+                                        }
+                                    </div>
+                                }
+                            </c-col>
+                            <c-col [md]="4">
+                                <label size="sm" cLabel for="accountholdername" class="required">Account Holder Name</label>
+                                <input cFormControl id="accountholdername" type="text" [ngClass]="{ 'is-invalid': (submitted || f['accountholdername'].touched) && f['accountholdername'].errors,
+                                       'is-valid': f['accountholdername'].touched && !f['accountholdername'].errors }"
+                                       formControlName="accountholdername"
+                                       class="form-control capitalize" placeholder="Account Holder Name">
+                                @if (submitted && f['accountholdername'].errors) {
+                                    <div class="invalid-feedback">
+                                        @if (f.accountholdername.errors.required) {
+                                            <div>Account Holder Name is required</div>
+                                        }
+                                    </div>
+                                }
+                            </c-col>
+                            <c-col [md]="4">
+                                <label size="sm" cLabel for="accountno" class="required">Account Number</label>
+                                <input cFormControl id="accountno" type="number" [ngClass]="{ 'is-invalid': (submitted || f['accountno'].touched) && f['accountno'].errors,
+                                        'is-valid': f['accountno'].touched && !f['accountno'].errors }" formControlName="accountno"
+                                       class="form-control capitalize" placeholder="Account Number">
+                                @if (submitted && f['accountno'].errors) {
+                                    <div class="invalid-feedback">
+                                        @if (f.accountnumber.errors.required) {
+                                            <div>Account Number is required</div>
+                                        }
+                                    </div>
+                                }
+                            </c-col>
+                        </c-row>
+
+                        <div class="my-3"></div>
+
+                        <c-row>
+                            <c-col [md]="4">
+                                <label size="sm" cLabel for="bankbranch" class="required">Bank Branch Name</label>
+                                <input cFormControl id="bankbranch" type="text" [ngClass]="{ 'is-invalid': (submitted || f['bankbranch'].touched) && f['bankbranch'].errors,
+                                     'is-valid': f['bankbranch'].touched && !f['bankbranch'].errors }" formControlName="bankbranch"
+                                       class="form-control capitalize" placeholder="Band Branch Name">
+                                @if (submitted && f['bankbranch'].errors) {
+                                    <div class="invalid-feedback">
+                                        @if (f.bankbranch.errors.required) {
+                                            <div>Branch Name is required</div>
+                                        }
+                                    </div>
+                                }
+                            </c-col>
+                            <c-col [md]="4">
+                                <label size="sm" cLabel for="ifsccode" class="required">IFSC Code</label>
+                                <input cFormControl id="ifsccode" type="text" [ngClass]="{ 'is-invalid': (submitted || f['ifsccode'].touched) && f['ifsccode'].errors,
+                                        'is-valid': f['ifsccode'].touched && !f['ifsccode'].errors }" formControlName="ifsccode"
+                                       class="form-control capitalize"
+                                       placeholder="IFSC Code">
+                                @if (submitted && f['ifsccode'].errors) {
+                                    <div class="invalid-feedback">
+                                        @if (f.ifsc.errors.required) {
+                                            <div>IFSC Code is required</div>
+                                        }
+                                    </div>
+                                }
+                            </c-col>
+                            <c-col [md]="4">
+                                <label size="sm" cLabel for="enrollment" class="required"> University Pre.enrollment Application
+                                    Form No.</label>
+                                <input cFormControl id="enrollment" type="text" [ngClass]="{ 'is-invalid': (submitted || f['enrollment'].touched) && f['enrollment'].errors,
+                                        'is-valid': f['enrollment'].touched && !f['enrollment'].errors }" formControlName="enrollment"
+                                       class="form-control capitalize" placeholder="Enrollment No">
+                                @if (submitted && f['enrollment'].errors) {
+                                    <div class="invalid-feedback">
+                                        @if (f.enrollment.errors.required) {
+                                            <div>Enrollment no is required</div>
+                                        }
+                                    </div>
+                                }
+                            </c-col>
+
+                        </c-row>
+
+                        <div class="my-3"></div>
+
+                        <c-row>
+                            <c-col [md]="4">
+                                <label size="sm" cLabel class="required">ChequeBook/Passbook Image(Showing Account
+                                    Details)</label>
+                                <input cFormControl type="file" (change)="ChequeBook_Filechange($event)">
+                            </c-col>
+
+                        </c-row>
+
+                        <div class="my-3"></div>
+
+                        <c-card-body>
+                            <div>
+                                <table cTable style="font-size:17px;font-family: 'Calibri'">
+                                    <tr>
+                                        <td>
+                                            <table cTable class="font-weight-bold;font-family: 'Calibri'">
+                                                <tr>
+                                                    <td class="borderLeftRightTop"
+                                                        size="sm"
+                                                        style="text-align: left;color:white; border-bottom: 1px solid;background-color: rgba(165, 42, 42, 0.877);">
+                                                        DEGREE COLLEGE
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <table cTable class="font-weight-bold;font-family: 'Calibri'">
+                                                <tr>
+                                                    <td style="text-align: left;font-size: 14px;" size="sm">
+                                                        The Rules (Ordinance 2859) relating to refund of fees after
+                                                        cancellation of admission as
+                                                        per the <b style="font-size: 17px;">University of Mumbai
+                                                        Circular No. UG/412 of 2008
+                                                        dated 11.09.2008 </b>is given below:
+                                                        The candidates who have taken admission in under graduate
+                                                        courses in aided and unaided
+                                                        courses conducted by affiliated Colleges may request for refund
+                                                        of fees after applying
+                                                        in writing for cancellation of their admission to the course.
+                                                        The refund of fees as
+                                                        applicable shall be made on or before 30th day after the date of
+                                                        cancellation and
+                                                        thereafter.
+                                                        <br/> <br/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <table cTable class="font-weight-bold;font-family: 'Calibri'">
+                                                <tr>
+                                                    <td style="text-align: left;font-size: 17px;" size="sm">
+                                                        Table for fee deduction on cancellation of Admission
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>
+                                            <table cTable style="font-size: 14px;"
+                                                   class="font-weight-bold;font-family: 'Calibri'">
+                                                <tr>
+                                                    <td nowrap class="borderLeftTop"
+                                                        style="height:35px;width: 10%;font-size: 17px;background-color: rgba(165, 42, 42, 0.877);color:white;" size="sm">
+                                                        SR NO.
+                                                    </td>
+                                                    <td nowrap class="borderLeftTop"
+                                                        style="font-size: 17px;background-color: rgba(165, 42, 42, 0.877);color:white;" size="sm">
+                                                        Period
+                                                    </td>
+                                                    <td class="borderLeftRightTop"
+                                                        style="font-size: 17px;background-color: rgba(165, 42, 42, 0.877);color:white;" size="sm">
+                                                        Deduction
+                                                        Charges
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td size="sm" nowrap class="borderLeftTop" style="height:35px;">1.</td>
+                                                    <td size="sm" class="borderLeftTop"> Prior to commencement of academic term
+                                                        and instruction of the
+                                                        course
+                                                    </td>
+                                                    <td size="sm" class="borderLeftRightTop">Rs.500/- lump sum</td>
+                                                </tr>
+                                                <tr>
+                                                    <td size="sm" nowrap class="borderLeftTop" style="height:35px;">2.</td>
+                                                    <td size="sm" class="borderLeftTop"> Upto 20 days after the commencement of
+                                                        academic term of the
+                                                        course
+                                                    </td>
+                                                    <td size="sm" class="borderLeftRightTop">20% of the total amount of fees</td>
+                                                </tr>
+                                                <tr>
+                                                    <td size="sm" nowrap class="borderLeftTop" style="height:35px;">3.</td>
+                                                    <td size="sm" class="borderLeftTop"> From 21st day upto 50 days after
+                                                        commencement of the academic
+                                                        term of the course
+                                                    </td>
+                                                    <td size="sm" class="borderLeftRightTop">30% of the total amount of fees</td>
+                                                </tr>
+                                                <tr>
+                                                    <td size="sm" nowrap class="borderLeftTop" style="height:35px;">4.</td>
+                                                    <td size="sm" class="borderLeftTop">From 51st day upto 80 days after
+                                                        commencement of the academic term
+                                                        of the course.
+                                                    </td>
+                                                    <td size="sm" class="borderLeftRightTop"> 50% of the total amount of fees</td>
+                                                </tr>
+                                                <tr>
+                                                    <td size="sm" nowrap class="borderLeftTop"
+                                                        style="border-bottom: 1px solid;height:35px;">5.
+                                                    </td>
+                                                    <td size="sm" class="borderLeftTop" style="border-bottom: 1px solid;">From
+                                                        81st day to 110 days
+                                                    </td>
+                                                    <td size="sm" class="borderLeftRightTop" style="border-bottom: 1px solid;">60%
+                                                        of the total amount of
+                                                        fees
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td size="sm" nowrap
+                                                        style="border-bottom: 1px solid;border-left: 1px solid;height:35px;">
+                                                        6.
+                                                    </td>
+                                                    <td size="sm" style="border-bottom: 1px solid;border-left: 1px solid;"> After
+                                                        111 day
+                                                    </td>
+                                                    <td size="sm" style="border-bottom: 1px solid;border-left: 1px solid;border-right: 1px solid;">
+                                                        100% of
+                                                        the total amount of
+                                                        fees
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table cTable>
+                                    <tr>
+                                        <td size="sm" style="margin-right:5px;width:33.3333%;">
+                                            <table cTable style="font-weight:bold;font-size:15px;font-family: 'Calibri'">
+                                                <tr>
+                                                    <td size="sm">
+                                                        <table cTable class="font-weight-bold;font-family: 'Calibri'">
+                                                            <tr>
+                                                                <td size="sm" style="width: 2%;"></td>
+                                                                <td size="sm" style="text-align: left;">
+                                                                    • Refund of fees at the time of cancellation will be
+                                                                    made only in cheque/online bank
+                                                                    transfer after 20 working days.
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td size="sm">
+                                                        <table cTable class="font-weight-bold;font-family: 'Calibri'">
+                                                            <tr>
+                                                                <td size="sm" style="width: 2%;"></td>
+                                                                <td size="sm" style="text-align: left;">• Cheque/online bank
+                                                                    transfer will be in the name of
+                                                                    Student/Parent.
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+
+                        </c-card-body>
+
+                        <hr/>
+
+                        <div class="my-4"></div>
+
+                        <div style="padding-left: 45%;" class="cancle-addmission-btn">
+                            <button type="submit" class="btn btn-add text-white"
+                                    (click)="onCancelAdmission()">Cancel Admission
+                            </button>&nbsp;&nbsp;&nbsp;
+                            <button type="reset"
+                                    style="color: white"
+                                    class="btn btn-delete">Reset
+                            </button>
+                        </div>
+                        <br>
+                    </form>
+                </c-col>
+            </c-row>
+        </c-col>
+
+    </c-card-body>
+</c-card>
+
+
+<c-modal #content alignment="center">
+    <c-modal-header>
+        <h4 class="modal-title" id="modal-basic-title">Cancel Admission</h4>-->
+        <button type="button" class="close" size="sm" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </c-modal-header>
+    <c-modal-body>
+        <c-col [sm]="12">
+            <h5>Are you sure you want to Cancel your Admission?? <br> Cancellation Charges will be applied!</h5>
+        </c-col>
+        <c-row>
+            <c-col [sm]="6">
+                <button type="submit" style="height:50px" size="sm" class="btn btn-block btn-success"> Yes</button>
+            </c-col>
+            <c-col [sm]="6">
+                <button type="reset" style="height:50px"  size="sm" class="btn btn-block btn-danger">No</button>
+            </c-col>
+        </c-row>
+    </c-modal-body>
+    <c-modal-footer>
+
+    </c-modal-footer>
+</c-modal>

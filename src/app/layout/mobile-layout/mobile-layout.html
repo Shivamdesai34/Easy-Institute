@@ -1,0 +1,219 @@
+<c-container fluid class="app-header px-4 border-bottom">
+    <div class="d-flex align-items-center w-100">
+        
+        <!-- Left : Logo + Company -->
+        <div class="d-flex align-items-center gap-3 me-auto">
+                <h6 class="mb-0 fw-bold text-primary">Easy Institute</h6>
+        </div>
+        
+        <!-- Right : User Profile -->
+        <c-dropdown alignment="end" variant="nav-item">
+            <button
+                    cButton
+                    color="light"
+                    class="rounded-circle p-0"
+                    cDropdownToggle
+                    [caret]="false"
+            >
+                <img cImg [src]="MyImage" alt="Admin" class="rounded-circle" width="43" height="43">
+            </button>
+            
+            <ul cDropdownMenu class="pt-0">
+                <li>
+                    <h6 cDropdownHeader class="bg-light fw-semibold py-2">
+                        Admin Settings
+                    </h6>
+                </li>
+                
+                <li>
+                    <a (click)="navigateDashboard()" cDropdownItem>
+<!--                        <svg cIcon class="me-2" name="cilUser"></svg>-->
+<!--                        Profile-->
+
+<!--                    <button routerLink="/dashboard" routerLinkActive="active" (click)="closeMenu()">-->
+                        <c-icon name="cil-home"></c-icon>
+                        Dashboard
+<!--                    </button>-->
+                    </a>
+                </li>
+                
+                <li>
+                    <a (click)="session_clear_logout()" cDropdownItem>
+                        <svg cIcon class="me-2" name="cilLockLocked"></svg>
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </c-dropdown>
+    
+    </div>
+</c-container>
+
+<div class="my-4"></div>
+
+<!--<nav class="bottom-tabs">-->
+<!--    <button cButton class="parent-btn" [class.active]="isAdmissionActive" (click)="toggleAdmissionSubMenu($event)">-->
+<!--        <c-icon name="cil-layers"></c-icon>-->
+<!--        <span>Admission 25-26</span>-->
+<!--    </button>-->
+<!--    &lt;!&ndash;-->
+<!--        @if(showSubMenu)-->
+<!--        { &ndash;&gt;-->
+<!--    <div class="sub-menu" [class.show]="showAddmissionSubMenu" (click)="$event.stopPropagation()">-->
+<!--        <button routerLink="/formfees" routerLinkActive="active" [queryParams]="{page: 'R'}" (click)="closeMenu()">-->
+<!--            <c-icon name="cil-arrow-right"></c-icon>-->
+<!--            Registration Fees-->
+<!--        </button>-->
+<!--        <button routerLink="/studentprofilenew" routerLinkActive="active" (click)="closeMenu()">-->
+<!--            <c-icon name="cil-arrow-right"></c-icon>-->
+<!--            Student Profile-->
+<!--        </button>-->
+<!--        <button cButton routerLink="/formfeesA" routerLinkActive="active" [queryParams]="{page: 'A'}"-->
+<!--                (click)="closeMenu()">-->
+<!--            <c-icon name="cil-arrow-right"></c-icon>-->
+<!--            Additional Course-->
+<!--        </button>-->
+<!--        <button cButton routerLink="/formfeesPGD" routerLinkActive="active" [queryParams]="{page: 'PGD'}"-->
+<!--                (click)="closeMenu()">-->
+<!--            <c-icon name="cil-arrow-right"></c-icon>-->
+<!--            PGDM Course-->
+<!--        </button>-->
+<!--        <button cButton routerLink="/formfeesCERT" routerLinkActive="active" [queryParams]="{page: 'CERT'}"-->
+<!--                (click)="closeMenu()">-->
+<!--            <c-icon name="cil-arrow-right"></c-icon>-->
+<!--            Certificate Course1-->
+<!--        </button>-->
+<!--        <button cButton routerLink="/canceladmission" routerLinkActive="active" (click)="closeMenu()">-->
+<!--            <c-icon name="cil-x-circle"></c-icon>-->
+<!--            Cancel Admission-->
+<!--        </button>-->
+<!--        <button cButton routerLink="/approvedbatch" routerLinkActive="active" (click)="closeMenu()">-->
+<!--            <c-icon name="cil-arrow-right"></c-icon>-->
+<!--            Program Status-->
+<!--        </button>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; }-->
+<!--    else{-->
+<!--        <h1>No data Menu</h1>-->
+<!--    } &ndash;&gt;-->
+<!--    <button cButton class="parent-btn" [class.active]="isPaymentActive" (click)="togglePaymentSubMenu($event)">-->
+<!--            <c-icon name="cil-money"></c-icon>-->
+<!--        <span>Payment</span>-->
+<!--    </button>-->
+<!--    <div class="sub-menu" [class.show]="showPaymentSubMenu" (click)="$event.stopPropagation()">-->
+<!--        <button routerLink="/Fees" routerLinkActive="active" (click)="closeMenu()">-->
+<!--            <c-icon name="cil-money"></c-icon>-->
+<!--            Fees payment-->
+<!--        </button>-->
+<!--        <button routerLink="/Feereceipt" routerLinkActive="active" (click)="closeMenu()">-->
+<!--            <c-icon name="cil-pen"></c-icon>-->
+<!--            Print Fee Receipt-->
+<!--        </button>-->
+<!--    </div>-->
+<!--    -->
+<!--    <button cButton class="parent-btn" [class.active]="isMarksheetActive" (click)="toggleMarksheetSubMenu($event)">-->
+<!--            <c-icon name="cil-layers"></c-icon>-->
+<!--        <span>Marksheet</span>-->
+<!--    </button>-->
+<!--    <div class="sub-menu" [class.show]="showMarksheetSubMenu" (click)="$event.stopPropagation()">-->
+<!--        <button routerLink="/abc" routerLinkActive="active" (click)="closeMenu()">-->
+<!--            <c-icon name="cil-notes"></c-icon>-->
+<!--            ABCID Form-->
+<!--        </button>-->
+<!--        <button routerLink="/atkt" routerLinkActive="active" (click)="closeMenu()">-->
+<!--            <c-icon name="cil-notes"></c-icon>-->
+<!--            ATKT Form-->
+<!--        </button>-->
+<!--        <button routerLink="/marksheet-viewer" routerLinkActive="active" (click)="closeMenu()">-->
+<!--            <c-icon name="cil-layers"></c-icon>-->
+<!--            View Marksheet-->
+<!--        </button>-->
+<!--        <button routerLink="/internal-exammarks" routerLinkActive="active" (click)="closeMenu()">-->
+<!--            <c-icon name="cil-notes"></c-icon>-->
+<!--            Internal Exam Marks-->
+<!--        </button>-->
+<!--    </div>-->
+<!--    <button cButton routerLink="/updateprofile" routerLinkActive="active" (click)="toggleUpdateMenu()">-->
+<!--            <c-icon name="cil-wallpaper"></c-icon>-->
+<!--        <span>Update Profile</span>-->
+<!--    </button>-->
+<!--</nav>-->
+
+
+
+<nav class="bottom-tabs">
+    
+    <ng-container *ngFor="let menu of menus">
+        
+        <!-- Parent with Submenu -->
+        <ng-container *ngIf="menu.children?.length; else singleMenu">
+            
+            <button
+                    cButton
+                    class="parent-btn"
+                    [class.active]="openedMenu === menu.name"
+                    (click)="toggleMenu(menu.name, $event)"
+            >
+                
+                <c-icon [name]="menu.icon"></c-icon>
+                
+                <span>{{ menu.name }}</span>
+            
+            </button>
+            
+            <!-- Submenu -->
+            <div
+                    class="sub-menu"
+                    [class.show]="openedMenu === menu.name"
+                    (click)="$event.stopPropagation()"
+            >
+                
+                <button
+                        *ngFor="let child of menu.children"
+                        cButton
+                        [routerLink]="child.url"
+                        [queryParams]="child.queryParams"
+                        routerLinkActive="active"
+                        (click)="closeMenu()"
+                >
+                    
+                    <c-icon [name]="child.icon"></c-icon>
+                    
+                    {{ child.name }}
+                
+                </button>
+            
+            </div>
+        
+        </ng-container>
+        
+        <!-- Single Menu -->
+        <ng-template #singleMenu>
+            
+            <button
+                    cButton
+                    class="parent-btn"
+                    [routerLink]="menu.url"
+                    routerLinkActive="active"
+                    (click)="closeMenu()"
+            >
+                
+                <c-icon [name]="menu.icon"></c-icon>
+                
+                <span>{{ menu.name }}</span>
+            
+            </button>
+        
+        </ng-template>
+    
+    </ng-container>
+
+</nav>
+
+
+<!--</div>-->
+
+
+<div class="mobile-content">
+    <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,86 @@
+<form [formGroup]="stepperForm">
+    <c-stepper #stepper (finished)="handleFinish($event)" (onReset)="handleReset()" [(activeStepIndex)]="currentStep" [layout]="stepperLayout"
+               validation>
+        <c-stepper-step [valid]="group_0.valid" label="Personal Details" currentStepButtonLayout="buttonLayout" >
+            <app-personaldetail></app-personaldetail>
+        </c-stepper-step>
+        <c-stepper-step [valid]="group_1.valid" label="Reservation Details" currentStepButtonLayout="buttonLayout" >
+            <app-reservationdetails></app-reservationdetails>
+        </c-stepper-step>
+    </c-stepper>
+</form>
+
+<span>
+  @if (stepper.finishing()) {
+      <p>All steps have been completed.</p>
+      @for (form of formGroups; track $index) {
+          <div class="mb-0">
+        <code>{{ form.value | json }}</code>
+      </div>
+      }
+
+      @let disableReset = !stepper.finishing();
+      <hr>
+      <button (click)="stepper.reset()" [disabled]="disableReset" cButton color="danger">Reset</button>
+  } @else {
+      <ng-container *ngTemplateOutlet="navButtons"/>
+  }
+</span>
+
+<ng-template #navButtons>
+    <hr>
+    @let disablePrev = stepper.activeStepIndex() === 0 || stepper.finishing();
+    <button (click)="stepper.prev()" [disabled]="disablePrev" cButton color="info">Prev</button>
+
+    @let finished = stepper.finishing();
+    @let nextCaption = stepper.activeStepIndex() === stepper.stepsCount() - 1 && !finished ? 'Finish' : 'Next';
+    <button (click)="handleNext(stepper)" [disabled]="finished" cButton
+            color="primary">{{ nextCaption }}
+    </button>
+
+
+    @let step = formGroups[stepper.activeStepIndex()];
+    current step: {{ stepper.activeStepIndex() + 1 }} / {{ stepper.stepsCount() }}
+    <c-badge [color]="step.valid ? 'success': 'danger'">{{ step.status }}</c-badge>
+
+</ng-template>
+
+<ng-template #step0>
+    <app-personaldetail
+            [parentDetailsForm]="stepperForm.get('step_0.parentDetailsForm')"
+            [addressDetailsForm]="stepperForm.get('step_0.addressDetailsForm')"
+            [nationalitynomineeForm]="stepperForm.get('step_0.nationalitynomineeForm')"
+            [otherDetailsForm]="stepperForm.get('step_0.otherDetailsForm')"
+            [checkfinalSubmit]="stepperForm.get('step_0.checkfinalSubmit')"
+    ></app-personaldetail>
+</ng-template>
+
+<ng-template #step1>
+    <app-reservationdetails
+            [reservationdetailForm]="stepperForm.get('step_1.reservationdetailForm')"
+    ></app-reservationdetails>
+</ng-template>
+
+<!--<ng-template #step2>-->
+<!--    <app-educationdetails></app-educationdetails>-->
+<!--</ng-template>-->
+
+<!--<ng-template #step3>-->
+<!--    <app-finalsubmit></app-finalsubmit>-->
+<!--</ng-template>-->
+
+<!--<ng-template #step0>-->
+<!--    <app-personaldetail></app-personaldetail>-->
+<!--</ng-template>-->
+
+<!--<ng-template #step1>-->
+<!--    <app-reservationdetails></app-reservationdetails>-->
+<!--</ng-template>-->
+
+<!--<ng-template #step2>-->
+<!--    <app-educationdetails></app-educationdetails>-->
+<!--</ng-template>-->
+
+<!--<ng-template #step3>-->
+<!--    <app-finalsubmit></app-finalsubmit>-->
+<!--</ng-template>-->

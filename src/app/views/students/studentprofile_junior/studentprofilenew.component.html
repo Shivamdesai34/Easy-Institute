@@ -1,0 +1,424 @@
+@let vars = {
+    '--cui-stepper-step-button-complete-color': 'var(--cui-success)',
+    '--cui-stepper-step-indicator-complete-color': 'var(--cui-success)',
+    '--cui-stepper-step-indicator-complete-bg': 'var(--cui-success)',
+    '--cui-stepper-step-indicator-complete-border-color': 'var(--cui-success)',
+    '--cui-stepper-step-connector-complete-bg': 'var(--cui-success)',
+};
+
+<c-card class="main-container">
+    <c-card-header>
+        <c-row>
+            <c-col [md]="9">
+                <h4>Complete your profile</h4>
+            </c-col>
+        </c-row>
+    </c-card-header>
+
+    <c-card-body>
+
+        <form cForm [formGroup]="studentDetailsForm">
+        
+
+            
+            
+            <c-row>
+                <c-col [sm]="3">
+                    <label size="sm" cLabel for="firstname" class="required">First Name</label>
+                    <input sizing="sm" cFormControl
+                           id="firstname"
+                           type="text"
+                           formControlName="firstname"
+                           class="form-control capitalize"
+                           placeholder="Enter your Firstname"
+                           maxlength="30"
+                           appUppercase
+                    />
+                    @if (submitted && sdf['firstname'].errors) {
+                        <div
+                                class="invalid-feedback"
+                        >
+                            @if (this.sdf['firstname'].errors['required']) {
+                                <div>
+                                    First Name is required
+                                </div>
+                            }
+                        </div>
+                    }
+                </c-col>
+
+                <c-col [sm]="3">
+                    <label size="sm"  class="required" cLabel for="lastname">Last Name/ Surname</label>
+                    <input sizing="sm" cFormControl
+                           type="text"
+                           formControlName="lastname"
+                           class="form-control capitalize"
+                           id="lastname"
+                           placeholder="Enter your Lastname"
+                           maxlength="30"
+                           appUppercase
+                    />
+                </c-col>
+
+                <c-col [sm]="3">
+                    <label size="sm" cLabel for="fathername" class="required">Father's Name</label>
+                    <input sizing="sm" cFormControl
+                           type="text"
+                           formControlName="fathername"
+                           class="form-control capitalize"
+                           id="fathername"
+                           placeholder="Enter your Father's First Name"
+                           maxlength="30"
+                           appUppercase
+                    />
+                    @if (submitted && sdf['fathername'].errors) {
+                        <div
+                                class="invalid-feedback"
+                        >
+                            @if (this.sdf['fathername'].errors['required']) {
+                                <div>
+                                    Father First Name is required
+                                </div>
+                            }
+                        </div>
+                    }
+                </c-col>
+
+                <c-col [sm]="3">
+                    <label size="sm" cLabel for="mothername" class="required">Mother's Name</label>
+                    <input sizing="sm" cFormControl
+                           id="mothername"
+                           type="text"
+                           formControlName="mothername"
+                           maxlength="30"
+                           class="form-control capitalize"
+                           placeholder="Enter your Mother's First Name"
+                           appUppercase
+                    />
+                    @if (submitted && sdf['mothername'].errors) {
+                        <div
+                                class="invalid-feedback"
+                        >
+                            @if (this.sdf['mothername'].errors['required']) {
+                                <div>
+                                    Mother First Name is required
+                                </div>
+                            }
+                        </div>
+                    }
+                </c-col>
+            </c-row>
+
+            <div class="my-3"></div>
+
+            <c-row>
+
+                <c-col [sm]="3">
+                    <label size="sm" cLabel class="required" for="gender">Gender</label>
+                    <select sizing="sm"
+                            cSelect
+                            id="gender"
+                            formControlName="gender"
+                            class="form-control"
+                    >
+                        <option value="" selected disabled>--- Please Select ---</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Transgender">Transgender</option>
+                    </select>
+                    
+<!--                    <label cLabel size="sm" class="required">Gender</label>-->
+<!--                    <input cFormControl-->
+<!--                           type="text"-->
+<!--                           readonly-->
+<!--                           class="form-control"-->
+<!--                           formControlName="GENDER"-->
+<!--                    />-->
+
+<!--                    @if (studentDetailsForm.controls['GENDER'].hasError('nameMismatch')) {-->
+<!--                        <div-->
+<!--                                style="color: red; font-size: 13px;" size="sm"-->
+<!--                        >-->
+<!--                            Name does not match the one from ABC Portal-->
+<!--                            ({{ basicdetails_account?.GENDER }})-->
+<!--                        </div>-->
+<!--                    }-->
+                </c-col>
+                <c-col [sm]="3">
+<!--                    <label cLabel size="sm" class="required">Date of birth</label>-->
+<!--                    <input cFormControl-->
+<!--                           type="text"-->
+<!--                           readonly-->
+<!--                           class="form-control"-->
+<!--                           formControlName="DOB"-->
+<!--                    />-->
+<!--                    -->
+                    <label size="sm" cLabel for="dob" class="required">Date of Birth</label>
+                    <input sizing="sm" cFormControl
+                           id="dob"
+                           type="date"
+                           class="form-control capitalize"
+                           formControlName="dob"
+                           placeholder="Enter your Date of Birth"
+                    />
+                    @if (submitted && sdf['dob'].errors) {
+                        <div class="invalid-feedback">
+                            @if (this.sdf['dob'].errors['required']) {
+                                <div>
+                                    Date of Birth is required
+                                </div>
+                            }
+                        </div>
+                    }
+                </c-col>
+                <c-col [sm]="3">
+                    <label size="sm" cLabel  class="required" for="placeofbirth">Place of Birth</label>
+                    <input sizing="sm" cFormControl
+                           id="placeofbirth"
+                           type="text"
+                           class="form-control capitalize"
+                           formControlName="placeofbirth"
+                           maxlength="30"
+                           placeholder="Place of Birth"
+                           appUppercase
+                    />
+                </c-col>
+                <c-col [sm]="3">
+                    <label size="sm" cLabel  class="required" for="religion">Religion</label>
+                    <select sizing="sm" size="sm"cSelect
+                            id="religion"
+                            formControlName="religion"
+                            class="form-control"
+                    >
+                        <option value="" disabled selected>--- Please Select ---</option>
+                        @for (religion of religion; track religion) {
+                            <option [value]="religion">
+                                {{ religion }}
+                            </option>
+                        }
+                    </select>
+                </c-col>
+            </c-row>
+
+            <div class="my-3"></div>
+            
+
+
+            <c-row>
+                <c-col [sm]="3">
+                    <label size="sm" cLabel  class="required" for="mothertongue">Mother Tongue</label>
+                    <select sizing="sm"
+                            cSelect
+                            id="mothertongue"
+                            formControlName="mothertongue"
+                            class="form-control"
+                    >
+                        <option value="" disabled selected>--- Please Select ---</option>
+                        @for (mother_tongue of mother_tongue; track mother_tongue) {
+                            <option
+                                    [value]="mother_tongue"
+                            >
+                                {{ mother_tongue }}
+                            </option>
+                        }
+                    </select>
+                </c-col>
+                <c-col [sm]="3">
+                    <label size="sm" cLabel  class="required" for="marital_status">Marital Status</label>
+                    <select sizing="sm"
+                            cSelect
+                            id="marital_status"
+                            formControlName="marital_status"
+                            class="form-control"
+                    >
+                        <option value="" disabled selected>--- Please Select ---</option>
+                        @for (martial_status of martial_status; track martial_status) {
+                            <option
+                                    [value]="martial_status"
+                            >
+                                {{ martial_status }}
+                            </option>
+                        }
+                    </select>
+                </c-col>
+
+                <c-col [md]="3">
+                    <label size="sm" cLabel class="required" for="inhouse">Inhouse</label>
+                    <select sizing="sm" size="sm"cSelect
+                            id="inhouse"
+                            
+                            formControlName="inhouse"
+                            class="form-control"
+
+                    >
+                        <option value="" disabled selected>
+                            --- Please Select ---
+                        </option>
+
+                        <option value="YES">Yes</option>
+                        <option value="NO">No</option>
+
+                    </select>
+                </c-col>
+
+                <c-col [md]="3">
+                    <label size="sm" cLabel class="required" for="hindilinguistic">Hindi-Linguistic Minority</label>
+                    <select sizing="sm" size="sm"cSelect
+                            id="hindilinguistic"
+                           
+                            formControlName="hindilinguistic"
+                            class="form-control"
+                    >
+                        <option value="" disabled selected>
+                            --- Please Select ---
+                        </option>
+
+                        <option value="YES">Yes</option>
+                        <option value="NO">No</option>
+
+                    </select>
+                </c-col>
+
+            </c-row>
+
+            <div class="my-3"></div>
+
+            <c-row>
+                <c-col [sm]="6">
+                    <label size="sm" cLabel for="applicant_name_on_marksheet" class="required"
+                    >Name on Statement of Marks / Leaving Certificate</label
+                    >
+                    <input sizing="sm" cFormControl
+                           id="applicant_name_on_marksheet"
+                           type="text"
+                           formControlName="applicant_name_on_marksheet"
+                           maxlength="60"
+                           class="form-control capitalize"
+                           placeholder="Name on Statement of Marks / Leaving Certificate"
+                    />
+                    @if (submitted && sdf['applicant_name_on_marksheet'].errors) {
+                        <div
+                                class="invalid-feedback"
+                        >
+                            @if (this.sdf['correpondence_district'].errors?.['required']) {
+                                <div>
+                                    Full Name required as on Marksheet/LC
+                                </div>
+                            }
+                        </div>
+                    }
+                </c-col>
+                <c-col [sm]="3">
+                    <label size="sm" cLabel for="name_change_after_passing"
+                    >Name changes after Passing Exam</label
+                    >
+                    <select sizing="sm"
+                            cSelect
+                            id="name_change_after_passing"
+                            formControlName="name_change_after_passing"
+                            [maxlength]="10"
+                            class="form-control"
+                    >
+                        <option value="" selected disabled>--- Please Select ---</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </c-col>
+            </c-row>
+            
+            <c-row>
+                <c-col [md]="3">
+                    <label class="required" for="dydeno">DYDE Application Number</label>
+                    <input
+                            type="text"
+                            formControlName="dydeno"
+                            class="form-control capitalize"
+                            id="dydeno"
+                            placeholder="Enter your DYDE Application Number."
+                    />
+                </c-col>
+                
+                <c-col [md]="3">
+                    <h6>Upload DYDE Part I (Application Form)</h6>
+                    <input
+                            aria-label="file example"
+                            cFormControl
+                            accept="image/jpeg,image/jpg,image/png"
+                            id="validationTextupload_dyidA"
+                            (change)="xlsxUpload_dyidA($event)"
+                            type="file"
+                    />
+                </c-col>
+                
+                <c-col [md]="3">
+                    <h6>Upload DYDE Part II (Option Form)</h6>
+                    <input
+                            aria-label="file example"
+                            cFormControl
+                            accept="image/jpeg,image/jpg,image/png"
+                            id="validationTextupload_dyidB"
+                            (change)="xlsxUpload_dyidB($event)"
+                            type="file"
+                    />
+                </c-col>
+            
+            
+            
+            </c-row>
+
+            <div class="my-3"></div>
+            
+<!--            [disabled]="studentDetailsForm.invalid || ires_personalinfo.firstname.length > 1"-->
+            
+            
+            <br/>
+            <c-row style="justify-content: center">
+                <c-col [sm]="2" class="d-flex justify-content-center align-content-center">
+                    <button
+                            cButton
+                            type="submit"
+                            size="sm"
+                            [disabled]="studentDetailsForm.invalid || this.ires_personalinfo.profilesubmited"
+                            (click)="onSavedetails()"
+                            class="btn btn-success text-white btn-sm "
+                    >
+                        Save
+                        @if (savepersonalloader) {
+                            <c-spinner aria-hidden="false" size="sm"></c-spinner>
+                        }
+
+                    </button>
+                </c-col>
+            </c-row>
+            <br/>
+        </form>
+        <form [formGroup]="stepperForm">
+            @if (this.stepperLoaded) {
+                <c-stepper [ngStyle]="vars" #stepper (finished)="handleFinish($event)" (onReset)="handleReset()"
+                           [activeStepIndex]="activestep"
+                           [layout]="stepperLayout"
+                           validation>
+                    <!--                       [layout]="stepperLayout"-->
+                    <c-stepper-step [disabled]="stepperone_disabled" [valid]="stepperForm.get('group_0')?.valid" label="Personal Details"  >
+                        <app-personaldetail (reloadApi_personal)="onReloadApi_personal($event)" [relation]="relation" [occupation]="occupation" [annual_income]="annual_income"
+                                            [location_area]="location_area" [country]="country" [state]="state" [bloodgroup]="bloodgroup"
+                                            [nominee_relation]="nominee_relation"
+                        >
+                        </app-personaldetail>
+                    </c-stepper-step>
+                    <c-stepper-step [disabled]="steppertwo_disabled"  [valid]="group_1.valid" label="Reservation Details">
+                        <app-reservationdetails [category]="category" [specially_abled]="specially_abled" [reservation]="reservation"  (reloadApi_reservartion)="onReloadApi($event)"></app-reservationdetails>
+                    </c-stepper-step>
+                    <c-stepper-step [disabled]="stepperthree_disabled" [valid]="group_2.valid" label="Education Details">
+                        <app-educationdetails (reloadApi_education)="onReloadApi_education($event)" [state]="state" [board]="board">
+                        
+                        </app-educationdetails>
+                    </c-stepper-step>
+                    <c-stepper-step  [disabled]="stepperfour_disabled" label="Final Submit">
+                        <app-finalsubmit (reloadApi_finalsubmit)="onReloadApi_finalsubmit($event)" [profilesubmitted]="ires_personalinfo.profilesubmited"></app-finalsubmit>
+                    </c-stepper-step>
+                </c-stepper>
+            }
+        </form>
+    </c-card-body>
+</c-card>

@@ -1,0 +1,381 @@
+<c-card>
+    <c-card-header>Education details</c-card-header>
+    <c-card-body>
+        <form [formGroup]="formgroup_edu" (ngSubmit)="submitAll()">
+            <div formArrayName="education">
+                <div *ngFor="let student of education_field.controls; let i = index" [formGroupName]="i"
+                     class="mb-4 p-3 border rounded shadow-sm bg-light">
+                    <!--                    <h5>Student {{ i + 1 }}</h5>-->
+                    <c-row>
+                        <h5 style="color: red">Marksheet for:{{ student.get('document_type')?.value }}</h5>
+                        <!--                        <c-col [md]="2">-->
+                        <!--                            <label>Marksheet for</label>-->
+                        <!--                            <input style="border: none;-->
+                        <!--                           color: red; font-weight: bold"-->
+                        <!--                                   id="document_type"-->
+                        <!--                                   readonly-->
+                        <!--                                   type="text"-->
+                        <!--                                   formControlName="document_type"-->
+                        <!--                                   class="form-control capitalize"-->
+                        <!--                                   placeholder="Document type"-->
+                        <!--                            />-->
+                        <!--                        </c-col>-->
+                        <c-col *ngIf="this.oSession.currentformfeesboardlevel != 'JR' && this.oSession.currentformfeesbatchlevel != 1"
+                                [md]="2">
+                            <label class="required" for="batchstream">Stream</label>
+                            <select
+                                    id="batchstream"
+                                    formControlName="batchstream"
+                                    class="form-control"
+                            >
+                                <option value="" disabled selected>
+                                    --- Please Select ---
+                                </option>
+                                <option value="SCIENCE">Science</option>
+                                <option value="COMMERCE">Commerce</option>
+                                <option value="ARTS">Arts</option>
+                                <option value="MCVC">MCVC</option>
+                                <option value="OTHER">Any other equivalent Examination.</option>
+                            </select>
+                        </c-col>
+                    </c-row>
+                    <c-row>
+                        <c-col [md]="2">
+                            <label class="required" for="board">Board</label>
+                            <select
+                                    id="board"
+                                    formControlName="board"
+                                    class="form-control"
+                            >
+                                <option value="" disabled selected>
+                                    --- Please Select ---
+                                </option>
+                                <option value="Indian">Indian</option>
+                                <option value="Foreign">Foreign</option>
+                            </select>
+                        </c-col>
+                        <c-col [md]="3">
+                            <label class="required" for="state">Select State</label>
+                            <select id="state"
+                                    formControlName="state"
+                                    class="form-control"
+                            >
+                                <option value="" disabled selected>
+                                    --- Please Select ---
+                                </option>
+                                <option *ngFor="let state of Ires_ProfileResources?.State" [value]="state">
+                                    {{ state }}
+                                </option>
+                            </select>
+                        </c-col>
+                        <c-col [md]="7">
+                            <label class="required" for="education_board"
+                            >Select Board / University</label
+                            >
+                            <select
+                                    id="education_board"
+                                    formControlName="education_board"
+                                    class="form-control"
+                            >
+                                <option value="" disabled selected>
+                                    --- Please Select ---
+                                </option>
+                                <option *ngFor="let board of Ires_ProfileResources?.College_University" [value]="board">
+                                    {{ board }}
+                                </option>
+                            </select>
+                        </c-col>
+                    </c-row>
+                    <c-row>
+                        <!-- <div class="form-group col-md-9">
+                                                  <label class="required" for="schoolCollegeName">University College Name</label>
+                                                  <select [(ngModel)]="schoolCollegeName" [ngClass]="{ 'is-invalid': (SSCSubmit || f9.schoolCollegeName.touched) && f9.schoolCollegeName.errors,
+                                                      'is-valid': f9.schoolCollegeName.touched && !f9.schoolCollegeName.errors }"
+                                                      formControlName="schoolCollegeName" class="form-control">
+                                                      <option value="" disabled selected>--- Please Select ---</option>
+                                                      <option *ngFor="let college of college" [value]="college">
+                                                          {{college}}</option>
+                                                  </select>
+                                                  <div *ngIf="SSCSubmit && f9.schoolCollegeName.errors" class="invalid-feedback">
+                                                      <div *ngIf="f9.schoolCollegeName.errors.required">University/College is
+                                                          required
+                                                      </div>
+                                                  </div>
+                                              </div> -->
+                        <c-col [md]="5">
+                            <label for="college_name">School / College Name</label>
+                            <input
+                                    id="college_name"
+                                    type="text"
+                                    formControlName="college_name"
+                                    class="form-control capitalize"
+                                    placeholder="University College Name"
+                            />
+                        </c-col>
+                        <c-col [sm]="2">
+                            <label for="datepass">Date of Passing</label>
+                            <input
+                                    id="datepass"
+                                    type="date"
+                                    class="form-control capitalize"
+                                    formControlName="datepass"
+                                    placeholder="Date of Pass"
+                            />
+                        </c-col>
+                        <!--                                        <ng-month-picker [displayFormat]="" [(ngModel)]="dateOfPassing"-->
+                        <!--                                                         formControlName="dateOfPassing">-->
+                        <!--                                        </ng-month-picker>-->
+                        <c-col [md]="2">
+                            <label class="required" for="rollno">Seat No/Roll No</label>
+                            <input
+                                    id="rollno"
+                                    type="text"
+                                    formControlName="rollno"
+                                    class="form-control capitalize"
+                                    placeholder="Seat No"
+                            />
+                        </c-col>
+                        <c-col [md]="3">
+                            <label class="required" for="marksheetno"
+                            >Marksheet / Certificate No</label
+                            >
+                            <input
+                                    id="marksheetno"
+                                    type="text"
+                                    formControlName="marksheetno"
+                                    class="form-control capitalize"
+                                    placeholder="Marksheet No"
+                            />
+                        </c-col>
+                        <!-- <select [(ngModel)]="gradeMarks" [ngClass]="{ 'is-invalid': (SSCSubmit || f9.gradeMarks.touched) && f9.gradeMarks.errors,
+                                                              'is-valid': f9.gradeMarks.touched && !f9.gradeMarks.errors }"
+                                                      formControlName="gradeMarks" class="form-control">
+                                                      <option value="" disabled selected>--- Please Select ---</option>
+                                                      <option value="Marks"> Marks </option>
+                                                      <option *ngFor="let marks of marks" [value]="marks">{{marks}}</option>
+                                                  </select> -->
+                    </c-row>
+                    <c-row>
+<!--                        <c-col [md]="3">-->
+<!--                            <label class="required">SGPA</label>-->
+<!--                            <select cSelect-->
+<!--                                    hidden=""-->
+<!--                                    id="checkpercentagesgpa"-->
+<!--                                    formControlName="checkpercentagesgpa"-->
+<!--                                    class="form-control"-->
+<!--                            >-->
+<!--                                <option value="" disabled-->
+<!--                                        selected>-->
+<!--                                    -&#45;&#45; Please Select -&#45;&#45;-->
+<!--                                </option>-->
+<!--                                <option value="YES">-->
+<!--                                    Yes-->
+<!--                                </option>-->
+<!--                                <option value="NO">-->
+<!--                                    No-->
+<!--                                </option>-->
+<!--                                &lt;!&ndash;                            <option *ngFor="let Categorydata of Categorydata" [value]="Categorydata.value">&ndash;&gt;-->
+<!--                                &lt;!&ndash;                              {{ Categorydata.value }}&ndash;&gt;-->
+<!--                                &lt;!&ndash;                            </option>&ndash;&gt;-->
+<!--                            </select>-->
+<!--                        </c-col>-->
+                        <!--                        <div *ngIf="student.get('checkpercentagesgpa')?.value == 'NO'">-->
+                        <!--                            <c-row>-->
+                        <!--                                -->
+                        <!--                            </c-row>-->
+                        <!--                        </div>-->
+                        <!--                        <div *ngIf="student.get('checkpercentagesgpa')?.value == 'YES'"-->
+                        <!--                             class="form-group col-md-2">-->
+                        <!--                        <div *ngIf="student.get('checkpercentagesgpa')?.value == 'YES'" class="form-group col-md-2">-->
+                        <c-col [md]="2" *ngIf="student.get('checkpercentagesgpa')?.value == 'YES'">
+                            <label>SGPA </label>
+                            <input
+                                    step="0.01"
+                                    type="number"
+                                    formControlName="sgpa"
+                                    class="form-control capitalize"
+                                    placeholder="SGPA"
+                            />
+                        </c-col>
+                        <!--                        </div>-->
+                        <!--                        <div *ngIf="student.get('checkpercentagesgpa')?.value == 'NO'">-->
+<!--                        <c-col [md]="2" *ngIf="student.get('checkpercentagesgpa')?.value == 'NO'">-->
+<!--                            <label>Total Marks</label>-->
+<!--                            <input type="number" formControlName="totalMarks" class="form-control"-->
+<!--                                   (input)="updatePercentage(i)"/>-->
+<!--                        </c-col>-->
+                        <c-col [md]="1" *ngIf="student.get('checkpercentagesgpa')?.value == 'NO'">
+                            <label>Total Marks</label>
+                            <input type="number" formControlName="outoff" class="form-control"
+                                   (input)="updatePercentage(i)"/>
+                        </c-col>
+                        <c-col [md]="1" *ngIf="student.get('checkpercentagesgpa')?.value == 'NO'">
+                            <label>Actual Marks</label>
+                            <input type="number" formControlName="marksobtained" class="form-control"
+                                   (input)="updatePercentage(i)"/>
+                        </c-col>
+                        <c-col [md]="1" *ngIf="student.get('checkpercentagesgpa')?.value == 'NO'">
+                            <label>Percentage</label>
+                            <input type="float"
+
+                                   formControlName="percentage" class="form-control" readonly/>
+                            <div style="color: red"
+                                 *ngIf="student.get('percentage')?.errors">Percentage cannot be zero.</div>
+                        </c-col>
+                        <c-col [md]="2">
+                        </c-col>
+                        <c-col [md]="4">
+                            <!--                  <c-input-group>-->
+                            <!--                    <input-->
+                            <!--                      aria-label="file example"-->
+                            <!--                      cFormControl-->
+                            <!--                      formControlName="file"-->
+                            <!--                      accept="image/jpeg,image/jpg,image/png"-->
+                            <!--                      id="validationTextupload_callout"-->
+                            <!--                      (change)="onFileChange($event)"-->
+                            <!--                      type="file"-->
+                            <!--                    />-->
+                            <!--                  </c-input-group>-->
+                            <label>Upload marksheet</label>
+                            <app-fileuploadversiontwo (onFileChange)="getDatafromfileupload($event)"
+                                                      formControlName="file"></app-fileuploadversiontwo>
+                            <div style="color: red"
+                                 *ngIf="student.get('file')?.errors">Please select the file.</div>
+                        </c-col>
+                        <!--                        </div>-->
+                        <!--                        </div>-->
+                        <!--                        <div *ngIf="student.get('checkpercentagesgpa')?.value == 'NO'">-->
+                        <!--                            -->
+                        <!--                        </div>-->
+                    </c-row>
+                    <br>
+                    <c-row>
+<!--                        <c-col [md]="3">-->
+<!--                            &lt;!&ndash;                  <c-input-group>&ndash;&gt;-->
+<!--                            &lt;!&ndash;                    <input&ndash;&gt;-->
+<!--                            &lt;!&ndash;                      aria-label="file example"&ndash;&gt;-->
+<!--                            &lt;!&ndash;                      cFormControl&ndash;&gt;-->
+<!--                            &lt;!&ndash;                      formControlName="file"&ndash;&gt;-->
+<!--                            &lt;!&ndash;                      accept="image/jpeg,image/jpg,image/png"&ndash;&gt;-->
+<!--                            &lt;!&ndash;                      id="validationTextupload_callout"&ndash;&gt;-->
+<!--                            &lt;!&ndash;                      (change)="onFileChange($event)"&ndash;&gt;-->
+<!--                            &lt;!&ndash;                      type="file"&ndash;&gt;-->
+<!--                            &lt;!&ndash;                    />&ndash;&gt;-->
+<!--                            &lt;!&ndash;                  </c-input-group>&ndash;&gt;-->
+<!--                            <app-fileuploadversiontwo (onFileChange)="getDatafromfileupload($event)"-->
+<!--                                                      formControlName="file"></app-fileuploadversiontwo>-->
+<!--                        </c-col>-->
+                        <div class="form-group col-md-2"
+                        >
+                            <input
+                                    hidden
+                                    step="0.01"
+                                    type="number"
+                                    formControlName="sgpa_percentage"
+                                    class="form-control capitalize"
+                                    placeholder="SGPA"
+                            />
+                        </div>
+                    </c-row>
+                    <!--                                    <button class="btn btn-secondary mb-3" type="button" (click)="addStudentForm(i)">-->
+                    <!--                                         Save-->
+                    <!--                                    </button>-->
+                    <!--                        <c-col [md]="4">-->
+                    <!--                            <label>Document Code</label>-->
+                    <!--                            <input formControlName="document_code" class="form-control" type="number"/>-->
+                    <!--                            <small class="text-danger" *ngIf="student.get('document_code')?.errors?.['zodError']">-->
+                    <!--                                {{ student.get('document_code')?.errors?.['zodError'] }}-->
+                    <!--                            </small>-->
+                    <!--                        </c-col>-->
+                    <!--                        <c-col [md]="4">-->
+                    <!--                            <label>Name</label>-->
+                    <!--                            <input formControlName="name" class="form-control"/>-->
+                    <!--                            <small class="text-danger" *ngIf="student.get('name')?.errors?.['zodError']">-->
+                    <!--                                {{ student.get('name')?.errors?.['zodError'] }}-->
+                    <!--                            </small>-->
+                    <!--                        </c-col>-->
+                    <!--                        -->
+                    <!--                        <c-col [md]="4">-->
+                    <!--                            <label>Email</label>-->
+                    <!--                            <input formControlName="email" class="form-control"/>-->
+                    <!--                            <small class="text-danger" *ngIf="student.get('email')?.errors?.['zodError']">-->
+                    <!--                                {{ student.get('email')?.errors?.['zodError'] }}-->
+                    <!--                            </small>-->
+                    <!--                        </c-col>-->
+                    <!--                        -->
+                    <!--                        <c-col [md]="4">-->
+                    <!--                            <label>Age</label>-->
+                    <!--                            <input formControlName="age" class="form-control" type="number"/>-->
+                    <!--                            <small class="text-danger" *ngIf="student.get('age')?.errors?.['zodError']">-->
+                    <!--                                {{ student.get('age')?.errors?.['zodError'] }}-->
+                    <!--                            </small>-->
+                    <!--                        </c-col>-->
+                    <!--                        -->
+                    <!--                        <c-col [md]="4">-->
+                    <!--                            <label>Upload File</label>-->
+                    <!--                            <input-->
+                    <!--                                    type="file"-->
+                    <!--                                    class="form-control"-->
+                    <!--                                    (change)="onFileChange($event, i)"-->
+                    <!--                            />-->
+                    <!--                            <small class="text-success" *ngIf="education_field.at(i).value.fileName">-->
+                    <!--                                Selected: {{ education_field.at(i).value.fileName }}-->
+                    <!--                            </small>-->
+                    <!--                        </c-col>-->
+                    <!--                        -->
+                    <!--                        <c-col [md]="2">-->
+                    <!--                            <label>Total Marks</label>-->
+                    <!--                            <input type="number" formControlName="totalMarks" class="form-control" (input)="updatePercentage(i)"/>-->
+                    <!--                        </c-col>-->
+                    <!--                        -->
+                    <!--                        <c-col [md]="2">-->
+                    <!--                            <label>Actual Marks</label>-->
+                    <!--                            <input type="number" formControlName="actualMarks" class="form-control" (input)="updatePercentage(i)"/>-->
+                    <!--                        </c-col>-->
+                    <!--                        -->
+                    <!--                        <c-col [md]="2">-->
+                    <!--                            <label>Percentage</label>-->
+                    <!--                            <input type="text" formControlName="percentage" class="form-control" readonly/>-->
+                    <!--                        </c-col>-->
+                    <!--<c-form-check>
+                        <input type="checkbox" class="form-check-input" formControlName="active"/>
+                        <label class="form-check-label ms-2">Active</label>
+                    </c-form-check>-->
+                </div>
+                <!--                <button class="btn btn-secondary mb-3" type="button" (click)="addStudentForm()">-->
+                <!--                    + Add Another Student-->
+                <!--                </button>-->
+
+            </div>
+            <strong><h5 style="color: red">Your application will be considered for Merit List only once you
+                do
+                the Final Submit.</h5></strong>
+            <c-row>
+                    <c-form-check>
+                        <input
+                                cFormCheckInput
+                                formControlName="checkeducationsubmitted"
+                                type="checkbox"
+                        />
+                        <label>
+                            <b style="color: black"
+                            >&nbsp;&nbsp;Please make sure you have uploaded the
+                                correct details.Once you have submitted you are not
+                                allowed to make any changes.
+                            </b></label
+                        >
+                    </c-form-check>
+
+            </c-row>
+
+            <br>
+            <c-row>
+                <c-col [md]="3">
+                    <button class="btn btn-primary" type="submit" [disabled]="!allFormsValid()">
+                        Submit
+                    </button>
+                </c-col>
+            </c-row>
+        </form>
+    </c-card-body>
+</c-card>

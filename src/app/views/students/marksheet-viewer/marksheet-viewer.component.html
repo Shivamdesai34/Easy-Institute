@@ -1,0 +1,59 @@
+<c-card>
+  <div class="card-header">
+    <c-row>
+      <c-col [md]="9">
+        <h4>Marksheet Viewer</h4>
+      </c-col>
+    </c-row>
+  </div>
+  <c-card-body>
+    @if (showGridbox) {
+      <c-col [md]="12">
+      <c-smart-table
+        #smartTable="cSmartTable"
+        [(activePage)]="activePage"
+        [columns]="columns"
+        [items]="signal_users()"
+        [itemsPerPage]="itemsPerPage"
+        [tableProps]="{ hover: true, striped: true, responsive: true }"
+        header
+        pagination
+        selectable
+        [selectAll]="false"
+        (selectedItemsChange)="onSelectedItemsChange($event)"
+        >
+      </c-smart-table>
+      <c-row style="display: flex; justify-content: center;">
+        <c-col [md]="2" style="padding-top: 24px">
+          <button
+            cButton size="sm"
+            class="btn btn-primary text-white"
+            (click)="OpenPdfDoc_view()">
+            View Marksheet
+            @if (marksheetloader) {
+              <c-spinner aria-hidden="false" size="sm"></c-spinner>
+            }
+          </button>
+        </c-col>
+      </c-row>
+    </c-col>
+  }
+</c-card-body>
+</c-card>
+
+<br>
+  <c-card>
+    @if (showpdfbox) {
+      <div class="pdf-container">
+        <pdf-viewer
+          [src]="pdfSrc"
+          [render-text]="true"
+          [original-size]="false"
+          [fit-to-page]="true"
+          [zoom]="zoom"
+          [show-borders]="true"
+          style="display: block"
+        ></pdf-viewer>
+      </div>
+    }
+  </c-card>

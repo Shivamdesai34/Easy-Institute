@@ -1,0 +1,78 @@
+:host {
+  .c-chart-brand {
+    position: absolute;
+    width: 100%;
+    height: 100px;
+  }
+}
+
+.head {
+  text-align: left;
+  width: 100%;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th {
+  //background-color: #4aa8b8;
+  color: black;
+}
+
+//td,
+//th,
+//span {
+//  // border: 1px solid #dddddd;
+//  border: none;
+//  text-align: left;
+//  padding: 8px;
+//  font-size: 15px;
+//  font-weight: bold;
+//}
+
+// tr:nth-child(even) {
+//   // background-color: #dddddd;
+//   background-color: yellow;
+// }
+p {
+  font-weight: bold;
+  // font-size: 17px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: red;
+}
+
+.td-data-dashboard{
+  margin-left: 20px;
+}
+
+/* PROFILE CARD */
+.profile-card {
+  width: 100%;
+  border-radius: 12px;
+  background: #f7fbff;
+}
+
+/* HEADER */
+.profile-header {
+  background: #f4f8ff;
+  border-bottom: 1px solid #e3ebf6;
+}
+
+/* IMAGE */
+.profile-img {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border: 4px solid #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,.1);
+}
+
+.info-card{
+  box-shadow: 0 5px 15px rgba(255,165,0,0.2);
+}
+
+.academic-table tbody{
+  border: 1px solid orange;
+}

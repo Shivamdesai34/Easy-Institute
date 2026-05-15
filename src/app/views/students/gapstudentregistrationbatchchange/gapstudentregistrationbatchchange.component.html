@@ -1,0 +1,73 @@
+<div class="app-body">
+    <div class="d-flex justify-content-center min-vh-50">
+        <c-card style="width: 40rem;">
+            <c-card-header><strong>Registration Form</strong></c-card-header>
+            <c-card-body>
+                <form [formGroup]="GapRegistrationForm">
+                    
+                    <c-row>
+                        <c-col [sm]="12">
+                            <label cLabel class="required"
+                            >Junior / Under Graduate/ Post Graduate</label
+                            >
+                            <select cSelect
+                                    #teams
+                                    class="form-control modal-validation"
+                                    (change)="Coursetypechange()"
+                                    formControlName="coursetype"
+                            >
+                                <option [ngValue]="null" selected disabled>Select Type</option>
+                                <option value="JR">Junior College(11th)</option>
+                                <option value="UG">Under Graduate(First Year)</option>
+                                <option value="PG">Post Graduate(First Year MSC/MCOM/MA)</option>
+                                <option value="PGD">Post Graduate in Diploma(PGD)</option>
+                                <option value="PHD">Doctorate(Ph.D)</option>
+                            </select>
+                        </c-col>
+                    </c-row>
+                    <c-row>
+                        <c-col>
+                            <label cLabel size="sm" for="batch_name" class="required">Batch</label>
+                            <select
+                                    id="batch_code"
+                                    cSelect
+                                    class="form-control"
+                                    formControlName="batch_code"
+                            >
+                                <!--                [(ngModel)]="selected_batch"-->
+                                <option value="" disabled selected>
+                                    --- Please Select ---
+                                </option>
+                                @for (batch of BatchNames; track batch; let i = $index) {
+                                    <option
+                                            [ngValue]="batch.batch_code"
+                                    >
+                                        {{ batch.batch_name }}
+                                    </option>
+                                }
+                            </select
+                            >
+                            <!--<input *ngIf="visiblebatch" id="batch_name" type="text" formControlName="batch_name"
+                            class="form-control"
+                            placeholder="Enter Batch Name">-->
+                        </c-col>
+                    </c-row>
+                    <c-row class="d-flex justify-content-center align-items-center">
+                        <!--                            class="d-grid gap-2 d-md-flex justify-content-md-center"-->
+                        
+                        <c-col [md]="3">
+                            <button
+                                    cButton
+                                    class="btn btn-add btn-success text-white"
+                                    [disabled]="GapRegistrationForm.invalid"
+                                    (click)="Submit_Payment()"
+                            >
+                                Submit
+                            </button>
+                        </c-col>
+                    </c-row>
+                </form>
+            </c-card-body>
+        </c-card>
+    </div>
+</div>

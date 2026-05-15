@@ -1,0 +1,111 @@
+
+
+
+<!--<ag-grid-angular-->
+<!--style="width: 100%; height: 300px"-->
+<!--class="ag-theme-alpine"-->
+<!--[rowData]="AppliedCourses"-->
+<!--[gridOptions]="gridOptions"-->
+<!--(gridReady)="onGridReady($event)"-->
+<!--[columnDefs]="columnDefs"-->
+<!--[rowSelection]="rowSelection"-->
+<!-- [pagination]="true"-->
+<!--(selectionChanged)="onSelectionChanged($event)"-->
+<!--&gt;-->
+<!--</ag-grid-angular>-->
+
+
+<c-card class="main-container">
+    <c-card-body>
+        <c-smart-table
+                [itemsPerPage]="5"
+                [items]="AppliedCourses"
+                [tableProps]="{ hover: true, striped: true, responsive: true }"
+                header
+                pagination
+                selectable
+                (selectedItemsChange)="onSelectedItemsChange($event)"
+                #table="cSmartTable"
+        >
+            <ng-template cTemplateId="tableSummaryRow">
+                <tr cTableColor="info">
+                    <!--                <th style="width: 15%;">Selected: {{selectedItemsCount()}}.</th>-->
+                    <th [attr.colspan]="table.columns?.length">
+                        <!--                  Items count: {{usersData?.length ?? 0}}.-->
+                    </th>
+                </tr>
+            </ng-template>
+        </c-smart-table>
+    </c-card-body>
+</c-card>
+
+<div class="ms-3 mb-5">
+    <h5 class="text-danger text-decoration-underline">Note : Click on Row to check the status</h5>
+    <c-row>
+        <c-col [md]="6">
+            <h4 size="sm" >Batch Name : {{this.selected_data?.batch_name}} </h4>
+        </c-col>
+        <c-col [md]="6">
+            <h4 size="sm"> Status : {{this.selected_data?.admission_status}} </h4>
+        </c-col>
+        
+        <div class="my-2"></div>
+        
+
+        <c-row>
+            <c-col [sm]="3">
+                <button
+                        cButton
+                        type="submit"
+                        size="sm"
+                        class="btn btn-info text-white buttons"
+                        (click)="ProfilePrint()"
+                >
+                    Profile Print
+
+                </button>
+            </c-col>
+            
+            <div class="my-2"></div>
+            
+
+            <c-col [sm]="3">
+                <button
+                        cButton
+                        type="submit"
+                        size="sm"
+                        class="btn btn-info text-white buttons"
+                        (click)="batchsubject_view()"
+                >
+                    View NEP Subjects
+
+                </button>
+            </c-col>
+        </c-row>
+        
+        <div class="my-2"></div>
+
+    </c-row>
+
+    <h4 size="sm">View NEP Subjects</h4>
+    <c-row>
+        <c-card>
+            <c-card-body>
+                <c-smart-table
+                        [itemsPerPage]="10"
+                        [items]="batchsubject_view_list"
+                        [tableProps]="{ hover: true, striped: true, responsive: true }"
+                        [columns]="columns"
+                        header
+                        pagination
+                        (selectedItemsChange)="onSelectedItemsChange($event)"
+                        #table="cSmartTable"
+                >
+                </c-smart-table>
+            </c-card-body>
+        </c-card>
+
+    </c-row>
+</div>
+
+

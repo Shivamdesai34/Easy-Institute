@@ -1,0 +1,198 @@
+<c-row>
+    <c-col [md]="9">
+        <h4>Create Query Ticket</h4>
+    </c-col>
+</c-row>
+
+<!-- <div class="card-body">
+
+    <div class="NgxEditor__Wrapper">
+        <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+        <ngx-editor [editor]="editor" [ngModel]="html" [disabled]="false" [placeholder]="'Type here...'">
+        </ngx-editor>
+    </div>
+</div> -->
+<c-card>
+    <c-card-body>
+        <c-col [md]="12">
+            <c-nav variant="tabs">
+                <a [active]="true" [cTabContent]="tabContent" [tabPaneIdx]="0" cNavLink>Ticket List</a>
+                <a [cTabContent]="tabContent" [tabPaneIdx]="1" cNavLink>Create Ticket</a>
+            </c-nav>
+            <c-tab-content #tabContent="cTabContent">
+                <c-tab-pane>
+                    <c-card-body>
+                        <form [formGroup]="ListEditorForm" (keydown.enter)="$event.preventDefault()">
+                            <ag-grid-angular style="width: 100%; height: 300px;" class="ag-theme-alpine"
+                                             [rowData]="rowss"
+                                             [gridOptions]="gridOptions"
+                                             [columnDefs]="columnDefs"
+                                             (gridReady)="onGridReady($event)"
+                                             [rowSelection]='rowSelection'
+                                             (rowSelected)="onRowSelectedEvent($event)"
+                                             [pagination]="true" [paginationPageSize]="paginationPageSize"
+                                             (selectionChanged)="onSelectionChanged($event)">
+                            </ag-grid-angular>
+                            <br>
+                            <c-row>
+                                <c-col [md]="6">
+                                    <button style="margin-left: 430px;justify-content: right;"
+
+                                            (click)="ShowTicket()"
+                                            cButton class="me-1"
+                                            color="success">
+                                        Show ticket details
+                                    </button>
+                                </c-col>
+                                <c-col [md]="6">
+                                    <button style="margin-left: 15px;" cButton
+                                            align="center"
+                                            (click)="Closeticket()"
+                                             color="danger">Close ticket
+                                    </button>
+                                </c-col>
+                            </c-row>
+                            <br>
+                            <div [visible]="visible" cCollapse>
+
+                                <div *ngFor="let data of detailticket; let i = index">
+
+                                    <c-card>
+                                        <c-card-body>
+                                            <c-card class>
+                                                <c-row>
+                                                    <strong>
+                                                        {{ data.Ticketdate }}
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ data.Replayuser }}
+                                                    </strong>
+
+                                                </c-row>
+                                                <br>
+                                                <br>
+                                                <c-row>
+
+                                                    &nbsp;&nbsp;&nbsp; {{ data.Ticketdescription }}
+
+                                                </c-row>
+                                            </c-card>
+                                        </c-card-body>
+                                    </c-card>
+                                    <br>
+                                </div>
+
+
+                            </div>
+                            <br>
+                            <c-row>
+                                <c-col [md]="12" id="descriptionone">
+                                    <label cLabel for="descriptionone"><b>Reply to ticket</b></label>
+                                </c-col>
+                                <c-col [md]="12">
+                                    <angular-editor id="texteditorone" formControlName="texteditorone"
+                                                    [config]="editorConfig">
+                                    </angular-editor>
+                                </c-col>
+                                <c-col [md]="12">
+                                                <span
+                                                        *ngIf="ListEditorForm.get('texteditorone')?.invalid && ListEditorForm.get('texteditorone')?.touched"
+                                                        class="text-danger">Text is required</span>
+                                </c-col>
+                            </c-row>
+                            <br>
+                            <c-row>
+                                <c-col [md]="2">
+                                    <button style="margin-left: 15px;"
+                                            (click)="ReplyQuery()"
+                                            style="margin-left: 550px;"
+                                            cButton color="success">
+                                        Submit
+                                    </button>
+                                </c-col>
+
+                            </c-row>
+                        </form>
+                    </c-card-body>
+                </c-tab-pane>
+
+                <c-tab-pane>
+                    <div class="card-body">
+                        <form [formGroup]="EditorForm" (keydown.enter)="$event.preventDefault()"
+                              (ngSubmit)="onSubmitClick()">
+
+                            <c-row>
+                                <c-col [md]="6">
+                                    <label cLabel for="category"><b>Category</b></label>
+                                    <select sizing="sm" cSelect id="category" [(ngModel)]="SelectedCategory" formControlName="category"
+                                            class="form-control"
+                                            (change)="onChangeCategorySelect()">
+                                        <option disabled>Select Category</option>
+                                        <option *ngFor="let cat of Category" [ngValue]="cat">
+                                            {{ cat.Category }}
+                                        </option>
+                                    </select>
+                                    <span *ngIf="EditorForm.get('category')?.invalid && EditorForm.get('category')?.touched"
+                                          class="text-danger">category is required</span>
+                                </c-col>
+                            </c-row>
+                            <br/>
+                            <c-row>
+                                <c-col [md]="12">
+                                    <label cLabel for="subject"><b>Subject</b></label>
+                                      <input cFormControl sizing="sm" id="subject" type="text" placeholder="Enter Subject"
+                                           formControlName="subject"
+                                           class="form-control">
+                                    <span *ngIf="EditorForm.get('subject')?.invalid && EditorForm.get('subject')?.touched"
+                                          class="text-danger">subject is required</span>
+                                </c-col>
+                            </c-row>
+                            <br/>
+
+                            <c-row>
+                                <c-col [md]="12" id="description">
+                                    <label cLabel for="description"><b>Description</b></label>
+                                </c-col>
+                                <c-col [md]="12">
+                                    <angular-editor id="texteditor" formControlName="texteditor"
+                                                    [config]="editorConfig">
+                                    </angular-editor>
+                                </c-col>
+                                <c-col [md]="12">
+                    <span *ngIf="EditorForm.get('texteditor')?.invalid && EditorForm.get('texteditor')?.touched"
+                          class="text-danger">Text is required</span>
+                                </c-col>
+                            </c-row>
+                            <br/><br/>
+
+                            <c-row>
+
+                                <c-col [md]="5">
+                                    <h5 style="color: grey;">Note : To upload multiple images press "Ctrl" </h5>
+
+                                    <h6>Upload Image</h6>
+                                      <input cFormControl sizing="sm" aria-label="file example"
+                                           cFormControl
+                                           id="validationText1"
+                                           multiple type="file"
+                                           (change)="xlsxUpload($event)"
+                                           (selectionchange)="xlsxUpload($event)"
+                                    />
+                                    <c-form-feedback [valid]="false">Example invalid form file feedback
+                                    </c-form-feedback>
+                                </c-col>
+
+
+                            </c-row>
+                            <br>
+
+                            <button style="margin-left: 550px;padding-left: 50px;padding-right: 50px;" type="submit"
+                                    class="d-grid gap-2 col-12 mx-auto" [disabled]="EditorForm.invalid"
+                                    class="btn btn-success">Submit
+                            </button>
+                        </form>
+
+                    </div>
+                </c-tab-pane>
+            </c-tab-content>
+        </c-col>
+    </c-card-body>
+</c-card>

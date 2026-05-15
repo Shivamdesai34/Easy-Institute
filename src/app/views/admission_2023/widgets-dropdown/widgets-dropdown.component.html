@@ -1,0 +1,163 @@
+<c-card class="card">
+    <c-card-header>
+        <c-col [md]="9">
+            <h4>Admission For 2024-2025</h4>
+        </c-col>
+    </c-card-header>
+    <c-card-body>
+            <c-row>
+                <c-col [md]="4">
+                    <c-widget-stat-a
+                            class="mb-4"
+                            color="info"
+                            [title]="'Step 1'"
+                            (click)="PayFormFees()"
+                    >
+                        <ng-template cTemplateId="widgetValueTemplate">
+                            Select Subjects and Pay Form Fees
+                        </ng-template>
+                        <c-dropdown alignment="end" variant="btn-group">
+                            <button size="sm"  cButton cDropdownToggle color="transparent">
+                                <svg [cIcon]="icons.cilOptions" class="text-high-emphasis-inverse"></svg>
+                            </button>
+                            <div cDropdownMenu>
+                                <a (click)="PayFormFees()" [routerLink]="[]" cDropdownItem>Pay</a>
+                            </div>
+                        </c-dropdown>
+                        <div slot="footer">
+                            <div class="c-chart-wrapper mt-3 mx-3" style="height: 140px;" [@.disabled]="true">
+                            </div>
+                        </div>
+
+                    </c-widget-stat-a>
+                </c-col>
+                <c-col [md]="4">
+                    <c-widget-stat-a
+                            class="mb-4"
+                            color="warning"
+                            [title]="'Step 2'"
+                            (click)="DocumentApproval()"
+                            text="Step 2"
+                    >
+                        <ng-template cTemplateId="widgetValueTemplate">
+                            Document Approval
+                        </ng-template>
+
+                        <c-dropdown alignment="end" variant="btn-group">
+                            <button size="sm"  cButton cDropdownToggle (click)="DocumentApproval()" color="transparent">
+                                <c-icon name="cil-columns"></c-icon>
+                            </button>
+                        </c-dropdown>
+                        <div slot="footer">
+                            <div class="c-chart-wrapper mt-3" style="height: 140px;" [@.disabled]="true">
+                                <div style="text-align: center;"><h4 style="color: blue;"> {{ StatusMessage }}</h4>
+                                </div>
+                                <!-- {{FeesAttachedMsg}} -->
+                            </div>
+                        </div>
+                    </c-widget-stat-a>
+                </c-col>
+                <c-col [md]="4">
+                    <c-widget-stat-a
+                            class="mb-4"
+                            color="danger"
+                            [title]="'Step 3'"
+                            (click)="PayFees()"
+                    >
+                        <ng-template cTemplateId="widgetValueTemplate">
+                            Pay Fees
+                        </ng-template>
+
+                        <c-dropdown alignment="end" variant="btn-group">
+                            <button size="sm"  cButton cDropdownToggle (click)="PayFees()" color="transparent">
+                                <c-icon></c-icon>
+                            </button>
+                        </c-dropdown>
+                        <div slot="footer">
+                            <div class="c-chart-wrapper mt-3 mx-3" style="height: 140px;" [@.disabled]="true">
+                            </div>
+                        </div>
+                    </c-widget-stat-a>
+                </c-col>
+            </c-row>
+    </c-card-body>
+</c-card>
+
+<c-modal alignment="center" id="liveDemoModal"
+         (visibleChange)="handleLiveDemoChange($event)"
+         [visible]="paymentmodalform">
+
+    <c-modal-header>
+        <h4 class="modal-title" id="modal-basic-title">Admission form fees payment</h4>
+        <button size="sm"  type="button" class="close" (click)="CloseModal()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </c-modal-header>
+    <c-modal-body>
+        <form cForm [formGroup]="modalForm">
+            <label cLabel class="required"><b>Batch:</b></label>
+
+            @if (visivlebatch_atkt) {
+                <select cSelect class="form-control modal-validation"
+                        [(ngModel)]="selected_Batch"
+                        (change)="modalSelectBatchSubjects(selected_Batch)"
+                        formControlName="batch">
+                    <option value="" disabled selected>--- Please Select ---</option>
+                    @for (data of aBatchs; track data; let i = $index) {
+                        <option [ngValue]="data">{{ data.Batch_Name }}
+                        </option>
+                    }
+                </select>
+            }
+
+            @if (visiblebatch) {
+                <input cFormControl id="batch_name" type="text" formControlName="batch_name"
+                       class="form-control"
+                       placeholder="Enter Batch Name">
+            }
+
+
+            <div class="form-group">
+                <label cLabel class="required"><b>Subject Group</b></label>
+                <select cSelect id="batchSubjects" class="form-control"
+
+                        formControlName="batchSubjects" [(ngModel)]="selected_subject">
+
+                    <option value="none" selected>--- Please Select --</option>
+                    @for (data of aSubjects; track data) {
+                        <option [ngValue]="data">
+                            {{ data.Subject_group_code }}
+                        </option>
+                    }
+                </select>
+            </div>
+
+            <div>
+                <p><b>Selected Subject Code Consists : </b> <br> {{ selected_subject?.Subject_group_name }}</p>
+            </div>
+
+            <div>
+                <h3> Form Amount : ₹ {{ selected_Batch?.FormAmount }} </h3>
+            </div>
+
+            <br>
+
+
+        </form>
+    </c-modal-body>
+    <c-modal-footer>
+
+        <c-row style="justify-content: center">
+            <c-col [sm]="3">
+                <button size="sm"  cButton type="submit" size="md" [disabled]="modalForm.invalid"
+                        (click)="CheckSubjectGroupQuota()"
+                        class="btn btn-success">Pay
+                </button>
+            </c-col>
+
+        </c-row>
+
+    </c-modal-footer>
+
+
+</c-modal>

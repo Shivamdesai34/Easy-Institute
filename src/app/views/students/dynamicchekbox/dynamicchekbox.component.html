@@ -1,0 +1,309 @@
+@if (subjectlist) {
+  <c-card>
+    <div class="card-header">
+      <c-row>
+        <c-col [md]="9">
+          <h4>NEP Subjects</h4>
+        </c-col>
+      </c-row>
+    </div>
+    <c-card-body>
+      <c-row>
+        <c-col [md]="5">
+          <label cLabel>Next Batch:</label>
+          <div style="width: 100%">
+            {{ this.resp_singlebatch?.batch_name }}
+
+</div>
+
+</c-col>
+<c-col [md]="3">
+  <label cLabel>Based on DSE Subjects:</label>
+  <select cSelect
+    [(ngModel)]="Selected_subjects"
+    class="form-control"
+    (change)="onSelect_semester()"
+    >
+    <option disabled>Select Semester Exam</option>
+    @for (exam of majorsubject; track exam) {
+      <option [ngValue]="exam">
+        {{ exam.subject_group_name }}
+      </option>
+    }
+  </select>
+</c-col>
+
+                <c-col [md]="3">
+                    <button cButton style="color: white"
+                            (click)="PortalOpen()"
+    class="btn btn-success w-100 mt-4 py-2 fs-5" type="submit">
+    Show
+  </button>
+</c-col>
+</c-row>
+<form [formGroup]="form">
+  <h6 style="color: red;font-weight: bold">
+    Note for Major-Discipline Specific Electives (Major-DSE): The
+    selection is granted subject to a minimum number of students
+    opting for the elective course.
+  </h6>
+  <h6 style="color: red;font-weight: bold">
+    Please select any one subject from Major-Discipline Specific Electives (Major-DSE)
+    then click on "SUBMIT" button and pay Form Fees of Rs. 100.00
+  </h6>
+  @for (semester_lineitem of groupedData | keyvalue; track semester_lineitem) {
+    <div>
+      <div class="bg-light rounded p-3 mb-4 shadow-sm">
+        <h5 class="text-primary mb-3">📘 Semester {{ semester_lineitem.key }}</h5>
+        @for (category of semester_lineitem.value | keyvalue; track category) {
+          <div>
+            <div class="bg-white rounded p-3 mb-3 border">
+              <h6 class="text-info mb-3">📂 {{ category.key }}</h6>
+              <c-list-group>
+                @for (item of category.value; track item) {
+                  <c-list-group-item
+                    class="d-flex align-items-center gap-2 px-2"
+                    >
+                    @if (item.mandatory == 1) {
+                      <div>
+                        <input
+                          cFormCheckInput
+                          checked
+                          type="checkbox"
+                          disabled
+                          />
+                          <label cFormCheckLabel disabled="true">{{ item.subject_name }} - mandatory</label>
+                        </div>
+                      } @else {
+                        <input
+                          cFormCheckInput
+                          type="checkbox"
+                          formControlName="selection_checked"
+                          [checked]="form.get('selectedItems')?.value.includes(item.semester + '_' + item.verticalname + '_' + item.subject_detail_id)"
+                          (change)="onCheckboxChange($event, item)"
+                          />
+                          <label cFormCheckLabel>{{ item.subject_name }}</label>
+                        }
+                      </c-list-group-item>
+                    }
+                  </c-list-group>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </form>
+    @if (Viewtable) {
+      <div>
+        <div class="bg-light rounded p-3 mb-4 shadow-sm">
+          <table [cBorder]="1" borderColor="primary" bordered cTable small>
+            <thead>
+              <tr>
+                <th scope="col" style="width:4%"></th>
+                <th scope="col" style="width:23%"></th>
+                <th scope="col" style="width:23%;text-align: center;" colspan="3">Paper</th>
+                <th scope="col" style="width:10%;text-align: center;" colspan="3">Practical</th>
+                <th scope="col" style="width:10%"></th>
+              </tr>
+              <tr>
+                <th scope="col" style="width:4%;text-align: center;">Semester</th>
+                <th scope="col" style="width:23%;text-align: center;">Vertical</th>
+                <th scope="col" style="width:23%;text-align: center;">Name</th>
+                <th scope="col" style="width:7%;text-align: center;">Code</th>
+                <th scope="col" style="width:7%;text-align: center;">Creditpoint</th>
+                <th scope="col" style="width:10%;text-align: center;">Name</th>
+                <th scope="col" style="width:10%;text-align: center;">Code</th>
+                <th scope="col" style="width:7%;text-align: center;">Creditpoint</th>
+                <th scope="col" style="width:10%;text-align: center;">Mandatory/Optional</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (sub of this.table_one; track sub) {
+                <tr>
+                  <td>{{ sub.semester }}</td>
+                  <td>{{ sub.verticalname }}</td>
+                  <td>{{ sub.subject_name }}</td>
+                  <td>{{ sub.subject_code }}</td>
+                  <td>{{ sub.subject_creditpoint }}</td>
+                  <td>{{ sub.practical_name }}</td>
+                  <td>{{ sub.practical_code }}</td>
+                  <td>{{ sub.practical_creditpoint }}</td>
+                  @if (sub.mandatory === 1) {
+                    <div>
+                      <td>Mandatory</td>
+                    </div>
+                  }
+                  @if (sub.mandatory === 0) {
+                    <div>
+                      <td>Selected</td>
+                    </div>
+                  }
+                </tr>
+              }
+            </tbody>
+          </table>
+          <table [cBorder]="1" borderColor="primary" bordered cTable small>
+            <thead>
+              <tr>
+                <th scope="col" style="width:4%"></th>
+                <th scope="col" style="width:23%"></th>
+                <th scope="col" style="width:23%;text-align: center;" colspan="3">Paper</th>
+                <th scope="col" style="width:10%;text-align: center;" colspan="3">Practical</th>
+                <th scope="col" style="width:10%"></th>
+              </tr>
+              <tr>
+                <th scope="col" style="width:4%;text-align: center;">Semester</th>
+                <th scope="col" style="width:23%;text-align: center;">Vertical</th>
+                <th scope="col" style="width:23%;text-align: center;">Name</th>
+                <th scope="col" style="width:7%;text-align: center;">Code</th>
+                <th scope="col" style="width:7%;text-align: center;">Creditpoint</th>
+                <th scope="col" style="width:10%;text-align: center;">Name</th>
+                <th scope="col" style="width:10%;text-align: center;">Code</th>
+                <th scope="col" style="width:7%;text-align: center;">Creditpoint</th>
+                <th scope="col" style="width:10%;text-align: center;">Mandatory/Optional</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (sub of this.table_two; track sub) {
+                <tr>
+                  <td>{{ sub.semester }}</td>
+                  <td>{{ sub.verticalname }}</td>
+                  <td>{{ sub.subject_name }}</td>
+                  <td>{{ sub.subject_code }}</td>
+                  <td>{{ sub.subject_creditpoint }}</td>
+                  <td>{{ sub.practical_name }}</td>
+                  <td>{{ sub.practical_code }}</td>
+                  <td>{{ sub.practical_creditpoint }}</td>
+                  @if (sub.mandatory === 1) {
+                    <div>
+                      <td>Mandatory</td>
+                    </div>
+                  }
+                  @if (sub.mandatory === 0) {
+                    <div>
+                      <td>Selected</td>
+                    </div>
+                  }
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    }
+    <c-row class="d-grid gap-2 d-md-flex justify-content-md-center">
+      <c-col [md]="2">
+        <button cButton (click)="submit()"
+          style="color: white"
+          class="btn btn-success w-100 mt-4 py-2 fs-5" type="submit">
+          Submit
+        </button>
+      </c-col>
+    </c-row>
+    
+</c-card-body>
+</c-card>
+}
+@if (show_selected_table) {
+  <div>
+    <c-card>
+      <div class="bg-light rounded p-3 mb-4 shadow-sm">
+        <table [cBorder]="1" borderColor="primary" bordered cTable small>
+          <thead>
+            <tr>
+              <th scope="col" style="width:4%"></th>
+              <th scope="col" style="width:23%"></th>
+              <th scope="col" style="width:23%;text-align: center;" colspan="3">Paper</th>
+              <th scope="col" style="width:10%;text-align: center;" colspan="3">Practical</th>
+              <th scope="col" style="width:10%"></th>
+            </tr>
+            <tr>
+              <th scope="col" style="width:4%;text-align: center;">Semester</th>
+              <th scope="col" style="width:23%;text-align: center;">Vertical</th>
+              <th scope="col" style="width:23%;text-align: center;">Name</th>
+              <th scope="col" style="width:7%;text-align: center;">Code</th>
+              <th scope="col" style="width:7%;text-align: center;">Creditpoint</th>
+              <th scope="col" style="width:10%;text-align: center;">Name</th>
+              <th scope="col" style="width:7%;text-align: center;">Code</th>
+              <th scope="col" style="width:7%;text-align: center;">Creditpoint</th>
+              <th scope="col" style="width:10%;text-align: center;">Mandatory/Optional</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (sub of this.table_one_selected; track sub) {
+              <tr>
+                <td>{{ sub.semester }}</td>
+                <td>{{ sub.verticalname }}</td>
+                <td>{{ sub.subject_name }}</td>
+                <td>{{ sub.subject_code }}</td>
+                <td>{{ sub.subject_creditpoint }}</td>
+                <td>{{ sub.practical_name }}</td>
+                <td>{{ sub.practical_code }}</td>
+                <td>{{ sub.practical_creditpoint }}</td>
+                @if (sub.mandatory === 1) {
+                  <div>
+                    <td>Mandatory</td>
+                  </div>
+                }
+                @if (sub.mandatory === 0) {
+                  <div>
+                    <td>Selected</td>
+                  </div>
+                }
+              </tr>
+            }
+          </tbody>
+        </table>
+        <table [cBorder]="1" borderColor="primary" bordered cTable small>
+          <thead>
+            <tr>
+              <th scope="col" style="width:4%"></th>
+              <th scope="col" style="width:23%"></th>
+              <th scope="col" style="width:23%;text-align: center;" colspan="3">Paper</th>
+              <th scope="col" style="width:10%;text-align: center;" colspan="3">Practical</th>
+              <th scope="col" style="width:10%"></th>
+            </tr>
+            <tr>
+              <th scope="col" style="width:4%;text-align: center;">Semester</th>
+              <th scope="col" style="width:23%;text-align: center;">Vertical</th>
+              <th scope="col" style="width:23%;text-align: center;">Name</th>
+              <th scope="col" style="width:7%;text-align: center;">Code</th>
+              <th scope="col" style="width:7%;text-align: center;">Creditpoint</th>
+              <th scope="col" style="width:10%;text-align: center;">Name</th>
+              <th scope="col" style="width:7%;text-align: center;">Code</th>
+              <th scope="col" style="width:7%;text-align: center;">Creditpoint</th>
+              <th scope="col" style="width:10%;text-align: center;">Mandatory/Optional</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (sub of this.table_two_selected; track sub) {
+              <tr>
+                <td>{{ sub.semester }}</td>
+                <td>{{ sub.verticalname }}</td>
+                <td>{{ sub.subject_name }}</td>
+                <td>{{ sub.subject_code }}</td>
+                <td>{{ sub.subject_creditpoint }}</td>
+                <td>{{ sub.practical_name }}</td>
+                <td>{{ sub.practical_code }}</td>
+                <td>{{ sub.practical_creditpoint }}</td>
+                @if (sub.mandatory === 1) {
+                  <div>
+                    <td>Mandatory</td>
+                  </div>
+                }
+                @if (sub.mandatory === 0) {
+                  <div>
+                    <td>Selected</td>
+                  </div>
+                }
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </c-card>
+  </div>
+}
+
+

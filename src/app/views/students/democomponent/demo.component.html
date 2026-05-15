@@ -1,0 +1,30 @@
+<c-card>
+  <c-card-header>
+        <h4>Demo component</h4>
+  </c-card-header>
+
+
+  <c-card-body>
+
+
+      <h3>HELLO</h3>
+
+      <ag-grid-angular class="ag-theme-alpine"
+                       style="width: 100%; height: 100%;"
+                       [gridOptions]="gridOptions_details"
+                       (gridReady)="onGridReady_subject_selected($event)"
+                       [columnDefs]="columnDefs"
+                       [defaultColDef]="defaultColDef"
+                       [rowData]="rowData"
+      />
+
+  </c-card-body>
+</c-card>
+
+
+
+
+
+
+
+

@@ -1,0 +1,93 @@
+<div class="animated fadeIn">
+  <c-row>
+    <c-col>
+      <c-card>
+        <nav class="navbar navbar-expand-lg" style="margin-top:10px;">
+          <ul>
+            <a class="navbar-brand" href="#"><img src="" alt=""> </a>
+          </ul>
+          <ul>
+            <h4 style="color: rgba(51, 153, 255, 100)">
+              RAMNIRANJAN JHUNJHUNWALA COLLEGE OF ARTS , COMMERCE AND SCIENCE
+              (AUTONOMOUS)<br>
+              <h6 style="color: black;">Opposite Ghatkopar Railway Station West Mumbai-400086,
+              Maharashtra, India</h6>
+            </h4>
+          </ul>
+        </nav>
+      </c-card>
+    </c-col>
+  </c-row>
+</div>
+
+<div class="app-body bg-light min-vh-100">
+  <main class="main d-flex align-items-center">
+    <c-container>
+      <c-row>
+        <c-col [md]="6" class="mx-auto">
+          <br>
+            <br>
+              <c-card class="mx-4">
+                <c-card-body class="p-4">
+                  <form cForm [formGroup]="otpVerifyForm" >
+                    <h1 style="padding-left: 15px;">OTP Verification</h1>
+                    <br>
+
+                      <h5 style="color: red">Note: OTP is sent to mobile as well as
+                      on your email.</h5>
+                      <!-- <p class="text-muted">Dear XXXXXX</p> -->
+                      <c-col [sm]="12">
+                        <label size="sm" cLabel class="required" for="mobileNo">Mobile Number</label>
+                        <input sizing="sm" cFormControl type="text" id="mobileNo" formControlName="mobileNo" readonly
+                                           [ngClass]="{ 'is-invalid': (submitted || f['mobileNo'].touched) && f['mobileNo'].errors,
+                                    'is-valid': f['mobileNo'].touched && !f['mobileNo'].errors }" class="form-control"
+                          placeholder="Mobile Number">
+                          @if (submitted && f['mobileNo'].errors) {
+                            <div class="invalid-feedback">
+                              @if (f['mobileNo']?.errors?.['required']) {
+                                <div>Mobile Number is required</div>
+                              }
+                            </div>
+                          }
+                        </c-col>
+                        <c-col [sm]="12">
+                          <label size="sm" cLabel class="required" for="otp">One Time Password</label>
+                          <input sizing="sm"
+                                 maxlength="6"
+                                 cFormControl
+                                 type="text"
+                                 id="otp"
+                                 formControlName="otp"
+                                 class="form-control"
+                            placeholder="One Time Password">
+                            @if (otpVerifyForm.get('otp')?.hasError('invalidOTp')) {
+                                <div>
+                                    <h6 style="color: red">Invalid OTP number.</h6>
+                                </div>
+                            }
+                          </c-col>
+
+                          <br>
+                            <c-row class="d-grid gap-2 d-md-flex justify-content-md-center">
+                              <c-col [sm]="2">
+                                <!-- <button size="sm" type="button" class="btn btn-block btn-success">Create Account</button> -->
+                                <button size="sm" [disabled]="otpVerifyForm.invalid" cButton type="submit" (click)="ValidateOTP()"
+                                class="btn btn-block btn-success"> Verify</button>
+                              </c-col>
+                              <c-col [sm]="3">
+                                <button size="sm" cButton type="submit" class="btn btn-block btn-danger"
+                                  (click)="GetOTP()">Resend OTP
+                                </button>
+                              </c-col>
+                            </c-row>
+                          </form>
+                        </c-card-body>
+                      </c-card>
+                    </c-col>
+                  </c-row>
+                </c-container>
+
+              </main>
+            </div>
+
+            <!-- <app-register hidden [OTPGetValue]="OTPSendValue"></app-register> -->

@@ -1,0 +1,154 @@
+html, body {
+  overflow-x: hidden;
+}
+
+.app-header {
+  height: 70px;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+}
+
+.app-header img {
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .app-header small {
+    display: none;
+  }
+}
+
+
+:root {
+  --cui-body-bg: #ffffff;
+  --cui-body-color: #444;
+  --cui-primary: #0d6efd;
+}
+
+body {
+  margin: 0;
+  padding-bottom: 80px;
+  font-family: Arial, sans-serif;
+}
+
+.bottom-tabs button {
+  flex: none;
+  width: 25%;
+  height: 80px;
+  margin-top: -7px;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  color: var(--cui-body-color);
+  cursor: pointer;
+  background: transparent;
+}
+
+.bottom-tabs {
+  position: fixed;
+  bottom: 0;
+  padding: 10px 0;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  flex-wrap: nowrap;
+  z-index: 10;
+  background-color: #FFFFFF;
+  box-shadow: 10px 10px 15px 7px;
+}
+
+.bottom-tabs button i {
+  font-size: 20px;
+}
+
+.bottom-tabs button span {
+  margin-top: -6px;
+  font-size: 13px;
+}
+
+.bottom-tabs button:hover {
+  margin-top: -10px;
+  background-color: #f4f4e9;
+  color: #05236c;
+  font-weight: bold;
+}
+
+//.bottom-tabs button.active {
+//  margin-top: -10px;
+//  background-color: orange;
+//  color: #ffffff;
+//}
+
+.bottom-tabs button.active span{
+  z-index: 5;
+}
+
+.sub-menu {
+  position: fixed;
+  bottom: 80px;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  transform: translateY(40px);
+  opacity: 0;
+  pointer-events: none;
+  background-color: lightcyan;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.sub-menu.show {
+  transform: translateY(0);
+  opacity: 1;
+  padding: 15px 0;
+  pointer-events: auto;
+}
+
+.sub-menu button.active{
+  background-color: #efdcdc;
+  color: #05236c;
+  font-weight: 700;
+  border-radius: 5px;
+}
+
+.sub-menu button.active::before {
+  margin-right: 6px;
+  color: var(--cui-primary);
+}
+
+.mobile-content {
+  padding-bottom: 56px;
+}
+
+.sub-menu button {
+  height: 58px;
+  display: block;
+  width: 100%;
+  padding: 12px 15px;
+  border: none;
+  background: none;
+  text-align: left;
+  color: #333;
+}
+
+.sub-menu.close {
+  display: none;
+}
+
+.parent-btn {
+  flex: none;
+  width: 20%;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--cui-body-color);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}

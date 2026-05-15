@@ -1,0 +1,292 @@
+<form [formGroup]="formGroup">
+    <div formArrayName="items">
+
+        <c-row>
+            <c-col [md]="3">
+                <select aria-label="Default select example"
+                        (change)="addItem($event)"
+                        cSelect>
+                    <option>Open this select menu</option>
+                    <option value="1">HSC</option>
+                    <option value="2">UG</option>
+                    <option value="3">PG</option>
+                </select>
+            </c-col>
+        </c-row>
+
+        @for (item of itemsArray.controls; track item; let i = $index) {
+            <c-callout color="danger">
+
+            <div [formGroupName]="i" class="item-row">
+                <c-row>
+                    <c-col [md]="2">
+                        <label cLabel class="required" for="board">Board</label>
+                        <select cSelect
+                                id="board"
+                                formControlName="board"
+                                class="form-control"
+                        >
+                            <option value="" disabled selected>
+                                --- Please Select ---
+                            </option>
+                            <option value="Indian">Indian</option>
+                            <option value="Foreign">Foreign</option>
+                        </select>
+                    </c-col>
+                    <c-col [md]="3">-->
+                        <label cLabel class="required" for="state">Select State</label>
+                        <select cSelect
+                                formControlName="state"
+                                class="form-control"
+                        >
+                            <option value="" disabled selected>
+                                --- Please Select ---
+                            </option>
+                            @for (state of state; track state) {
+                                <option [value]="state">
+                                    {{ state }}
+                                </option>
+                            }
+                        </select>
+                        @if (SSCSubmit && this.edf['state'].errors) {
+                            <div
+                                    class="invalid-feedback"
+                            >
+                                @if (this.edf['state'].errors?.['required']) {
+                                    <div>
+                                        State is required
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </c-col>
+                    <c-col [md]="7">
+                        <label cLabel class="required" for="education_board"
+                        >Select Board / University</label
+                        >
+                        <select cSelect
+                                id="education_board"
+                                formControlName="education_board"
+                                class="form-control"
+                        >
+                            <option value="" disabled selected>
+                                --- Please Select ---
+                            </option>
+                            @for (board of board; track board) {
+                                <option [value]="board">
+                                    {{ board }}
+                                </option>
+                            }
+                        </select>
+                        @if (SSCSubmit && this.edf['education_board'].errors) {
+                            <div
+                                    class="invalid-feedback"
+                            >
+                                @if (this.edf['education_board']?.errors?.['required']) {
+                                    <div>
+                                        Board is required
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </c-col>
+                </c-row>
+                <c-row>
+                    <c-col [md]="5">
+                        <label cLabel for="college_name">School / College Name</label>
+                        <input cFormControl
+                               id="college_name"
+                               type="text"
+                               formControlName="college_name"
+                               class="form-control capitalize"
+                               placeholder="University College Name"
+                        />
+                    </c-col>
+                    <c-col [md]="2">
+                        <label cLabel for="datepass">Date of Passing</label>
+                        <input cFormControl
+                               id="datepass"
+                               type="date"
+                               class="form-control capitalize"
+                               formControlName="datepass"
+                               placeholder="Date of Pass"
+                        />
+                    </c-col>
+                    <c-col [md]="2">
+                        <label cLabel class="required" for="rollno">Seat No/Roll No</label>
+                        <input cFormControl
+                               id="rollno"
+                               type="text"
+                               formControlName="rollno"
+                               class="form-control capitalize"
+                               placeholder="Seat No"
+                        />
+                        @if (SSCSubmit && this.edf['rollno'].errors) {
+                            <div
+                                    class="invalid-feedback"
+                            >
+                                @if (this.edf['rollno']?.errors?.['required']) {
+                                    <div>
+                                        Roll Number is required
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </c-col>
+                    <c-col [md]="3">
+                        <label cLabel class="required" for="marksheetno"
+                        >Marksheet / Certificate No</label
+                        >
+                        <input cFormControl
+                               id="marksheetno"
+                               type="text"
+                               formControlName="marksheetno"
+                               class="form-control capitalize"
+                               placeholder="Marksheet No"
+                        />
+                        @if (SSCSubmit && this.edf['marksheetno'].errors) {
+                            <div
+                                    class="invalid-feedback"
+                            >
+                                @if (this.edf['marksheetno']?.errors?.['required']) {
+                                    <div>
+                                        Marksheet Number is required
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </c-col>
+                </c-row>
+                <c-row>
+                    <c-col [md]="3">
+                        <label cLabel class="required">SGPA</label>
+                        <select cSelect
+                                id="checkpercentagesgpa"
+                                formControlName="checkpercentagesgpa"
+                                class="form-control"
+                        >
+                            <option value="" disabled
+                                    selected>
+                                --- Please Select ---
+                            </option>
+                            <option value="YES">
+                                Yes
+                            </option>
+                            <option value="NO">
+                                No
+                            </option>
+                        </select>
+                    </c-col>
+                    @if (this.formGroup.controls['checkpercentagesgpa']?.value == 'NO') {
+                        <div>
+                            <c-row>
+                                <c-col [md]="2">
+                                    <label cLabel class="required">Marks Obtained</label>
+                                    <input cFormControl
+                                           type="number"
+                                           formControlName="marksobtained"
+                                           class="form-control capitalize"
+                                           placeholder="Obtained Marks"
+                                    />
+                                    @if (SSCSubmit && this.edf['marksobtained'].errors) {
+                                        <div
+                                                class="invalid-feedback"
+                                        >
+                                            @if (this.edf['marksobtained']?.errors?.['required']) {
+                                                <div>
+                                                    Marks Obtained is required
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+                                </c-col>
+                                <c-col [md]="1">
+                                    <label cLabel class="required">TotalMarks</label>
+                                    <input cFormControl
+                                           type="number"
+                                           (input)="PercentageCalculater()"
+                                           formControlName="outoff"
+                                           class="form-control capitalize"
+                                           placeholder="Out Off"
+                                    />
+                                    @if (SSCSubmit && this.adf['outoff'].errors) {
+                                        <div
+                                                class="invalid-feedback"
+                                        >
+                                            @if (this.adf['outoff']?.errors?.['required']) {
+                                                <div>
+                                                    Marks Out Off is required
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+                                </c-col>
+                                <c-col [md]="2">
+                                    <label cLabel>Percentage % </label>
+                                    <input cFormControl
+                                           readonly
+                                           type="float"
+                                           (input)="PercentageCalculater()"
+                                           formControlName="percentage"
+                                           class="form-control capitalize"
+                                           placeholder="Percentage %"
+                                    />
+                                </c-col>
+                            </c-row>
+                        </div>
+                    }
+                    @if (this.formGroup.controls['checkpercentagesgpa']?.value == 'YES') {
+                        -->
+                        <div
+                                class="form-group col-md-2">
+                            <label cLabel>SGPA </label>
+                            <input cFormControl
+                                   step="0.01"
+                                   type="number"
+                                   formControlName="sgpa"
+                                   class="form-control capitalize"
+                                   placeholder="SGPA"
+                            />
+                        </div>
+                    }
+                    <div class="form-group col-md-2">
+                        <label cLabel>SGPA </label>
+                        <input cFormControl
+                               step="0.01"
+                               type="number"
+                               formControlName="sgpa"
+                               class="form-control capitalize"
+                               placeholder="SGPA"
+                        />
+                    </div>
+
+
+                    <div class="my-3"></div>
+
+                    <h4>Uploaded Files : {{ this.selected_document?.uploadedfilename }}</h4>
+                    <app-fileuploadversiontwo (onFileChange)="getDatafromfileupload($event)"
+                                              formControlName="file"></app-fileuploadversiontwo>
+
+                    <div class="form-group col-md-2"
+                    >
+                        <input cFormControl
+                               hidden
+                               step="0.01"
+                               type="number"
+                               formControlName="sgpa_percentage"
+                               class="form-control capitalize"
+                               placeholder="SGPA"
+                        />
+                    </div>
+                </c-row>
+            </div>
+
+            </c-callout>
+
+        }
+
+    </div>
+
+
+        <p>Form Value: {{ formGroup.value | json }}</p>
+</form>

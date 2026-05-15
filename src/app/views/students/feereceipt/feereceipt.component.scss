@@ -1,0 +1,36 @@
+.required {
+	&:after {
+		content: " *";
+		color: red;
+	}
+}
+
+.modal-validation.ng-touched.ng-invalid{
+    border:1px solid red;
+}
+.modal-validation.ng-touched.ng-valid{
+    border:1px solid green;
+}
+
+.table-bordered-custom {
+  border: 2px solid rgba(253, 41, 13, 0.11); // Bootstrap primary
+}
+
+.feereceipt-download{
+	width: 70%;
+}
+@media screen and (max-width: 600px) {
+	.feereceipt-download button{
+		width: 50%;
+	}
+}
+@media screen and (max-width: 500px) {
+	.feereceipt-download button{
+		width: 50%;
+	}
+}
+@media screen and (max-width: 412px) {
+	.feereceipt-download{
+		width: 80%;
+	}
+}

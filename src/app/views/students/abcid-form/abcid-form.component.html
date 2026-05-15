@@ -1,0 +1,192 @@
+<div class="app-body">
+    <main class="main d-flex align-items-center">
+        <div class="container">
+            <c-row>
+                <c-col [md]="6" class="mx-auto">
+                    <c-card class="mx-4">
+
+                            <c-card-body class="p-4">
+                                <form cForm [formGroup]="ABCDForm" (keydown.enter)="$event.preventDefault()"
+                                      autocomplete="off" novalidate>
+                                    <h3 style="padding-left: 18px;" size="sm">Academic Bank of Credits</h3>
+
+                                    <!-- //new 13-07-2022 -->
+                                    <!--                  <div class="form-group col-sm-12">-->
+                                    <!--                    <label size="sm" class="required">Aadhaar</label>-->
+                                    <!--                    <input sizing="sm" [(ngModel)]="Abcid_aadhaar" type="number" class="form-control modal-validation" formControlName="aadhaar">-->
+                                    <!--                  </div>-->
+                                    <!--                  <div class="form-group col-sm-12">-->
+                                    <!--                    <label size="sm" class="required">Academic Bank of Credits</label>-->
+                                    <!--                    <input sizing="sm" [(ngModel)]="Abcid" formControlName="abcid" type="text" class="form-control modal-validation">-->
+                                    <!--                  </div>-->
+                                    <!--                  <div class="form-group col-sm-12">-->
+                                    <!--                    <label size="sm" class="required">Upload</label>-->
+                                    <!--                  </div>-->
+                                    <!--                  <div class="form-group col-sm-12">-->
+                                    <!--                    <input sizing="sm" type="file" (change)="xlsxUpload($event)"-->
+                                    <!--                           formControlName="upload" class="fileInputProfile">-->
+                                    <!--                  </div>-->
+                                    <div class="form-group col-sm-12">
+                                        <label cLabel size="sm" class="required">Name(As per Aadhaar)</label>
+                                        <input sizing="sm" cFormControl [(ngModel)]="Abcid_aadhaar_name" type="text"
+                                               class="form-control" formControlName="nameabcd">
+
+                                        @if (ABCDForm.get('nameabcd')?.invalid
+                                        && ABCDForm.get('nameabcd')?.touched) {
+                                            <span
+                                                    class="text-danger">Name is required</span>
+                                        }
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label cLabel size="sm" for="fromdate">Date of Birth</label>
+                                        <input sizing="sm" cFormControl id="fromdate" type="date" class="form-control"
+                                               formControlName="fromdate">
+
+                                    </div>
+                                    <div class="form-group col-sm-12">
+                                        <label cLabel size="sm">Gender</label>
+                                        <select class="form-control" cSelect
+                                                sizing="sm"
+                                                formControlName="genderabcd">
+                                            <option disabled>Please select</option>
+                                            <option value="M">Male</option>
+                                            <option value="F">Female</option>
+                                        </select>
+                                        <!--                                    <span-->
+                                        <!--                                            *ngIf="ABCDForm.get('genderabcd')?.invalid-->
+                                        <!--                                        && ABCDForm.get('genderabcd')?.touched"-->
+                                        <!--                                            class="text-danger">Gender is required</span>-->
+                                    </div>
+                                    <!--                  <div class=" col-sm-12">-->
+                                    <!--                    <label cLabel size="sm" >Aadhaar</label>-->
+                                    <!--                    <input sizing="sm" [(ngModel)]="Abcid_aadhaar" type="number" valid="false"-->
+                                    <!--                           cFormControl-->
+                                    <!--                           required-->
+                                    <!--                           class="form-control modal-validation" formControlName="aadhaar"-->
+                                    <!--                           [ngClass]="{-->
+                                    <!--                        'is-invalid':-->
+                                    <!--                          (submitted || f['aadhaar'].touched) && f['aadhaar'].errors,-->
+                                    <!--                        'is-valid': f['aadhaar'].touched && !f['aadhaar'].errors-->
+                                    <!--                      }"/>-->
+                                    <!--&lt;!&ndash;&lt;!&ndash;                    <span&ndash;&gt;&ndash;&gt;-->
+                                    <!--&lt;!&ndash;&lt;!&ndash;                            *ngIf="ABCDForm.get('aadhaar')?.invalid&ndash;&gt;&ndash;&gt;-->
+                                    <!--&lt;!&ndash;&lt;!&ndash;                                        && ABCDForm.get('aadhaar')?.touched"&ndash;&gt;&ndash;&gt;-->
+                                    <!--&lt;!&ndash;&lt;!&ndash;                            class="text-danger">Aadhaar is required</span>&ndash;&gt;&ndash;&gt;-->
+
+                                    <!--                    <div-->
+                                    <!--                            *ngIf="submitted && f['aadhaar'].errors"-->
+                                    <!--                            class="invalid-feedback"-->
+                                    <!--                    >-->
+                                    <!--                      <div *ngIf="f['aadhaar'].errors.required">-->
+                                    <!--                        Aadhar Number is required-->
+                                    <!--                      </div>-->
+                                    <!--                      <div *ngIf="f['aadhaar'].errors?.minLength">-->
+                                    <!--                        Aadhar Number must be of 12 characters-->
+                                    <!--                      </div>-->
+                                    <!--                    </div>-->
+                                    <!--                  </div>-->
+                                    <c-col [sm]="12">
+                                        <label cLabel size="sm" class="required">Aadhaar</label>
+                                        <input sizing="sm" cFormControl
+                                               id="aadhaar"
+                                               type="text"
+                                               maxlength="12"
+                                               formControlName="aadhaar"
+                                               autocomplete="off"
+                                               class="form-control"
+                                               placeholder="Enter your Aadhar Number"
+                                        />
+                                        <!--                                    <ng-otp-input-->
+                                        <!--                                        #ngx_aadhaar-->
+                                        <!--                                        id="aadhaar"-->
+                                        <!--                                        readonly-->
+                                        <!--                                        formControlName="aadhaar"-->
+                                        <!--                                        style="justify-content: left"-->
+                                        <!--                                        (onInputChange)="aadhaarchange($event)"-->
+                                        <!--                                        [config]="config">-->
+                                        <!--                                    </ng-otp-input>-->
+                                        @if (ABCDForm.get('aadhaar')?.hasError('invalidAadhaar')) {
+                                            <div>
+                                                <h6 style="color: red" size="sm">Invalid Aadhaar number.</h6>
+                                            </div>
+                                        }
+                                    </c-col>
+                                    <!--                                <div class="form-group col-sm-12">-->
+                                    <!--                                    <label cLabel size="sm" class="required">Mobile no</label>-->
+                                    <!--                                    <input sizing="sm" [(ngModel)]="Abcid_mobile" type="number"-->
+                                    <!--                                           class="form-control modal-validation" minlength="10"-->
+                                    <!--                                           formControlName="mobileabcd">-->
+                                    <!--                                    &lt;!&ndash;                                           [ngClass]="{&ndash;&gt;-->
+                                    <!--                                    &lt;!&ndash;                        'is-invalid':&ndash;&gt;-->
+                                    <!--                                    &lt;!&ndash;                          (submitted || f['mobileabcd'].touched) && f['mobileabcd'].errors,&ndash;&gt;-->
+                                    <!--                                    &lt;!&ndash;                        'is-valid': f['mobileabcd'].touched && !f['mobileabcd'].errors&ndash;&gt;-->
+                                    <!--                                    &lt;!&ndash;                      }">&ndash;&gt;-->
+                                    <!--                                    &lt;!&ndash;                                    <span&ndash;&gt;-->
+                                    <!--                                    &lt;!&ndash;                                            *ngIf="ABCDForm.get('mobileabcd')?.invalid&ndash;&gt;-->
+                                    <!--                                    &lt;!&ndash;                                                                        && ABCDForm.get('mobileabcd')?.touched"&ndash;&gt;-->
+                                    <!--                                    &lt;!&ndash;                                            class="text-danger">Mobile no is required</span>&ndash;&gt;-->
+                                    <!--                                    &lt;!&ndash;                                    <div *ngIf="f['mobileabcd'].errors?.['minLength']">&ndash;&gt;&ndash;&gt;-->
+                                    <!--                                    &lt;!&ndash;                                        Mobile Number must be of 10 characters&ndash;&gt;-->
+                                    <!--                                    &lt;!&ndash;                                    </div>&ndash;&gt;-->
+                                    <!--                                </div>-->
+                                    <c-col [sm]="12">
+                                        <label cLabel size="sm" class="required">Mobile no</label>
+                                        <input sizing="sm" cFormControl
+                                               type="text"
+                                               formControlName="mobileabcd"
+                                               maxlength="10"
+                                               class="form-control"
+                                               id="mobileabcd"
+                                               placeholder="Enter your Mobile Number"
+                                               autocomplete="off"
+                                        />
+                                        @if (ABCDForm.get('mobileabcd')?.hasError('invalidMobile')) {
+                                            <div>
+                                                <h6 style="color: red" size="sm">Please enter a valid 10-digit mobile
+                                                    number.</h6>
+                                            </div>
+                                        }
+                                        <!--                                    <input sizing="sm" cFormControl-->
+                                        <!--                                           type="text"-->
+                                        <!--                                           formControlName="mobileabcd"-->
+                                        <!--                                           maxlength="10"-->
+                                        <!--                                           class="form-control"-->
+                                        <!--                                           id="mobileabcd"-->
+                                        <!--                                           placeholder="Enter your Mobile Number"-->
+                                        <!--                                           autocomplete="off"-->
+                                        <!--                                    />-->
+                                        <!--                                    <ng-otp-input-->
+                                        <!--                                        #ngx_mobile-->
+                                        <!--                                        id="mobileabcd"-->
+                                        <!--                                        formControlName="mobileabcd"-->
+                                        <!--                                        style="justify-content: left"-->
+                                        <!--                                        (onInputChange)="mobilenochange($event)"-->
+                                        <!--                                        [config]="configmobile">-->
+                                        <!--                                    </ng-otp-input>-->
+                                        <!--                                    <span-->
+                                        <!--                                            *ngIf="mobile_fld?.invalid && mobile_fld?.touched"-->
+                                        <!--                                            class="text-danger">Mobile no is required</span>-->
+                                    </c-col>
+
+
+                                    <br/>
+
+                                    <c-col [sm]="12">
+                                        <button cButton
+                                                [disabled]="ABCDForm.invalid" type="submit"
+                                                class="btn btn-success btn-sm" (click)="onSubmit()">
+                                            Submit
+                                        </button>
+
+
+                                    </c-col>
+                                </form>
+                            </c-card-body>
+
+
+                    </c-card>
+                </c-col>
+            </c-row>
+        </div>
+    </main>
+</div>

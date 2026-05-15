@@ -1,0 +1,406 @@
+<form cForm
+      [formGroup]="Educationselectform"
+>
+    <c-row>
+        <c-col [md]="6">
+            <a href="https://www.ilovepdf.com/compress_pdf" target="_blank"><h5
+                    style="color: red">
+                Please compress your file before uploading.</h5></a>
+        </c-col>
+    
+    </c-row>
+    
+    <div class="my-4"></div>
+    
+    <c-row>
+        <c-col [md]="2">
+            
+            <label cLabel>Education level</label>
+            <select sizing="sm" aria-label="Default select example"
+                    (change)="change_education($event)"
+                    
+                    formControlName="edulevel_select"
+                    class="form-control"
+                    cSelect
+            >
+                <option [ngValue]="null" disabled>Open this select menu</option>
+                <option *ngFor="let edu of res_droneducation" [ngValue]="edu">
+                    {{ edu }}
+                </option>
+            </select>
+        </c-col>
+        
+        <c-col [md]="2">
+            <label cLabel>Marksheet type</label>
+            
+            <select sizing="sm" aria-label="Default selecst example"
+                    (change)="change_exampattern($event)"
+                    formControlName="marksheettype_select"
+                    class="form-control"
+                    cSelect
+            >
+                <option [ngValue]="null" disabled>Select Year & Semester</option>
+                <option *ngFor="let exm_pattern of res_exampattern" [ngValue]="exm_pattern">
+                    {{ exm_pattern }}
+                </option>
+            </select>
+        </c-col>
+        
+        <!--            <c-col [md]="2">-->
+        <!--                <button type="submit" class="btn btn-success btn-sm text-white" (click)="View_forms()">-->
+        <!--                    Show-->
+        <!--                </button>-->
+        <!--            </c-col>-->
+    </c-row>
+</form>
+
+
+
+<form [formGroup]="Education_formGroup"
+      class="form-horizontal">
+    <div formArrayName="items">
+        
+        @for (education_form of itemsArray.controls; track education_form; let i = $index) {
+<!--            <c-callout [color]="this.Education_formGroup.invalid ? 'danger' : 'success'">-->
+            
+            <c-callout
+                    [color]="
+    education_form.get('mandatory')?.value == 0
+      ? 'success'
+      : (education_form.invalid ? 'danger' : 'success')
+  ">
+                
+                <div [formGroupName]="i" class="item-row">
+                    <c-row>
+                        <c-col [md]="2">
+                            <strong>
+                                Education details for :
+                                {{ education_form.get('document_type')?.value }}
+                            </strong>
+                        </c-col>
+                        
+                        <c-col [md]="1">
+                            <strong>
+                                @if (education_form.get('mandatory')?.value == 1) {
+                                    <p style="color: red">Mandatory</p>
+                                }
+                            </strong>
+                        </c-col>
+                    </c-row>
+<!--                    <p>-->
+<!--                      -->
+<!--                    </p>-->
+                    
+                    <c-row>
+                        <c-col [md]="2">
+                            <label cLabel class="required" for="board">Board</label>
+                            <select sizing="sm" cSelect
+                                    id="board"
+                                    formControlName="board"
+                                    class="form-control"
+                            >
+                                <option value="" disabled selected>
+                                    --- Please Select ---
+                                </option>
+                                <option value="Indian">Indian</option>
+                                <option value="Foreign">Foreign</option>
+                            </select>
+                        </c-col>
+                        <c-col [md]="3">
+                            <label cLabel class="required" for="state">Select State</label>
+                            <select sizing="sm" cSelect
+                                    formControlName="state"
+                                    class="form-control"
+                            >
+                                <option value="" disabled selected>
+                                    --- Please Select ---
+                                </option>
+                                @for (state of state; track state + '-' + $index) {
+                                    <option [value]="state">
+                                        {{ state }}
+                                    </option>
+                                }
+                            </select>
+                            
+                            
+<!--                        Shivam    @if (SSCSubmit && this.edf['state'].errors) {-->
+<!--                                <div-->
+<!--                                        class="invalid-feedback"-->
+<!--                                >-->
+<!--                                    @if (this.edf['state'].errors?.['required']) {-->
+<!--                                        <div>-->
+<!--                                            State is required-->
+<!--                                        </div>-->
+<!--                                    }-->
+<!--                                </div>-->
+<!--                            }-->
+                        </c-col>
+                        <c-col [md]="7">
+                            <label cLabel class="required" for="education_board"
+                            >Select Board / University</label
+                            >
+                            <select sizing="sm" cSelect class="required"
+                                    id="education_board"
+                                    formControlName="education_board"
+                                    class="form-control"
+                            >
+                                <option value="" disabled selected>
+                                    --- Please Select ---
+                                </option>
+                                @for (board of board; track board + '-' + $index) {
+                                    <option [value]="board">
+                                        {{ board }}
+                                    </option>
+                                }
+                            </select>
+                            @if (SSCSubmit && this.edf['education_board'].errors) {
+                                <div
+                                        class="invalid-feedback"
+                                >
+                                    @if (this.edf['education_board']?.errors?.['required']) {
+                                        <div>
+                                            Board is required
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </c-col>
+                    </c-row>
+
+                    <div class="my-2"></div>
+
+                    <c-row>
+                        <c-col [md]="5">
+                            <label cLabel for="college_name">School / College Name</label>
+                            <input cFormControl sizing="sm"
+                                   id="college_name"
+                                   type="text"
+                                   formControlName="college_name"
+                                   class="form-control capitalize"
+                                   placeholder="University College Name"
+                            />
+                        </c-col>
+                        <c-col [md]="2">
+                            <label cLabel for="datepass">Date of Passing</label>
+                            <input cFormControl sizing="sm" class="required"
+                                   id="datepass"
+                                   type="date"
+                                   class="form-control capitalize"
+                                   formControlName="datepass"
+                                   placeholder="Date of Pass"
+                            />
+                        </c-col>
+                        <c-col [md]="2">
+                            <label cLabel class="required" for="rollno">Seat No/Roll No</label>
+                            <input cFormControl sizing="sm"
+                                   id="rollno"
+                                   type="text"
+                                   formControlName="rollno"
+                                   class="form-control capitalize"
+                                   placeholder="Seat No"
+                            />
+                            @if (SSCSubmit && this.edf['rollno'].errors) {
+                                <div
+                                        class="invalid-feedback"
+                                >
+                                    @if (this.edf['rollno']?.errors?.['required']) {
+                                        <div>
+                                            Roll Number is required
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </c-col>
+                        <c-col [md]="3">
+                            <label cLabel class="required" for="marksheetno"
+                            >Marksheet / Certificate No</label
+                            >
+                            <input cFormControl sizing="sm"
+                                   id="marksheetno"
+                                   type="text"
+                                   formControlName="marksheetno"
+                                   class="form-control capitalize"
+                                   placeholder="Marksheet No"
+                            />
+                            @if (SSCSubmit && this.edf['marksheetno'].errors) {
+                                <div
+                                        class="invalid-feedback"
+                                >
+                                    @if (this.edf['marksheetno']?.errors?.['required']) {
+                                        <div>
+                                            Marksheet Number is required
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </c-col>
+                    </c-row>
+
+                    <div class="my-2"></div>
+
+                    <c-row>
+                        <c-col [md]="3">
+                            <label cLabel class="required">SGPA</label>
+                            <select sizing="sm" cSelect
+                                    id="checkpercentagesgpa"
+                                    formControlName="checkpercentagesgpa"
+                                    class="form-control"
+                            >
+                                <option value="" disabled
+                                        selected>
+                                    --- Please Select ---
+                                </option>
+                                <option value="YES">
+                                    Yes
+                                </option>
+                                <option value="NO">
+                                    No
+                                </option>
+                            </select>
+                        </c-col>
+
+                        <!-- student.get('name')?.invalid -->
+                        @if (education_form.get('checkpercentagesgpa')?.value == 'NO') {
+                            <c-col [md]="2"></c-col>
+                            <c-col [md]="2">
+                                <label cLabel class="required">Marks Obtained</label>
+                                <input cFormControl sizing="sm"
+                                       type="number"
+                                       formControlName="marksobtained"
+                                       class="form-control capitalize"
+                                       placeholder="Obtained Marks"
+                                />
+                                @if (SSCSubmit && this.edf['marksobtained'].errors) {
+                                    <div
+                                            class="invalid-feedback"
+                                    >
+                                        @if (this.edf['marksobtained']?.errors?.['required']) {
+                                            <div>
+                                                Marks Obtained is required
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </c-col>
+                            <c-col [md]="1">
+                                <label cLabel class="required">TotalMarks</label>
+                                <input cFormControl sizing="sm"
+                                       type="number"
+                                       (input)="PercentageCalculater(i)"
+                                       formControlName="outoff"
+                                       class="form-control capitalize"
+                                       placeholder="Out Off"
+                                />
+                                <!--@if (SSCSubmit && this.adf['outoff'].errors) {
+                                    <div
+                                            class="invalid-feedback"
+                                    >
+                                        @if (this.adf['outoff']?.errors?.['required']) {
+                                            <div>
+                                                Marks Out Off is required
+                                            </div>
+                                        }
+                                    </div>
+                                }-->
+                            </c-col>
+                            <c-col [md]="1">
+                                <label cLabel>Percentage % </label>
+                                <input cFormControl sizing="sm"
+                                       readonly
+                                       type="float"
+                                       (input)="PercentageCalculater(i)"
+                                       formControlName="percentage"
+                                       class="form-control capitalize"
+                                       placeholder="Percentage %"
+                                />
+                            </c-col>
+                        }
+                        @if (education_form.get('checkpercentagesgpa')?.value == 'YES') {
+
+                            <c-col [md]="2">
+                                <label cLabel>SGPA </label>
+
+                                <input cFormControl sizing="sm"
+                                       step="0.01"
+                                       type="number"
+                                       formControlName="sgpa"
+                                       class="form-control capitalize"
+                                       placeholder="SGPA"
+                                />
+                            </c-col>
+                        }
+
+                        <c-col [md]="3">
+                        
+                        
+
+
+<!--                            <app-fileuploadversiontwo (onFileChange)="getDatafromfileupload($event)"-->
+<!--                                                      formControlName="file"></app-fileuploadversiontwo>-->
+                        </c-col>
+
+
+                    </c-row>
+                    
+                    <c-row>
+                        <c-col [md]="3" style="margin-top: 26px">
+                            
+                            <label cLabel>Uploaded Files : {{ this.selected_document?.uploadedfilename }}</label>
+                            
+                            <c-input-group>
+                                <input
+                                        aria-label="file example"
+                                        cFormControl
+                                        accept="image/jpeg,image/jpg,image/png,.pdf"
+                                        id="validationTextupload_callout"
+                                        (change)="onFileChange($event,i)"
+                                        type="file"
+                                />
+                            
+                            </c-input-group>
+                        </c-col>
+                    </c-row>
+                   
+                </div>
+
+            </c-callout>
+
+        }
+
+    </div>
+
+    <div class="my-3"></div>
+    
+<!--    [disabled]="Education_formGroup.invalid"-->
+    
+    @if(itemsArray.length > 0){
+        <strong><h5 style="color: red">Your application will be considered for Merit List only once you do
+            the Final Submit.</h5></strong>
+        
+        <div style="padding-left: 42%">
+            <button
+                    type="submit"
+                    size="md"
+                    class="btn btn-success"
+                    (click)="saveEDUdetails()"
+                    [disabled]="!isFormValid">
+<!--                    [disabled]="this.Education_formGroup.invalid"-->
+<!--            -->
+<!--            >-->
+                Save
+                <c-spinner *ngIf="saveEducationloader" aria-hidden="false" size="sm"></c-spinner>
+            
+            </button
+            >&nbsp;&nbsp;&nbsp;
+            <!--                        <button type="reset" size="md" class="btn btn-danger">-->
+            <!--                          Cancel-->
+            <!--                        </button>-->
+        </div>
+    }
+    
+    
+    
+</form>
+
+<!--<p>Form Value: {{ Education_formGroup.value | json }}</p>-->
+<!--<p>Form Valid: {{ Education_formGroup.valid | json }}</p>-->

@@ -1,0 +1,110 @@
+<c-card class="profile-card mb-4">
+    <c-card-header class="profile-header">
+        <h4>Profile</h4>
+    </c-card-header>
+    
+    <c-card-body>
+        <!-- Profile Image -->
+        <div class="text-center mb-4">
+            <img
+                    cImg
+                    [src]="MyImage"
+                    class="rounded-circle profile-img"
+                    alt="profile"
+            />
+            <h5 class="mt-3 fw-bold">
+                {{ res_myprofilemultiplebatchs?.student_profile_new?.fullname }}
+            </h5>
+        </div>
+        
+        <!-- INFO BOXES -->
+        <c-row class="justify-content-center mb-4">
+            <c-col md="4">
+                <c-card class="info-card">
+                    <c-card-body>
+                        <table cTable class="info-table">
+                            <tr>
+                                <td>Aadhar No</td><th>:</th>
+                                <td>{{ res_myprofilemultiplebatchs?.student_profile_new?.aadhaar }}</td>
+                            </tr>
+                            <tr>
+                                <td>Date of Birth</td><th>:</th>
+                                <td>{{ res_myprofilemultiplebatchs?.student_profile_new?.dob }}</td>
+                            </tr>
+                            <tr>
+                                <td>Country</td><th>:</th>
+                                <td>{{ res_myprofilemultiplebatchs?.student_profile_new?.country }}</td>
+                            </tr>
+                            <tr>
+                                <td>Marital Status</td><th>:</th>
+                                <td>{{ res_myprofilemultiplebatchs?.student_profile_new?.marital_status }}</td>
+                            </tr>
+                        </table>
+                    </c-card-body>
+                </c-card>
+            </c-col>
+            
+            <c-col md="4">
+                <c-card class="info-card info-card-02">
+                    <c-card-body>
+                        <table cTable class="info-table">
+                            <tr>
+                                <td>Mother Tongue</td><th>:</th>
+                                <td>{{ res_myprofilemultiplebatchs?.student_profile_new?.mothertongue}}</td>
+                            </tr>
+                            <tr>
+                                <td>Gender</td><th>:</th>
+                                <td>{{ res_myprofilemultiplebatchs?.student_profile_new?.gender }}</td>
+                            </tr>
+                            <tr>
+                                <td>Created Date</td><th>:</th>
+                                <td>{{ res_myprofilemultiplebatchs?.student_profile_new?.createddate }}</td>
+                            </tr>
+                            <tr>
+                                <td>Edited Date</td><th>:</th>
+                                <td>{{ res_myprofilemultiplebatchs?.student_profile_new?.editeddate }}</td>
+                            </tr>
+                        </table>
+                    </c-card-body>
+                </c-card>
+            </c-col>
+        </c-row>
+        
+        <!-- ACADEMIC HEADER -->
+        
+        <div class="background-academic-wrapper"></div>
+        
+        <div class="academic-wrapper">
+            <span class="academic-label">Academic Details</span>
+        </div>
+        
+        <!-- TABLE -->
+        <table cTable class="academic-table" small>
+            <thead>
+            <tr>
+                <th class="academic-table-th">Batch Name</th>
+                <th class="academic-table-th">| Subject Name</th>
+                <th class="academic-table-th">| Subject Code</th>
+                <th class="academic-table-th">| Subject Minor</th>
+                <th class="academic-table-th">| Roll No</th>
+                <th class="academic-table-th">| Batch Division</th>
+                <th class="academic-table-th">| Total Paid</th>
+            </tr>
+            </thead>
+            
+            <tbody>
+                @for (sub of BatchData; track sub) {
+                    <tr>
+                        <td>{{ sub.batch_name }}</td>
+                        <td>{{ sub.subject_group_name }}</td>
+                        <td>{{ sub.subject_group_code }}</td>
+                        <td>{{ sub.otherlevel }}</td>
+                        <td>{{ sub.rollno }}</td>
+                        <td>{{ sub.batch_division }}</td>
+                        <td>₹ {{ sub.totalpaid }}</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </c-card-body>
+</c-card>

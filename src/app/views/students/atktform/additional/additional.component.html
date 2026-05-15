@@ -1,0 +1,161 @@
+<form [formGroup]="additional_ATKTForm" (keydown.enter)="$event.preventDefault()" class="mb-5">
+    <c-row>
+        
+        <p style="font-weight: bold"><h5 style="color: red;" size="sm" class="atktform-notes">Note: Only
+        Semester 5 Students of Current Year are allowed for UG Students.</h5>
+        <p style="font-weight: bold"><h5 style="color: red;" size="sm" class="atktform-notes">Note: Only
+        Semester 3 Students of Current Year are allowed for PG Students</h5>
+        <c-col [md]="6">
+            <label size="sm" cLabel for="additional_batch">Batch:</label>
+            <!--          <div class="ng-autocomplete" style="width: 100%;">-->
+            <!--            <ng-autocomplete-->
+            <!--              #outside_batch-->
+            <!--              id="additional_batch"-->
+            <!--              [data]="atkt_student_batch"-->
+            <!--              [searchKeyword]="Batchkeyword"-->
+            <!--              (selected)="outatakt_selectBatch($event)"-->
+            <!--              [itemTemplate]="batoutsideTemplate"-->
+            <!--              [notFoundTemplate]="notFoundTemplate"-->
+            <!--              placeholder="Select Batch">-->
+            <!--            </ng-autocomplete>-->
+            <!--            <ng-template #batoutsideTemplate let-item_outside>-->
+            <!--              <a [innerHTML]="item_outside.Batch_name"></a>-->
+            <!--            </ng-template>-->
+            <!--            <ng-template #notFoundTemplate let-notFound>-->
+            <!--              <div [innerHTML]="notFound"></div>-->
+            <!--            </ng-template>-->
+            
+            <!--          </div>-->
+            
+            <select cSelect
+                    id="out_batch"
+                    formControlName="out_batch"
+                    class="form-control"
+                    (change)="outatakt_selectBatch()"
+            >
+                <option disabled selected>--Select batch--</option>
+                @for (studentbatch of atkt_student_batch; track studentbatch) {
+                    <option
+                            [ngValue]="studentbatch">
+                        {{ studentbatch.Batch_name }}
+                    </option>
+                }
+            </select>
+        </c-col>
+        
+        <c-col [md]="2">
+            <label size="sm" cLabel for="in_semester">Semester:</label>
+            <select cSelect
+                    id="in_semester"
+                    [(ngModel)]="selected_semester_additional"
+                    formControlName="in_semester"
+                    class="form-control"
+                    (change)="onSelect_semester_additional()"
+            >
+                <option selected>--Select Semester Exam--</option>
+                @for (user of json_semester_batchwise_student; track user) {
+                    <option [ngValue]="user">
+                        {{ user }}
+                    </option>
+                }
+                @if (additional_ATKTForm.get('out_semester')?.invalid
+                && additional_ATKTForm.get('out_semester')?.touched) {
+                    <span
+                            class="text-danger">
+              Semester is required</span>
+                }
+            </select>
+        </c-col>
+        
+        <c-col [sm]="2">
+            <label size="sm" cLabel for="mobilenoadditional" class="required">Whatsapp no</label>
+            <input cFormControl
+                   id="mobilenoadditional"
+                   type="text"
+                   maxLength="10"
+                   formControlName="mobilenoadditional"
+                   class="form-control capitalize"
+                   placeholder="Enter your Whatsapp no"
+            />
+        
+        </c-col>
+        
+        
+        <c-col style="width: 100px">
+            <button cButton class="btn btn-add atktformbtn" type="button" (click)="ShowAtkt_additional()">
+                Show
+            </button>
+        </c-col>
+    
+    </c-row>
+    
+    <br>
+    <c-row>
+        <c-col [md]="12">
+            <h6 style="color: red" size="sm">Note: For existing students</h6>
+            
+            <ag-grid-angular
+                    style="width: 100%; height: 400px;" class="ag-theme-alpine"
+                    [rowData]="additionalAtkt_subject_papers"
+                    [gridOptions]="gridOptions_details_additional"
+                    [columnDefs]="additionalSubject_GridData"
+                    [defaultColDef]="defaultColDef"
+                    [rowSelection]="single_rowSelection_additional"
+                    (gridReady)="onGridReady_subject_selected_additional($event)"
+                    (rowSelected)="onRowSelected_subject_additional($event)"
+            >
+            </ag-grid-angular>
+            
+            <br>
+            
+            <ag-grid-angular
+                    style="width: 100%; height: 400px;" class="ag-theme-alpine"
+                    [rowData]="this.AselectedRows_outside"
+                    [gridOptions]="gridOptions_details_additionalsubjects_selected"
+                    [columnDefs]="subject_details_additionalsubjects_selected"
+                    (gridReady)="onGridReady_additional_subject_details_selected($event)"
+                    (selectionChanged)="onSelectionChanged_subject($event)"
+            >
+            </ag-grid-angular>
+            
+            <br>
+            
+            <p style="font-weight: bold" size="sm"><h5 style="color: red;" class="atktform-notes">Note: Once you submitted
+            data cannot be modified.</h5>
+            <p style="font-weight: bold;" size="sm"><h5 style="color:red;" class="atktform-notes">Students are requested to complete the
+            process
+            within the schedule to avoid LATE FEES.
+        </h5>
+            
+            <c-row>
+                <c-col [md]="4">
+                    <p><h4 size="sm">Total {{ sumamountadditional }}</h4>
+                </c-col>
+            </c-row>
+            <br>
+            <c-row style="justify-content: center">
+                <c-col [md]="2">
+                    <!--                                        <button cButton id="additional-totalamount"-->
+                    <!--                                                type="submit" class="btn btn-info"-->
+                    <!--                                                (click)="Finalsubmit_additional()" >-->
+                    <!--                                            <i style="border-color: white;" class="spinner-border text-primary"-->
+                    <!--                                               role="status"-->
+                    <!--                                               *ngIf="finalloader"></i>Payment-->
+                    <!--                                        </button>-->
+                    
+                    <button cButton (click)="Finalsubmit_additional(0)"
+                            class=" atktformbtn"
+                            [loading]="loadingadditional[0]"
+                            [disabled]="btn_diabled_additional"
+                            cLoadingButton spinnerType="grow"
+                            disabledOnLoading size="sm">Payment
+                    </button>
+                </c-col>
+            </c-row>
+        
+        </c-col>
+    </c-row>
+
+</form>
+
+

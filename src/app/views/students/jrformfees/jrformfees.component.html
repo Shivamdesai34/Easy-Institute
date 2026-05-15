@@ -1,0 +1,122 @@
+<script src="jrformfees.component.ts"></script>
+<div class="app-body">
+    <main class="main d-flex align-items-center">
+        <div class="container">
+            <c-row>
+                <c-col [md]="6" class="mx-auto">
+                    <!-- Admission Form -->
+                    <c-card>
+                        <c-card-body>
+                            <form cForm [formGroup]="FeesAdmissionForm" (ngSubmit)="Btn_Payment()">
+                                <h4>
+                                    Registration {{this.formtype!}}
+                                </h4>
+
+                                <c-row>
+                                    <label cLabel size="sm" for="batch_name" class="required"><b>Batch</b></label>
+
+                                    <select cSelect sizing="sm"
+                                            id="batch_name"
+                                            class="form-control"
+                                            [(ngModel)]="selected_batch"
+                                            (focusin)="Batch_uii()"
+                                            (change)="Batch_selected()"
+                                            formControlName="batch_name"
+                                    >
+                                        <option value="" disabled selected>
+                                            --- Please Select ---
+                                        </option>
+                                        <option
+                                                *ngFor="let batch of resp_Abatchs; let i = index"
+                                                [ngValue]="batch"
+                                        >
+                                            {{ batch.Batch_name }}
+                                        </option>
+                                    </select
+                                    >
+
+                                    <!--<input *ngIf="visiblebatch" id="batch_name" type="text" formControlName="batch_name"
+                                           class="form-control"
+                                           placeholder="Enter Batch Name">-->
+
+                                </c-row>
+                                <c-row>
+
+                                    <label cLabel size="sm" for="batchSubjects"><b>Subject Group</b></label>
+                                    <select id="batchSubjects"
+                                            cSelect
+                                            [(ngModel)]="selected_subject"
+                                            (change)="CheckSubjectGroupQuota()"
+                                            formControlName="batchSubjects"
+                                            class="form-control"
+                                    >
+                                        <option value="" disabled>
+                                            --- Please Select ---
+                                        </option>
+                                        <option
+                                                *ngFor="let subject of aSubjects;"
+                                                [ngValue]="subject"
+                                        >
+                                            {{ subject.Subject_group_code }}
+                                        </option>
+                                    </select>
+
+                                </c-row>
+
+                                <p>
+                                    <b>Selected Subject Code Consists : </b> <br/>
+                                    {{ selected_subject?.Subject_group_name }}
+                                </p>
+
+                                <c-row>
+                                    <div>
+                                        <h3>Form Amount : ₹ {{ selected_batch?.Formamount }}</h3>
+                                    </div>
+                                </c-row>
+
+                                <c-row
+                                        class="d-grid gap-2 d-md-flex justify-content-md-center"
+                                >
+                                    <c-col [md]="3">
+                                        <button
+                                                cButton
+                                                type="submit"
+                                                size="sm"
+                                                class="btn btn-outline-dark"
+                                        >
+                                            Pay
+                                          <c-spinner *ngIf="payloader"
+                                                     aria-hidden="false"
+                                                     size="sm"></c-spinner>
+
+                                        </button>
+                                    </c-col>
+                                </c-row>
+                            </form>
+                        </c-card-body>
+                    </c-card>
+                </c-col>
+            </c-row>
+
+
+<!--        <c-callout color="success">-->
+
+<!--            <div class="row">-->
+<!--                <ag-grid-angular style="width: 100%; height: 300px;" class="ag-theme-alpine"-->
+<!--                                 [rowData]="AppliedCourses"-->
+<!--                                 [gridOptions]="gridOptions_edu"-->
+<!--                                 [columnDefs]="columnDefs_edu"-->
+<!--                                 (gridReady)="onGridReady_form($event)"-->
+<!--                                 [rowSelection]='rowSelection_edu'-->
+<!--                                 (rowSelected)="onRowSelected_eduEvent($event)"-->
+<!--                                 [pagination]="true"-->
+<!--                                 (selectionChanged)="onSelectionedu_Changed($event)">-->
+<!--                </ag-grid-angular>-->
+
+<!--            </div>-->
+<!--        </c-callout>-->
+        </div>
+
+    </main>
+
+</div>

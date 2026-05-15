@@ -1,0 +1,29 @@
+<c-col  class="main-container" [md]="12" style="background-color: #ffffff; border-radius: 5px">
+    
+    <c-tabs
+            [activeItemKey]="activeTab"
+            (activeItemKeyChange)="outsidechange($event)">
+        <c-tabs-list layout="justified" variant="tabs">
+            <button cTab itemKey="ATKTExam" class="tab-button">ATKT Exam</button>
+            <button cTab itemKey="AdditionalExam" class="tab-button">Additional Exam</button>
+            <button cTab itemKey="Reciept" class="tab-button">Reciept</button>
+        </c-tabs-list>
+        <c-tabs-content>
+            <c-tab-panel itemKey="ATKTExam" class="p-3">
+                <app-atkt-subjects [clickSubject]="clickSubject"></app-atkt-subjects>
+            </c-tab-panel>
+            <c-tab-panel itemKey="AdditionalExam" class="p-3">
+                <br>
+                <app-additional-subjects [clickSubject]="clickSubject"></app-additional-subjects>
+            </c-tab-panel>
+            <c-tab-panel itemKey="Reciept" class="p-3">
+                <br>
+                <app-atkt-reciept [clickSubject]="clickSubject"></app-atkt-reciept>
+            </c-tab-panel>
+        </c-tabs-content>
+    </c-tabs>
+</c-col>
+
+
+
+

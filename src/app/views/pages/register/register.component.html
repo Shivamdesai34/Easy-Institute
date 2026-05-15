@@ -1,0 +1,379 @@
+<div class="animated fadeIn">
+    <c-row>
+        <div class="col">
+            <c-card>
+                <nav class="navbar navbar-expand-lg" style="margin-top: 10px">
+                    <ul>
+                    </ul>
+                    <ul>
+                        <h4 style="color: rgba(51, 153, 255, 100)">
+                            RAMNIRANJAN JHUNJHUNWALA COLLEGE OF ARTS , COMMERCE AND SCIENCE
+                            (AUTONOMOUS)<br/>
+                            <h6 style="color: black">
+                                Opposite Ghatkopar Railway Station West Mumbai-400086,
+                                Maharashtra, India
+                            </h6>
+                        </h4>
+                    </ul>
+                </nav>
+            </c-card>
+        </div>
+    </c-row>
+</div>
+
+<div class="app-body bg-light min-vh-100">
+    <main class="main d-flex align-items-center">
+        <c-container>
+            <c-row>
+                <c-col [md]="6" class="mx-auto">
+                    <br>
+                    <br>
+                    <c-card class="mx-4">
+                        
+                        <c-card-body class="p-4">
+                            <form cForm [formGroup]="registerForm" (ngSubmit)="onRegister()" autocomplete="off"
+                                  novalidate>
+                                <h2 style="padding-left: 15px">Registration for {{ Registrationlabel }} students</h2>
+                                <p style="padding-left: 15px" class="text-muted">
+                                    Create your account
+                                </p>
+                                
+                                @if (registerForm.controls['ugpg']; as ctrl) {
+                                    <c-col [sm]="12">
+                                        <label cLabel class="required"
+                                        >Junior / Under Graduate/ Post Graduate</label
+                                        >
+                                        <select cSelect
+                                                #teams
+                                                class="form-control modal-validation"
+                                                formControlName="ugpg"
+                                                (change)="onUgPg_Selected(teams.value)"
+                                                [valid]="getValidity(ctrl)"
+                                        >
+                                            <option [ngValue]="null" selected disabled>Select Type</option>
+                                            <option value="JR">Junior College(11th)</option>
+                                            <option value="UG">Under Graduate(First Year)</option>
+                                            <option value="PG">Post Graduate(First Year MSC/MCOM/MA)</option>
+                                            <option value="PGD">Post Graduate in Diploma(PGD)</option>
+                                            <option value="PHD">Doctorate(Ph.D)</option>
+                                            <option value="CERT">Certificate</option>
+                                        </select>
+                                        @if (ctrl.errors?.['required'] && (submitted || ctrl.touched)) {
+                                            <c-form-feedback [valid]="false">
+                                                Selection is required
+                                            </c-form-feedback>
+                                        }
+                                    </c-col>
+                                }
+                                
+                                <div class="my-2"></div>
+                                
+                                <c-col [sm]="12">
+                                    <label cLabel class="required">Batch</label>
+                                    <select cSelect
+                                            class="form-control modal-validation"
+                                            formControlName="userbatch"
+                                            (change)="on_Selectbtch()"
+                                    >
+                                        <option [ngValue]="null" disabled selected>
+                                            --- Please Select ---
+                                        </option>
+                                        @for (data of BatchNames; track data) {
+                                            <option [ngValue]="data">
+                                                {{ data.batch_name }}
+                                            </option>
+                                        }
+                                    </select>
+                                </c-col>
+                                
+                                <div class="my-2"></div>
+                                
+                                <c-col [sm]="12">
+                                    <label cLabel for="aadhaarname" class="required">Name as per aadhaar</label>
+                                    <input cFormControl
+                                           autocomplete="off"
+                                           type="text"
+                                           formControlName="aadhaarname"
+                                           class="form-control"
+                                           id="aadhaarname"
+                                           placeholder="Enter your Name"
+                                    />
+                                    @if (submitted && f['aadhaarname'].errors) {
+                                        <div
+                                                class="invalid-feedback"
+                                        >
+                                            @if (f['aadhaarname'].errors['required']) {
+                                                <div>
+                                                    Name is required
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+                                
+                                </c-col>
+                                
+                                <div class="my-2"></div>
+                                
+                                <c-row>
+                                    
+                                    <c-col [sm]="6">
+                                        
+                                        <label cLabel for="aadhaar" class="required">Aadhar Number</label>
+                                        <input cFormControl
+                                               id="aadhaar"
+                                               type="text"
+                                               maxlength="12"
+                                               formControlName="aadhaar"
+                                               autocomplete="off"
+                                               class="form-control"
+                                               (input)="checkAadhaarMatch()"
+                                               placeholder="Enter your Aadhar Number"
+                                        />
+                                        @if (registerForm.get('aadhaar')?.hasError('invalidAadhaar')) {
+                                            <div>
+                                                <h6 style="color: red">Invalid Aadhaar number.</h6>
+                                            </div>
+                                        }
+                                    </c-col>
+                                    
+                                    <c-col [sm]="6">
+                                        
+                                        <label cLabel for="confirmaadhaar" class="required">Confirm Aadhar Number</label>
+                                        <input cFormControl
+                                               id="aadhaar"
+                                               type="text"
+                                               maxlength="12"
+                                               formControlName="confirmaadhaar"
+                                               autocomplete="off"
+                                               class="form-control"
+                                               (input)="checkAadhaarMatch()"
+                                               placeholder="Enter your Confirm Aadhaar Number"
+                                        />
+                                        @if (registerForm.get('confirmaadhaar')?.errors?.['mismatch']) {
+                                            <div>
+                                                <h6 style="color: red">Aadhaar mismatch</h6>
+                                            </div>
+                                        }
+                                    </c-col>
+                                
+                                </c-row>
+                                
+                                <div class="my-2"></div>
+                                
+                                <c-col [md]="12">
+                                    <h6>Please upload clear picture of Aadhaar.</h6>
+                                    <input aria-label="file example"
+                                           cFormControl
+                                           id="validationText1"
+                                           type="file"
+                                           accept="image/png"
+                                           formControlName="uploadaadhaar"
+                                           required
+                                           (change)="onFileSelected($event)"
+                                    />
+                                    <c-form-feedback [valid]="false">Example invalid form file feedback
+                                    </c-form-feedback>
+                                </c-col>
+                                
+                                <div class="my-2"></div>
+                                
+                                <c-col [sm]="12">
+                                    <label cLabel for="emailid" class="required">Email Id</label>
+                                    <input cFormControl
+                                           autocomplete="off"
+                                           type="text"
+                                           formControlName="emailid"
+                                           class="form-control"
+                                           id="emailid"
+                                           (input)="checkEmailMatch()"
+                                           placeholder="Enter your Email ID"
+                                    
+                                    />
+                                    @if (submitted && f['emailid'].errors) {
+                                        <div
+                                                class="invalid-feedback"
+                                        >
+                                            @if (f['emailid'].errors['required']) {
+                                                <div>
+                                                    Email ID is required
+                                                </div>
+                                            }
+                                            @if (f['emailid'].errors['email']) {
+                                                <div>
+                                                    Email must be a valid email address
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+                                    @if (f['emailid'].errors?.['alreadyExists']) {
+                                        <div class="invalid-feedback">
+                                            Email already exists
+                                        </div>
+                                    }
+                                </c-col>
+                                
+                                <div class="my-2"></div>
+                                
+                                <c-col [sm]="12">
+                                    <label cLabel for="confirmemailid" class="required">Confirm Email Id</label>
+                                    <input cFormControl
+                                           autocomplete="off"
+                                           type="text"
+                                           formControlName="confirmemailid"
+                                           class="form-control"
+                                           id="confirmemailid"
+                                           (input)="checkEmailMatch()"
+                                           placeholder="Enter your Confirm Email ID"
+                                    
+                                    />
+                                    @if (registerForm.get('confirmemailid')?.errors?.['mismatch']) {
+                                        <div>
+                                            <h6 style="color: red">Email Id mismatch</h6>
+                                        </div>
+                                    }
+                                </c-col>
+                                
+                                <div class="my-2"></div>
+                                
+                                <c-row>
+                                    
+                                    <c-col [sm]="6">
+                                        <label cLabel for="mobilenumber" class="required">Mobile Number</label>
+                                        <input cFormControl
+                                               type="text"
+                                               formControlName="mobilenumber"
+                                               maxlength="10"
+                                               [ngClass]="{
+                                              'is-invalid':
+                                                (submitted || f['mobilenumber'].touched) && f['mobilenumber'].errors,
+                                              'is-valid': f['mobilenumber'].touched && !f['mobilenumber'].errors
+                                            }"
+                                               class="form-control"
+                                               id="mobilenumber"
+                                               placeholder="Enter your Mobile Number"
+                                               autocomplete="off"
+                                               (input)="checkMobileMatch()"
+                                        />
+                                        @if ((submitted || f['mobilenumber'].touched) && f['mobilenumber'].errors) {
+                                            <div class="invalid-feedback">
+                                                
+                                                @if (f['mobilenumber'].errors['required']) {
+                                                    <div>Mobile number is required</div>
+                                                }
+                                                
+                                                @if (f['mobilenumber'].errors['invalidMobile']) {
+                                                    <div>Please enter a valid 10-digit mobile number</div>
+                                                }
+                                                
+                                                @if (f['mobilenumber'].errors['alreadyExists']) {
+                                                    <div>Mobile number already exists</div>
+                                                }
+                                            
+                                            </div>
+                                        }
+                                        <!--                                    @if (registerForm.get('mobilenumber')?.hasError('invalidMobile')) {-->
+                                        <!--                                        <div>-->
+                                        <!--                                            <h6 style="color: red">Please enter a valid 10-digit mobile number.</h6>-->
+                                        <!--                                        </div>-->
+                                        <!--                                    }-->
+                                        <!--                                    @if (f['mobilenumber'].errors?.['alreadyExists']) {-->
+                                        <!--                                        <div>-->
+                                        <!--                                            <h6 style="color: red">Mobile number already exists</h6>-->
+                                        <!--                                        </div>-->
+                                        <!--                                    }-->
+                                    </c-col>
+                                    
+                                    <c-col [sm]="6">
+                                        <label cLabel for="confirmmobilenumber" class="required">Confirm Mobile Number</label>
+                                        <input cFormControl
+                                               type="text"
+                                               formControlName="confirmmobilenumber"
+                                               maxlength="10"
+                                               [ngClass]="{
+                                              'is-invalid':
+                                                (submitted || f['confirmmobilenumber'].touched) && f['confirmmobilenumber'].errors,
+                                              'is-valid': f['confirmmobilenumber'].touched && !f['confirmmobilenumber'].errors
+                                            }"
+                                               class="form-control"
+                                               id="confirmmobilenumber"
+                                               placeholder="Enter your Mobile Number"
+                                               autocomplete="off"
+                                               (input)="checkMobileMatch()"
+                                        />
+                                        @if (registerForm.get('confirmmobilenumber')?.errors?.['mismatch']) {
+                                            <div>
+                                                <h6 style="color: red">Mobile Number mismatch</h6>
+                                            </div>
+                                        }
+                                    </c-col>
+                                
+                                
+                                </c-row>
+                                
+                                <div class="my-4"></div>
+                                
+                                <c-row>
+                                    <c-col [md]="6">
+                                        <c-input-group class="mb-3">
+                                            <span cInputGroupText>
+                                              <svg cIcon name="cilInput"></svg>
+                                            </span>
+                                            <input
+                                                    cFormControl
+                                                    formControlName="captchainputvalue"
+                                                    placeholder="Enter Captcha"
+                                                    maxlength="4"
+                                            />
+                                        </c-input-group>
+                                    </c-col>
+                                    <c-col [md]="6">
+                                        <img
+                                                cImg
+                                                [src]="Res_Captcha?.image"
+                                                height="40"
+                                                width="180"
+                                                alt="captcha"
+                                        />
+                                    </c-col>
+                                </c-row>
+                                
+                                
+                                
+                                <div class="my-4"></div>
+                                
+<!--                                [disabled]="registerForm.invalid"-->
+                                
+                                <c-row class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                    <c-col [sm]="4">
+                                        <button cButton
+                                                
+                                                [disabled]="registerForm.invalid"
+                                                type="submit" class="btn btn-block btn-success">
+                                            Create Account
+                                            @if (createAccountloader) {
+                                                <c-spinner aria-hidden="false" size="sm"></c-spinner>
+                                            }
+                                        </button>
+                                    
+                                    </c-col>
+                                    <c-col [sm]="4">
+                                        <button cButton
+                                                type="reset"
+                                                class="btn btn-block btn-danger"
+                                                (click)="onReset()"
+                                        >
+                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                            Reset
+                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                        </button>
+                                    </c-col>
+                                </c-row>
+                            </form>
+                        </c-card-body>
+                    </c-card>
+                </c-col>
+            </c-row>
+        </c-container>
+    </main>
+</div>
+<!-- <app-otp hidden [OTPGetValue]="OTPSendValue"></app-otp> -->

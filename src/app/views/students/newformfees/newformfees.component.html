@@ -1,0 +1,96 @@
+<div class="app-body">
+    <div class="d-flex justify-content-center min-vh-50">
+        <c-card style="width: 40rem;">
+            <c-card-header><strong>Registration Form Fees</strong></c-card-header>
+            <c-card-body>
+                <form [formGroup]="FeesAdmissionForm">
+                    <c-row>
+                        <c-col>
+                            <label cLabel size="sm" for="batch_name" class="required">Batch</label>
+                            <select
+                                    id="batch_name"
+                                    cSelect
+                                    class="form-control"
+                                    
+                                    (focusin)="Batch_uii()"
+                                    (change)="Batch_selected()"
+                                    formControlName="batch_name"
+                            >
+                                <!--                [(ngModel)]="selected_batch"-->
+                                <option value="" disabled selected>
+                                    --- Please Select ---
+                                </option>
+                                @for (batch of resp_Abatchs; track batch; let i = $index) {
+                                    <option
+                                            [ngValue]="batch"
+                                    >
+                                        {{ batch.batch_name }}
+                                    </option>
+                                }
+                            </select
+                            >
+                           
+                        </c-col>
+                    </c-row>
+                    <c-row>
+                        <c-col>
+                        
+<!--                            (change)="CheckSubjectGroupQuota()"-->
+                            
+                            <label cLabel size="sm" for="batchSubjects">Subject Group</label>
+                            <select id="batchSubjects"
+                                    cSelect
+                                    
+                                   
+                                    formControlName="batchSubjects"
+                                    class="form-control"
+                            >
+                                
+                                <!--                  [(ngModel)]="selected_subject"-->
+                                <option value="" disabled>
+                                    --- Please Select ---
+                                </option>
+                                @for (subject of aSubjects; track subject) {
+                                    <option
+                                            [ngValue]="subject"
+                                    >
+                                        {{ subject.subject_group_code }}
+                                    </option>
+                                }
+                            </select>
+                        </c-col>
+                    </c-row>
+                    <div class="my-2"></div>
+                    <p>
+                        <b>Selected Subject Code Consists : </b> <br/>
+                        {{ selected_subject?.subject_group_name }}
+                    </p>
+                    <c-row>
+                        <div>
+                            <h3>Form Amount : ₹ {{ selected_batch?.formamount }}</h3>
+                        </div>
+                    </c-row>
+                    <c-row class="d-flex justify-content-center align-items-center">
+<!--                            class="d-grid gap-2 d-md-flex justify-content-md-center"-->
+                        
+                        <c-col [md]="3">
+                            <button
+                                    cButton
+                                    class="btn btn-add btn-success text-white"
+                                    [disabled]="FeesAdmissionForm.invalid"
+                                    (click)="Btn_Payment()"
+                            >
+                                Pay
+                                @if (payloader) {
+                                    <c-spinner
+                                            aria-hidden="false"
+                                            size="sm"></c-spinner>
+                                }
+                            </button>
+                        </c-col>
+                    </c-row>
+                </form>
+            </c-card-body>
+        </c-card>
+    </div>
+</div>

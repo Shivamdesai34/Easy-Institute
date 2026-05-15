@@ -1,0 +1,144 @@
+<div class="bg-light dark:bg-transparent min-vh-100 d-flex flex-column align-items-center ">
+  <c-card class="login-header-view" style="width: 100%">
+
+    <h5 style="color: rgba(51, 153, 255, 100);margin-left: 40px;margin-top:8px">
+      RAMNIRANJAN JHUNJHUNWALA COLLEGE OF ARTS , COMMERCE AND SCIENCE
+      (AUTONOMOUS)<br/>
+      <h6 style="color: black">
+        Opposite Ghatkopar Railway Station West Mumbai-400086,
+        Maharashtra, India
+      </h6>
+    </h5>
+  </c-card>
+
+    <div class="my-5"></div>
+    <div class="my-5"></div>
+
+  <c-container breakpoint="sm" class="login-main-container">
+    <c-row class="justify-content-center">
+
+      <c-col lg="5" xl="8">
+        <c-card-group>
+          <c-card class="p-6">
+            <c-card-body>
+              <form cForm [formGroup]="loginForm" class="justify-content-center">
+
+                <c-row>
+                  <c-col>
+                    <h1>Login</h1>
+                  </c-col>
+                  <c-col><p style="padding-left: 122px;margin-top: 7px">version {{ currentApplicationVersion }}</p></c-col>
+                <p class="text-medium-emphasis">Sign In to your account</p>
+                    <c-col [md]="12">
+                        <c-input-group class="mb-3">
+                    <span cInputGroupText>
+                      <svg cIcon name="cilUser"></svg>
+                    </span>
+                        <input
+                                type="text"
+                                formControlName="identifier"
+                                cFormControl
+                                placeholder="Email / Mobile"
+                                required
+                                autofocus
+                        />
+                        </c-input-group>
+                        @if (loginForm.controls['identifier'].errors?.['invalidIdentifier']) {
+                            <p class="text-danger" style="font-size: 0.8em; margin-top: -5px">Enter valid Email or 10 digit
+                                Mobile number </p>
+                        }
+                    </c-col>
+                    <c-row>
+                        <c-col [md]="6">
+                            <c-input-group class="mb-3">
+                            <span cInputGroupText>
+                              <svg cIcon name="cilInput"></svg>
+                            </span>
+                            <input
+                                    cFormControl
+                                    formControlName="captchainputvalue"
+                                    placeholder="Enter Captcha"
+                                    maxlength="4"
+                            />
+                            </c-input-group>
+                        </c-col>
+                        <c-col [md]="6">
+                            <img
+                                    cImg
+                                    [src]="Res_Captcha?.image"
+                                    height="40"
+                                    width="180"
+                                    alt="captcha"
+                            />
+                        </c-col>
+                    </c-row>
+                    
+                    <c-row>
+                        <c-col [md]="6">
+                            <c-input-group class="mb-3">
+                                                <span cInputGroupText>
+                                                  <svg cIcon name="cilInput"></svg>
+                                                </span>
+                                <input
+                                        cFormControl
+                                        formControlName="otp"
+                                        placeholder="OTP"
+                                        maxlength="6"
+                                />
+                            </c-input-group>
+                        </c-col>
+                    </c-row>
+
+<!--                    <c-col [md]="12">-->
+<!--                        <c-input-group class="mb-3">-->
+<!--                    <span cInputGroupText>-->
+<!--                      <svg cIcon name="cilInput"></svg>-->
+<!--                    </span>-->
+<!--                            <input-->
+<!--                                    cFormControl-->
+<!--                                    formControlName="otp"-->
+<!--                                    placeholder="OTP"-->
+<!--                                    maxlength="6"-->
+<!--                            />-->
+<!--                        </c-input-group>-->
+<!--                    </c-col>-->
+                <c-row>
+                  <c-col class="text-center">
+                    <button size="sm" cButton class="btn btn-success px-4 text-white mt-4" [disabled]="logindisable"
+                      (click)="loginme()">
+                      Login
+                      @if (loginLoader) {
+                        <c-spinner aria-hidden="false" size="sm"></c-spinner>
+                      }
+                    </button>
+                  </c-col>
+                  </c-row>
+                </c-row>
+                </form>
+              </c-card-body>
+            </c-card>
+
+
+            <c-card>
+
+              <div>
+                  <div class="text-white bg-danger p-4 signup-card " style="height: 400px; border-radius: 5px">
+                      <div class="card-body text-center" style="margin-top: 75px">
+                          <h2>Sign up</h2>
+                          <h5>Students from other colleges seeking admission!</h5>
+
+                              <button cButton color="success" style="width: 55%;color: white" class="mt-3"
+                                  (click)="DisplayOUTSIDEmessage()">
+                              New Registration!
+                          </button>
+                      </div>
+                  </div>
+              </div>
+              <router-outlet></router-outlet>
+            </c-card>
+          </c-card-group>
+        </c-col>
+      </c-row>
+    </c-container>
+  </div>
+

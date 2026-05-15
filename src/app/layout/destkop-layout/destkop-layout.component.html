@@ -1,0 +1,57 @@
+<!--sidebar-->
+<c-sidebar
+  #sidebar1="cSidebar"
+  class="d-print-none sidebar sidebar-fixed border-end"
+  colorScheme="light"
+  id="sidebar1"
+  visible
+>
+  <c-sidebar-header class="border-bottom">
+    <c-sidebar-brand [routerLink]="[]">
+      <h4>Eazy institute</h4>
+<!--      <svg [class]="{icon: false}" cIcon class="sidebar-brand-full" height="32" name="logo" title="Eazy Institute"></svg>-->
+<!--      <svg cIcon class="sidebar-brand-narrow" height="32" name="signet" title="Eazy Institute"></svg>-->
+    </c-sidebar-brand>
+  </c-sidebar-header>
+
+  <ng-scrollbar pointerEventsMethod="scrollbar" visibility="hover">
+    <c-sidebar-nav [navItems]="navItems" dropdownMode="close" compact />
+  </ng-scrollbar>
+
+  <!--@if (!sidebar1.narrow) {  vishnu -->
+
+  @if (!sidebar1.narrow ) {
+<!--    <c-sidebar-footer cSidebarToggle="sidebar1" class="border-top d-none d-lg-flex" toggle="unfoldable" style="cursor: default;">-->
+<!--      <button  cSidebarToggler-->
+<!--               disabled-->
+<!--               style="pointer-events: none; opacity: 0.5; cursor: not-allowed;"-->
+<!--               aria-label="Sidebar toggle disabled"></button>-->
+<!--    </c-sidebar-footer>-->
+  }
+</c-sidebar>
+
+<!--main-->
+<div class="wrapper d-flex flex-column min-vh-100">
+  <!--app-header-->
+  <app-default-header
+    [cShadowOnScroll]="'sm'"
+    class="mb-4 d-print-none header header-sticky p-0 shadow-sm"
+    position="sticky"
+    sidebarId="sidebar1"
+  />
+
+  <!--app-body--  px-4 change to px-0 by Prakash-->
+  <div class="body flex-grow-1">
+    <!--<c-container breakpoint="lg" class="h-auto px-4">-->
+    <div class="h-auto p-2">
+      <router-outlet />
+    </div>
+    <!--</c-container>-->
+  </div>
+
+  <!--app footer-->
+  <app-default-footer />
+</div>
+
+<!--aside-->
+<app-default-aside style="display: none;" />

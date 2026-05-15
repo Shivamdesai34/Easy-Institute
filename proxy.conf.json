@@ -1,0 +1,20 @@
+{
+  "/v1": {
+    "target": "https://admission.rjcollege.edu.in:7005",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/download_student_receipt": {
+    "target": "https://admission.rjcollege.edu.in:7001",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/print_profile": {
+    "target": "https://admission.rjcollege.edu.in:7001",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}
